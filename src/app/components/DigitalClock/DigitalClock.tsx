@@ -1,27 +1,35 @@
 import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
+import { Poppins } from 'next/font/google';
+
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700'] });
 
 type DigitalWatchProps = {
+  color?: string;
+  backgroundColor?: string;
   classes?: string;
 };
 
-export default function DigitalWatch({ classes }: DigitalWatchProps) {
+export default function DigitalWatch({
+  color = 'text-black-200',
+  backgroundColor = 'bg-[#FEF3C7]',
+  classes,
+}: DigitalWatchProps) {
   const [time, setTime] = useState<Record<string, any>>({
     hours: '00',
     minutes: '00',
-    seconds: '00',
+    period: 'AM',
+    dayOfWeek: 'Monday',
   });
 
-  const formatTime = (time: number) => {
-    return time < 10 ? `0${time}` : time;
-  };
-
   const calculateTime = () => {
-    const currentTime = new Date();
+    const currentTime = format(new Date(), 'hh:mm a cccc');
 
     setTime((prev) => ({
-      hours: formatTime(currentTime.getHours()),
-      minutes: formatTime(currentTime.getMinutes()),
-      seconds: formatTime(currentTime.getSeconds()),
+      hours: currentTime.slice(0, 2),
+      minutes: currentTime.slice(3, 5),
+      period: currentTime.slice(6, 8),
+      dayOfWeek: currentTime.slice(8),
     }));
   };
 
@@ -38,22 +46,31 @@ export default function DigitalWatch({ classes }: DigitalWatchProps) {
   return (
     <div
       className={`
-      ${classes} flex items-stretch gap-2 rounded-lg w-fit text-center relative
-    before:bg-white before:absolute before:top-1/2 before:-translate-y-1/2 before:h-1 before:w-full
-      before:z-50
-    `}
+        ${classes} ${poppins.className} flex items-stretch gap-2 rounded-lg w-fit min-w-[32rem] text-center relative
+      before:bg-white before:absolute before:top-1/2 before:-translate-y-1/2 before:h-0.5 before:w-full
+        before:z-50
+      `}
     >
-      <div className="bg-amber-100 rounded-lg flex-1 px-5 relative">
-        <span className="text-[10rem]"> {time?.hours} </span>
-        <span className="absolute bottom-2 left-3"> AM </span>
+      <div
+        className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md ${backgroundColor}`}
+      >
+        <span className={`text-[10rem] ${color}`}> {time.hours} </span>
+        <span
+          className={`absolute bottom-3 left-4 font-semibold tracking-wide uppercase text-xl ${color}`}
+        >
+          {time.period}
+        </span>
       </div>
 
-      <div className="bg-amber-100 rounded-lg flex-1 px-5">
-        <span className="text-[10rem]"> {time?.minutes} </span>
-      </div>
-
-      <div className="bg-amber-100 rounded-lg flex-1 px-5">
-        <span className="text-[10rem]"> {time?.seconds} </span>
+      <div
+        className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md min-h-[18rem] ${backgroundColor}`}
+      >
+        <span className={`text-[10rem] ${color}`}> {time.minutes} </span>
+        <span
+          className={`absolute bottom-3 right-4 font-semibold tracking-wide uppercase text-xl ${color}`}
+        >
+          {time.dayOfWeek}
+        </span>
       </div>
     </div>
   );
