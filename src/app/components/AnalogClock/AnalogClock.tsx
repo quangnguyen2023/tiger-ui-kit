@@ -5,25 +5,18 @@ type AnalogClockProps = {
   updateDuration?: number; // Tính toán vị trí kim giây (miliseconds)
   enableIndicators?: boolean;
   backgroundColor?: string;
-  textColor?: string;
+  size?: 'small' | 'medium' | 'large';
   title?: string;
 };
 
-export default function AnalogClock(config: AnalogClockProps) {
+export default function AnalogClock(props: AnalogClockProps) {
   const [handsDeg, setHandsDeg] = useState({ hourHandDeg: 0, minuteHandDeg: 0, secondHandDeg: 0 });
 
-  const diameter = useMemo(() => config.diameter || 300, [config.diameter]);
-  const updateDuration = useMemo(() => config.updateDuration || 50, [config.updateDuration]);
-  const enableIndicators = useMemo(
-    () => config.enableIndicators || false,
-    [config.enableIndicators]
-  );
-  const backgroundColor = useMemo(
-    () => config.backgroundColor || 'white',
-    [config.backgroundColor]
-  );
-  const textColor = useMemo(() => config.textColor || 'black', [config.textColor]);
-  const title = useMemo(() => config.title || '', [config.title]);
+  const diameter = useMemo(() => props.diameter || 300, [props.diameter]);
+  const updateDuration = useMemo(() => props.updateDuration || 50, [props.updateDuration]);
+  const enableIndicators = useMemo(() => props.enableIndicators || false, [props.enableIndicators]);
+  const backgroundColor = useMemo(() => props.backgroundColor || 'white', [props.backgroundColor]);
+  const title = useMemo(() => props.title || '', [props.title]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -104,7 +97,7 @@ export default function AnalogClock(config: AnalogClockProps) {
                 absolute w-0.5 h-3 left-1/2 bg-slate-400 -ml-[1px] origin-[50%_150px] 
                 [&:nth-of-type(5n)]:w-1 [&:nth-of-type(5n)]:bg-black rounded-full
               "
-              style={{ transform: `rotate(${(index + 1) * 6}deg)` }}
+              style={{ transform: `rotate(${(index + 5) * 6}deg)` }}
             />
           ))}
       </>
@@ -117,23 +110,50 @@ export default function AnalogClock(config: AnalogClockProps) {
         className="rounded-full relative text-3xl font-bold"
         style={{ width: diameter, height: diameter, backgroundColor }}
       >
+        {/* dot */}
+        <div className="absolute w-3.5 h-3.5 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black z-30" />
+        <div className="absolute w-2 h-2 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-orange-400 z-40" />
+        <div className="absolute w-1 h-1 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white z-50" />
+
         {/* hour hand */}
-        <div
-          className="w-1 h-20 bg-black absolute bottom-1/2 left-1/2 -translate-x-1/2 origin-bottom rounded-t-[50%]"
-          style={{ transform: `rotate(${handsDeg.hourHandDeg}deg)` }}
-        />
+        <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2">
+          <div
+            className="w-1 h-24 bg-black origin-bottom relative"
+            style={{ transform: `rotate(${handsDeg.hourHandDeg}deg)` }}
+          >
+            <span className="absolute w-2 h-20 -left-1/2 rounded-full bg-inherit" />
+          </div>
+        </div>
 
         {/* minute hand */}
-        <div
-          className="w-1 h-32 bg-pink-500 absolute bottom-1/2 left-1/2 -translate-x-1/2 origin-bottom rounded-t-[50%]"
-          style={{ transform: `rotate(${handsDeg.minuteHandDeg}deg)` }}
-        />
+        <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2">
+          <div
+            className="w-1 h-36 bg-black origin-bottom relative"
+            style={{ transform: `rotate(${handsDeg.minuteHandDeg}deg)` }}
+          >
+            <span className="absolute w-2 h-32 -left-1/2 rounded-full bg-inherit" />
+          </div>
+        </div>
 
         {/* second hand */}
-        <div
-          className="w-0.5 h-32 bg-blue-500 absolute bottom-1/2 left-1/2 -translate-x-1/2 origin-bottom rounded-t-[50%]"
-          style={{ transform: `rotate(${handsDeg.secondHandDeg}deg)` }}
-        />
+        <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2">
+          <div
+            className="
+              w-0.5 h-32 bg-orange-500 absolute bottom-1/2 left-1/2 -translate-x-1/2 origin-bottom 
+              
+            "
+            style={{ transform: `rotate(${handsDeg.secondHandDeg}deg)` }}
+          ></div>
+        </div>
+
+        <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2">
+          <div
+            className="
+              w-0.5 h-6 bg-orange-500 absolute bottom-1/2 left-1/2 -translate-x-1/2 origin-bottom 
+            "
+            style={{ transform: `rotate(${handsDeg.secondHandDeg + 180}deg)` }}
+          ></div>
+        </div>
 
         {renderNumbers()}
         {enableIndicators && renderIndicators()}
