@@ -27,7 +27,7 @@ export default function AnalogClock(props: AnalogClockProps) {
       // Tính độ chênh lệch cho kim giờ theo phút:
       // (time.getMinutes() / 60) * 30:  360 độ = 12 giờ => (1 giờ =) 60 phút = 30 độ
       const hourHandDeg = (time.getHours() / 24) * 720 + (time.getMinutes() / 60) * 30;
-      const minuteHandDeg = (time.getMinutes() / 60) * 360;
+      const minuteHandDeg = (time.getMinutes() / 60) * 360 + (time.getSeconds() / 60) * 6;
       const secondHandDeg = (time.getSeconds() / 60 + time.getMilliseconds() / 60000) * 360;
 
       setHandsDeg({ hourHandDeg, minuteHandDeg, secondHandDeg });
