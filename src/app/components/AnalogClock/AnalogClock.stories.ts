@@ -10,19 +10,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = { args: { diameter: 300 } };
+export const Default: Story = {};
 
-export const ClockWithIndicators: Story = {
+export const ClockWithoutIndicators: Story = {
   args: {
-    diameter: 300,
-    enableIndicators: true,
+    enableIndicators: false,
   },
 };
 
 export const ColoredClock: Story = {
   args: {
-    diameter: 300,
-    enableIndicators: true,
     backgroundColor: 'lightpink',
   },
 };

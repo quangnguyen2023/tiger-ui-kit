@@ -1,22 +1,53 @@
 import { useEffect, useMemo, useState } from 'react';
 
+const SIZE = {
+  small: {
+    diameter: 200,
+    updateDuration: 50,
+    enableIndicators: false,
+    backgroundColor: 'white',
+    title: '',
+  },
+  medium: {
+    diameter: 300,
+    updateDuration: 50,
+    enableIndicators: true,
+    backgroundColor: 'white',
+    title: '',
+  },
+  large: {
+    diameter: 400,
+    updateDuration: 50,
+    enableIndicators: true,
+    backgroundColor: 'white',
+    title: '',
+  },
+};
+
 type AnalogClockProps = {
-  diameter: number;
-  updateDuration?: number; // Tính toán vị trí kim giây (miliseconds)
+  updateDuration?: number; // Cập nhật thời gian render kim giây
   enableIndicators?: boolean;
   backgroundColor?: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: keyof typeof SIZE; //'small' | 'medium' | 'large'
   title?: string;
 };
 
-export default function AnalogClock(props: AnalogClockProps) {
-  const [handsDeg, setHandsDeg] = useState({ hourHandDeg: 0, minuteHandDeg: 0, secondHandDeg: 0 });
+interface InnerConfig extends AnalogClockProps {
+  diameter: number;
+}
 
-  const diameter = useMemo(() => props.diameter || 300, [props.diameter]);
-  const updateDuration = useMemo(() => props.updateDuration || 50, [props.updateDuration]);
-  const enableIndicators = useMemo(() => props.enableIndicators || false, [props.enableIndicators]);
-  const backgroundColor = useMemo(() => props.backgroundColor || 'white', [props.backgroundColor]);
-  const title = useMemo(() => props.title || '', [props.title]);
+export default function AnalogClock(props: AnalogClockProps) {
+  const { size = 'medium' } = props;
+
+  const innerConfig: InnerConfig = useMemo(
+    () => ({
+      ...SIZE[size],
+      ...props,
+    }),
+    [props]
+  );
+
+  const [handsDeg, setHandsDeg] = useState({ hourHandDeg: 0, minuteHandDeg: 0, secondHandDeg: 0 });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,7 +62,7 @@ export default function AnalogClock(props: AnalogClockProps) {
       const secondHandDeg = (time.getSeconds() / 60 + time.getMilliseconds() / 60000) * 360;
 
       setHandsDeg({ hourHandDeg, minuteHandDeg, secondHandDeg });
-    }, updateDuration);
+    }, innerConfig.updateDuration);
 
     return () => {
       clearInterval(interval);
@@ -60,6 +91,8 @@ export default function AnalogClock(props: AnalogClockProps) {
   }
 
   const renderNumbers = () => {
+    const { enableIndicators, diameter } = innerConfig;
+
     const radius = enableIndicators ? diameter / 2.5 : (diameter + 50) / 2.5;
     const centerX = diameter / 2;
     const centerY = diameter / 2;
@@ -105,10 +138,17 @@ export default function AnalogClock(props: AnalogClockProps) {
   };
 
   return (
-    <div className=" p-2 rounded-full border-4 float-left" style={{ backgroundColor }}>
+    <div
+      className=" p-2 rounded-full border-4 float-left"
+      style={{ backgroundColor: innerConfig.backgroundColor }}
+    >
       <div
         className="rounded-full relative text-3xl font-bold"
-        style={{ width: diameter, height: diameter, backgroundColor }}
+        style={{
+          width: innerConfig.diameter,
+          height: innerConfig.diameter,
+          backgroundColor: innerConfig.backgroundColor,
+        }}
       >
         {/* dot */}
         <div className="absolute w-3.5 h-3.5 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black z-30" />
@@ -146,6 +186,7 @@ export default function AnalogClock(props: AnalogClockProps) {
           ></div>
         </div>
 
+        {/* second hand inverse */}
         <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2">
           <div
             className="
@@ -156,7 +197,7 @@ export default function AnalogClock(props: AnalogClockProps) {
         </div>
 
         {renderNumbers()}
-        {enableIndicators && renderIndicators()}
+        {innerConfig.enableIndicators && renderIndicators()}
       </div>
     </div>
   );
