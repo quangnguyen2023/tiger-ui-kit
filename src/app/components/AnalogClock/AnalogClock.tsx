@@ -6,6 +6,12 @@ const SIZE = {
     updateDuration: 50,
     enableIndicators: false,
     backgroundColor: 'white',
+    offsetRatioX: 0.2,
+    offsetRatioY: 0.17,
+    offsetWithoutIndicators: 30,
+    hourHandLength: 64, // h-18
+    minuteHandLength: 96, // h-24
+    secondHandLength: 96, // h-24
     title: '',
   },
   medium: {
@@ -13,6 +19,12 @@ const SIZE = {
     updateDuration: 50,
     enableIndicators: true,
     backgroundColor: 'white',
+    offsetRatioX: 0.145,
+    offsetRatioY: 0.145,
+    offsetWithoutIndicators: 50,
+    hourHandLength: 96, // h-24
+    minuteHandLength: 144, // h-36
+    secondHandLength: 144, // h-36
     title: '',
   },
   large: {
@@ -20,6 +32,12 @@ const SIZE = {
     updateDuration: 50,
     enableIndicators: true,
     backgroundColor: 'white',
+    offsetRatioX: 0.05,
+    offsetRatioY: 0.05,
+    offsetWithoutIndicators: 70,
+    hourHandLength: 96,
+    minuteHandLength: 144,
+    secondHandLength: 144,
     title: '',
   },
 };
@@ -34,6 +52,12 @@ type AnalogClockProps = {
 
 interface InnerConfig extends AnalogClockProps {
   diameter: number;
+  offsetRatioX: number;
+  offsetRatioY: number;
+  offsetWithoutIndicators: number;
+  hourHandLength: number;
+  minuteHandLength: number;
+  secondHandLength: number;
 }
 
 export default function AnalogClock(props: AnalogClockProps) {
@@ -78,8 +102,8 @@ export default function AnalogClock(props: AnalogClockProps) {
       const x = centerX + radius * Math.cos(angle);
       const y = centerY + radius * Math.sin(angle);
 
-      const offsetX = radius * 0.15;
-      const offsetY = radius * 0.15;
+      const offsetX = radius * innerConfig.offsetRatioX;
+      const offsetY = radius * innerConfig.offsetRatioY;
 
       positions.push({
         top: Math.floor(y - offsetY) + 'px',
@@ -91,9 +115,9 @@ export default function AnalogClock(props: AnalogClockProps) {
   }
 
   const renderNumbers = () => {
-    const { enableIndicators, diameter } = innerConfig;
+    const { enableIndicators, diameter, offsetWithoutIndicators } = innerConfig;
 
-    const radius = enableIndicators ? diameter / 2.5 : (diameter + 50) / 2.5;
+    const radius = enableIndicators ? diameter / 2.5 : (diameter + offsetWithoutIndicators) / 2.5;
     const centerX = diameter / 2;
     const centerY = diameter / 2;
 
@@ -143,7 +167,7 @@ export default function AnalogClock(props: AnalogClockProps) {
       style={{ backgroundColor: innerConfig.backgroundColor }}
     >
       <div
-        className="rounded-full relative text-3xl font-bold"
+        className={`rounded-full relative ${innerConfig.size === 'small' ? 'text-2xl' : 'text-3xl'}  font-bold`}
         style={{
           width: innerConfig.diameter,
           height: innerConfig.diameter,
@@ -158,31 +182,43 @@ export default function AnalogClock(props: AnalogClockProps) {
         {/* hour hand */}
         <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2">
           <div
-            className="w-1 h-24 bg-black origin-bottom relative"
-            style={{ transform: `rotate(${handsDeg.hourHandDeg}deg)` }}
+            className="w-1 bg-black origin-bottom relative"
+            style={{
+              transform: `rotate(${handsDeg.hourHandDeg}deg)`,
+              height: `${innerConfig.hourHandLength}px`,
+            }}
           >
-            <span className="absolute w-2 h-20 -left-1/2 rounded-full bg-inherit" />
+            <span
+              className="absolute w-2 -left-1/2 rounded-full bg-inherit"
+              style={{ height: `${innerConfig.hourHandLength - 16}px` }}
+            />
           </div>
         </div>
 
         {/* minute hand */}
         <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2">
           <div
-            className="w-1 h-36 bg-black origin-bottom relative"
-            style={{ transform: `rotate(${handsDeg.minuteHandDeg}deg)` }}
+            className="w-1 bg-black origin-bottom relative"
+            style={{
+              transform: `rotate(${handsDeg.minuteHandDeg}deg)`,
+              height: `${innerConfig.minuteHandLength}px`,
+            }}
           >
-            <span className="absolute w-2 h-32 -left-1/2 rounded-full bg-inherit" />
+            <span
+              className="absolute w-2 -left-1/2 rounded-full bg-inherit"
+              style={{ height: `${innerConfig.minuteHandLength - 16}px` }}
+            />
           </div>
         </div>
 
         {/* second hand */}
         <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2">
           <div
-            className="
-              w-0.5 h-32 bg-orange-500 absolute bottom-1/2 left-1/2 -translate-x-1/2 origin-bottom 
-              
-            "
-            style={{ transform: `rotate(${handsDeg.secondHandDeg}deg)` }}
+            className="w-0.5 bg-orange-500 absolute bottom-1/2 left-1/2 -translate-x-1/2 origin-bottom"
+            style={{
+              transform: `rotate(${handsDeg.secondHandDeg}deg)`,
+              height: `${innerConfig.secondHandLength}px`,
+            }}
           ></div>
         </div>
 

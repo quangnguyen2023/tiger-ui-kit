@@ -23,3 +23,9 @@ export const ColoredClock: Story = {
     backgroundColor: 'lightpink',
   },
 };
+
+export const ClockSmallSize: Story = {
+  args: {
+    size: 'small',
+  },
+};
