@@ -5,9 +5,8 @@ const SIZE = {
     diameter: 100,
     updateDuration: 50,
     enableIndicators: false,
+    indicatorSize: { width: 1, height: 4 },
     backgroundColor: 'white',
-    offsetRatioX: 0.37,
-    offsetRatioY: 0.24,
     offsetWithoutIndicators: 20,
     hourHandSize: { width: 2, height: 36 },
     minuteHandSize: { width: 2, height: 54 },
@@ -19,9 +18,8 @@ const SIZE = {
     diameter: 200,
     updateDuration: 50,
     enableIndicators: true,
+    indicatorSize: { width: 2, height: 8 },
     backgroundColor: 'white',
-    offsetRatioX: 0.2,
-    offsetRatioY: 0.17,
     offsetWithoutIndicators: 30,
     hourHandSize: { width: 4, height: 64 },
     minuteHandSize: { width: 4, height: 96 },
@@ -33,9 +31,8 @@ const SIZE = {
     diameter: 300,
     updateDuration: 50,
     enableIndicators: true,
+    indicatorSize: { width: 2, height: 12 },
     backgroundColor: 'white',
-    offsetRatioX: 0.14,
-    offsetRatioY: 0.14,
     offsetWithoutIndicators: 50,
     hourHandSize: { width: 5, height: 96 },
     minuteHandSize: { width: 5, height: 150 },
@@ -55,9 +52,8 @@ type AnalogClockProps = {
 
 interface InnerConfig extends AnalogClockProps {
   diameter: number;
-  offsetRatioX: number;
-  offsetRatioY: number;
   offsetWithoutIndicators: number;
+  indicatorSize: { width: number; height: number };
   hourHandSize: { width: number; height: number };
   minuteHandSize: { width: number; height: number };
   secondHandSize: { width: number; height: number };
@@ -106,12 +102,9 @@ export default function AnalogClock(props: AnalogClockProps) {
       const x = centerX + radius * Math.cos(angle);
       const y = centerY + radius * Math.sin(angle);
 
-      const offsetX = radius * innerConfig.offsetRatioX;
-      const offsetY = radius * innerConfig.offsetRatioY;
-
       positions.push({
-        top: Math.floor(y - offsetY) + 'px',
-        left: Math.floor(x - offsetX) + 'px',
+        top: Math.floor(y) + 'px',
+        left: Math.floor(x) + 'px',
       });
     }
 
@@ -136,7 +129,7 @@ export default function AnalogClock(props: AnalogClockProps) {
         {numbers.map((number) => (
           <div
             key={number.text}
-            className="absolute w-10 flex justify-center"
+            className="absolute w-10 flex justify-center -translate-x-1/2 -translate-y-1/2"
             style={{ top: number.top, left: number.left }}
           >
             {number.text}
@@ -151,16 +144,23 @@ export default function AnalogClock(props: AnalogClockProps) {
       <>
         {Array(60)
           .fill(0)
-          .map((_, index) => (
-            <div
-              key={index}
-              className="
-                absolute w-0.5 h-3 left-1/2 bg-slate-400 -ml-[1px] origin-[50%_150px] 
-                [&:nth-of-type(5n)]:w-1 [&:nth-of-type(5n)]:bg-black rounded-full
-              "
-              style={{ transform: `rotate(${(index + 5) * 6}deg)` }}
-            />
-          ))}
+          .map((_, index) => {
+            const isFifth = (index + 0) % 5 === 0;
+            return (
+              <div
+                key={index}
+                className="absolute left-1/2 bg-slate-400 -ml-0.5 [&:nth-of-type(5n)]:bg-black rounded-full"
+                style={{
+                  width: isFifth
+                    ? innerConfig.indicatorSize.width * 2
+                    : innerConfig.indicatorSize.width,
+                  height: innerConfig.indicatorSize.height,
+                  transform: `rotate(${(index + 5) * 6}deg)`,
+                  transformOrigin: `50% ${innerConfig.diameter / 2 + 1}px`,
+                }}
+              />
+            );
+          })}
       </>
     );
   };
