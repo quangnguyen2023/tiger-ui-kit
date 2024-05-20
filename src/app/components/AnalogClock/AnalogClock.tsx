@@ -114,7 +114,7 @@ export default function AnalogClock(props: AnalogClockProps) {
   const renderNumbers = () => {
     const { enableIndicators, diameter, offsetWithoutIndicators } = innerConfig;
 
-    const radius = enableIndicators ? diameter / 2.5 : (diameter + offsetWithoutIndicators) / 2.5;
+    const radius = enableIndicators ? diameter / 2.6 : (diameter + offsetWithoutIndicators) / 2.5;
     const centerX = diameter / 2;
     const centerY = diameter / 2;
 
@@ -141,7 +141,7 @@ export default function AnalogClock(props: AnalogClockProps) {
 
   const renderIndicators = () => {
     return (
-      <>
+      <div>
         {Array(60)
           .fill(0)
           .map((_, index) => {
@@ -149,25 +149,24 @@ export default function AnalogClock(props: AnalogClockProps) {
             return (
               <div
                 key={index}
-                className="absolute left-1/2 bg-slate-400 -ml-0.5 [&:nth-of-type(5n)]:bg-black rounded-full"
+                className="absolute left-1/2 bg-slate-400 -ml-0.5 rounded-full"
                 style={{
-                  width: isFifth
-                    ? innerConfig.indicatorSize.width * 2
-                    : innerConfig.indicatorSize.width,
+                  width: innerConfig.indicatorSize.width,
                   height: innerConfig.indicatorSize.height,
-                  transform: `rotate(${(index + 5) * 6}deg)`,
-                  transformOrigin: `50% ${innerConfig.diameter / 2 + 1}px`,
+                  backgroundColor: isFifth ? 'black' : '',
+                  transform: `rotate(${index * 6}deg)`,
+                  transformOrigin: `50% ${innerConfig.diameter / 2}px`,
                 }}
               />
             );
           })}
-      </>
+      </div>
     );
   };
 
   return (
     <div
-      className=" p-2 rounded-full border-4 float-left"
+      className="p-1.5 rounded-full border-4 float-left"
       style={{ backgroundColor: innerConfig.backgroundColor }}
     >
       <div
