@@ -5,13 +5,14 @@ const SIZE = {
     diameter: 100,
     updateDuration: 50,
     enableIndicators: false,
-    indicatorSize: { width: 1, height: 4 },
+    indicatorSize: { width: 1.2, height: 4 },
     backgroundColor: 'white',
-    offsetWithoutIndicators: 20,
-    hourHandSize: { width: 2, height: 36 },
-    minuteHandSize: { width: 2, height: 54 },
-    secondHandSize: { width: 1, height: 54 },
-    fontSizeClass: 'text-sm',
+    offsetWithoutIndicators: 10,
+    hourHandSize: { width: 2, height: 28 },
+    minuteHandSize: { width: 2, height: 45 },
+    secondHandSize: { width: 1, height: 45 },
+    fontSizeClass: 'text-xs',
+
     title: '',
   },
   medium: {
@@ -20,7 +21,7 @@ const SIZE = {
     enableIndicators: true,
     indicatorSize: { width: 2, height: 8 },
     backgroundColor: 'white',
-    offsetWithoutIndicators: 30,
+    offsetWithoutIndicators: 25,
     hourHandSize: { width: 4, height: 64 },
     minuteHandSize: { width: 4, height: 96 },
     secondHandSize: { width: 2, height: 96 },
@@ -31,9 +32,9 @@ const SIZE = {
     diameter: 300,
     updateDuration: 50,
     enableIndicators: true,
-    indicatorSize: { width: 2, height: 12 },
+    indicatorSize: { width: 3, height: 12 },
     backgroundColor: 'white',
-    offsetWithoutIndicators: 50,
+    offsetWithoutIndicators: 40,
     hourHandSize: { width: 5, height: 96 },
     minuteHandSize: { width: 5, height: 150 },
     secondHandSize: { width: 3, height: 150 },
@@ -129,7 +130,7 @@ export default function AnalogClock(props: AnalogClockProps) {
         {numbers.map((number) => (
           <div
             key={number.text}
-            className="absolute w-10 flex justify-center -translate-x-1/2 -translate-y-1/2"
+            className="absolute ml-[1px] -translate-x-1/2 -translate-y-1/2"
             style={{ top: number.top, left: number.left }}
           >
             {number.text}
@@ -149,7 +150,7 @@ export default function AnalogClock(props: AnalogClockProps) {
             return (
               <div
                 key={index}
-                className="absolute left-1/2 bg-slate-400 -ml-0.5 rounded-full"
+                className="absolute left-1/2 bg-slate-400 rounded-full"
                 style={{
                   width: innerConfig.indicatorSize.width,
                   height: innerConfig.indicatorSize.height,
@@ -166,11 +167,11 @@ export default function AnalogClock(props: AnalogClockProps) {
 
   return (
     <div
-      className="p-1.5 rounded-full border-4 float-left"
+      className={`${innerConfig.size === 'small' ? 'p-0.5' : 'p-1.5'} rounded-full border-2 w-fit`}
       style={{ backgroundColor: innerConfig.backgroundColor }}
     >
       <div
-        className={`rounded-full relative ${innerConfig.fontSizeClass} font-bold`}
+        className={`rounded-full relative ${innerConfig.fontSizeClass} -ml-[1px] font-bold`}
         style={{
           width: innerConfig.diameter,
           height: innerConfig.diameter,
@@ -211,10 +212,10 @@ export default function AnalogClock(props: AnalogClockProps) {
             }}
           >
             <span
-              className="absolute -left-1/2 rounded-full bg-inherit"
+              className="absolute -top-0.5 left-1/2 -translate-x-1/2 rounded-full bg-inherit"
               style={{
                 height: `${innerConfig.hourHandSize.height * 0.82}px`,
-                width: `${innerConfig.hourHandSize.width * 2}px`,
+                width: `${innerConfig.hourHandSize.width * 1.8}px`,
               }}
             />
           </div>
@@ -231,10 +232,10 @@ export default function AnalogClock(props: AnalogClockProps) {
             }}
           >
             <span
-              className="absolute -left-1/2 rounded-full bg-inherit"
+              className="absolute -top-0.5 left-1/2 -translate-x-1/2 rounded-full bg-inherit"
               style={{
                 height: `${innerConfig.minuteHandSize.height * 0.87}px`,
-                width: `${innerConfig.minuteHandSize.width * 2}px`,
+                width: `${innerConfig.minuteHandSize.width * 1.8}px`,
               }}
             />
           </div>
