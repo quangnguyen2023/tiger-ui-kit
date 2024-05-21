@@ -12,6 +12,7 @@ const SIZE = {
     minuteHandSize: { width: 2, height: 45 },
     secondHandSize: { width: 1, height: 45 },
     fontSizeClass: 'text-xs',
+    titleSizeClass: 'text-xs',
     title: '',
   },
   medium: {
@@ -25,6 +26,7 @@ const SIZE = {
     minuteHandSize: { width: 4, height: 96 },
     secondHandSize: { width: 2, height: 96 },
     fontSizeClass: 'text-2xl',
+    titleSizeClass: 'text-xl',
     title: '',
   },
   large: {
@@ -38,6 +40,7 @@ const SIZE = {
     minuteHandSize: { width: 5, height: 150 },
     secondHandSize: { width: 3, height: 150 },
     fontSizeClass: 'text-3xl',
+    titleSizeClass: 'text-2xl',
     title: '',
   },
 };
@@ -59,6 +62,7 @@ interface InnerConfig extends AnalogClockProps {
   minuteHandSize: { width: number; height: number };
   secondHandSize: { width: number; height: number };
   fontSizeClass: string;
+  titleSizeClass: string;
 }
 
 export default function AnalogClock(props: AnalogClockProps) {
@@ -182,6 +186,13 @@ export default function AnalogClock(props: AnalogClockProps) {
           height: innerConfig.diameter,
         }}
       >
+        {/* title */}
+        <div
+          className={`absolute ${innerConfig.titleSizeClass} left-1/2 top-[20%] -translate-x-1/2 text-slate-400`}
+        >
+          {innerConfig.title}
+        </div>
+
         {/* dot */}
         <div
           className="absolute rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
