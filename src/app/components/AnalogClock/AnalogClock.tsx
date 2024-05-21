@@ -97,7 +97,7 @@ export default function AnalogClock(props: AnalogClockProps) {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [innerConfig]);
 
   function calculatePositions(centerX: number, centerY: number, radius: number) {
     const positions = [];
