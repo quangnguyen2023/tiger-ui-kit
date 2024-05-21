@@ -7,7 +7,7 @@ const SIZE = {
     enableIndicators: false,
     indicatorSize: { width: 1.2, height: 4 },
     backgroundColor: 'white',
-    offsetWithoutIndicators: 20,
+    offsetWithoutIndicators: 10,
     hourHandSize: { width: 2, height: 28 },
     minuteHandSize: { width: 2, height: 45 },
     secondHandSize: { width: 1, height: 45 },
@@ -166,7 +166,7 @@ export default function AnalogClock(props: AnalogClockProps) {
 
   return (
     <div
-      className="p-1.5 rounded-full border-2 w-fit"
+      className={`${innerConfig.size === 'small' ? 'p-0.5' : 'p-1.5'} rounded-full border-2 w-fit`}
       style={{ backgroundColor: innerConfig.backgroundColor }}
     >
       <div
