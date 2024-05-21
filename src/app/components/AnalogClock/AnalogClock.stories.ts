@@ -20,7 +20,8 @@ export const ClockWithoutIndicators: Story = {
 
 export const ColoredClock: Story = {
   args: {
-    backgroundColor: 'lightpink',
+    backgroundColor: '#343436',
+    textColor: 'white',
   },
 };
 

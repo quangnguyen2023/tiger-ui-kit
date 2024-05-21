@@ -46,6 +46,7 @@ type AnalogClockProps = {
   updateDuration?: number; // Cập nhật thời gian render kim giây
   enableIndicators?: boolean;
   backgroundColor?: string;
+  textColor?: string;
   size?: keyof typeof SIZE; //'small' | 'medium' | 'large'
   title?: string;
 };
@@ -61,14 +62,15 @@ interface InnerConfig extends AnalogClockProps {
 }
 
 export default function AnalogClock(props: AnalogClockProps) {
-  const { size = 'medium' } = props;
+  const { size = 'medium', textColor = 'black' } = props;
 
   const innerConfig: InnerConfig = useMemo(
     () => ({
       ...SIZE[size],
       ...props,
+      textColor,
     }),
-    [props]
+    [props, size]
   );
 
   const [handsDeg, setHandsDeg] = useState({ hourHandDeg: 0, minuteHandDeg: 0, secondHandDeg: 0 });
@@ -130,7 +132,11 @@ export default function AnalogClock(props: AnalogClockProps) {
           <div
             key={number.text}
             className="absolute ml-[1px] -translate-x-1/2 -translate-y-1/2"
-            style={{ top: number.top, left: number.left }}
+            style={{
+              top: number.top,
+              left: number.left,
+              color: innerConfig.textColor,
+            }}
           >
             {number.text}
           </div>
@@ -153,7 +159,7 @@ export default function AnalogClock(props: AnalogClockProps) {
                 style={{
                   width: innerConfig.indicatorSize.width,
                   height: innerConfig.indicatorSize.height,
-                  backgroundColor: isFifth ? 'black' : '',
+                  backgroundColor: isFifth ? innerConfig.textColor : '',
                   transform: `rotate(${index * 6}deg)`,
                   transformOrigin: `50% ${innerConfig.diameter / 2}px`,
                 }}
@@ -174,13 +180,13 @@ export default function AnalogClock(props: AnalogClockProps) {
         style={{
           width: innerConfig.diameter,
           height: innerConfig.diameter,
-          backgroundColor: innerConfig.backgroundColor,
         }}
       >
         {/* dot */}
         <div
-          className="absolute rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black z-30"
+          className="absolute rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
           style={{
+            backgroundColor: innerConfig.textColor,
             width: `${innerConfig.hourHandSize.width * 3.5}px`,
             height: `${innerConfig.hourHandSize.width * 3.5}px`,
           }}
@@ -193,8 +199,9 @@ export default function AnalogClock(props: AnalogClockProps) {
           }}
         />
         <div
-          className="absolute w-1 h-1 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white z-50"
+          className="absolute w-1 h-1 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
           style={{
+            backgroundColor: innerConfig.backgroundColor,
             width: `${innerConfig.secondHandSize.width * 2}px`,
             height: `${innerConfig.secondHandSize.width * 2}px`,
           }}
@@ -203,8 +210,9 @@ export default function AnalogClock(props: AnalogClockProps) {
         {/* hour hand */}
         <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2">
           <div
-            className="bg-black origin-bottom relative"
+            className="origin-bottom relative"
             style={{
+              backgroundColor: innerConfig.textColor,
               transform: `rotate(${handsDeg.hourHandDeg}deg)`,
               height: `${innerConfig.hourHandSize.height}px`,
               width: `${innerConfig.hourHandSize.width}px`,
@@ -223,8 +231,9 @@ export default function AnalogClock(props: AnalogClockProps) {
         {/* minute hand */}
         <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2">
           <div
-            className="bg-black origin-bottom relative"
+            className="origin-bottom relative"
             style={{
+              backgroundColor: innerConfig.textColor,
               transform: `rotate(${handsDeg.minuteHandDeg}deg)`,
               height: `${innerConfig.minuteHandSize.height}px`,
               width: `${innerConfig.minuteHandSize.width}px`,
