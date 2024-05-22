@@ -176,7 +176,7 @@ export default function AnalogClock(props: AnalogClockProps) {
 
   return (
     <div
-      className={`${innerConfig.size === 'small' ? 'p-0.5' : 'p-1.5'} rounded-full border-2 w-fit`}
+      className={`${innerConfig.size === 'small' ? 'p-0.5' : 'p-1.5'} rounded-full shadow-xl w-fit`}
       style={{ backgroundColor: innerConfig.backgroundColor }}
     >
       <div
