@@ -25,8 +25,20 @@ export const ColoredClock: Story = {
   },
 };
 
-export const ClockSmallSize: Story = {
+export const SmallSizeClock: Story = {
   args: {
     size: 'small',
+  },
+};
+
+export const LargeSizeClock: Story = {
+  args: {
+    size: 'large',
+  },
+};
+
+export const ClockWithTitle: Story = {
+  args: {
+    title: 'HCM',
   },
 };
