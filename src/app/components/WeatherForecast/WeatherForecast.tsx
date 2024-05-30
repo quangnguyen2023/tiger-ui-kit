@@ -14,7 +14,7 @@ export default function WeatherForecast({
   description = 'Mostly Cloudy',
 }: WeatherForecastProps) {
   return (
-    <div className="flex flex-col gap-4 text-white bg-blue-400 shadow-xl font-semibold w-fit rounded-2xl p-3">
+    <div className="flex flex-col gap-4 text-white bg-gradient-to-b from-sky-800 to-sky-500 shadow-xl font-semibold w-fit rounded-2xl p-3">
       <div>
         <div className="flex items-center gap-2">
           <span>{location}</span>
