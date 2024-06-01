@@ -52,7 +52,7 @@ export default function WeatherForecast({
                 height={12}
               />
             </div>
-            <div className="text-5xl">{temperature}°</div>
+            <div className="text-5xl font-normal">{temperature}°</div>
           </div>
 
           <div
