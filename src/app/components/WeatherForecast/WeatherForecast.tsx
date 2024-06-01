@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import HourlyForecast from './HourlyForecast';
-import { hourlyForecast } from '@/assets/mockdata';
+import { dailyForecast, hourlyForecast } from '@/assets/mockdata';
+import DayForecast from './DayForecast';
 
 const SIZE_CONFIG = {
   small: { widthClass: 'w-36' },
@@ -28,7 +29,12 @@ export default function WeatherForecast({
 
   return (
     <div className="flex justify-center items-center flex-col gap-5 p-5 bg-slate-200 rounded-xl">
-      <div className="flex flex-col gap-5 text-white bg-gradient-to-b from-sky-800 to-sky-500 shadow-xl font-semibold rounded-2xl py-3 px-4">
+      <div
+        className={`
+          flex flex-col text-white bg-gradient-to-b from-sky-800 to-sky-500 shadow-xl 
+          font-semibold rounded-2xl py-3 px-4
+        `}
+      >
         {/* current weather */}
         <div
           className={`${sizeConfig.widthClass} flex ${selectedSize === 'small' ? 'flex-col' : 'flex-row'} gap-4`}
@@ -64,13 +70,34 @@ export default function WeatherForecast({
           </div>
         </div>
 
+        {selectedSize === 'large' && (
+          <div className="w-full h-[0.5px] bg-white opacity-50 mt-5 mx-auto" />
+        )}
+
         {/* Hourly Forecast */}
         {selectedSize !== 'small' && (
-          <div className="flex justify-between">
+          <div className="flex justify-between mt-4">
             {hourlyForecast.map((data) => (
               <HourlyForecast
                 key={data.hour}
                 hour={data.hour}
+                iconUrl={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
+                temperature={data.temperature}
+              />
+            ))}
+          </div>
+        )}
+
+        {selectedSize === 'large' && (
+          <div className="w-full h-[0.5px] bg-white opacity-50 mt-5 mb-4 mx-auto" />
+        )}
+
+        {/* Daily Forecast */}
+        {selectedSize === 'large' && (
+          <div className="flex flex-col gap-4">
+            {dailyForecast.map((data) => (
+              <DayForecast
+                dayOfWeek={data.dayOfWeek}
                 iconUrl={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
                 temperature={data.temperature}
               />
@@ -83,6 +110,7 @@ export default function WeatherForecast({
       <div className="flex justify-center items-center gap-5 text-slate-400 font-semibold *:cursor-pointer">
         {['small', 'medium', 'large'].map((size) => (
           <div
+            key={size}
             className={`
               w-9 h-9 rounded-full border-2 flex justify-center items-center border-slate-400 
               ${selectedSize === size && 'bg-white border-white text-yellow-800'}
