@@ -1,14 +1,16 @@
-import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import HourlyForecast from './HourlyForecast';
 import { dailyForecast, hourlyForecast } from '@/assets/mockdata';
 import DayForecast from './DayForecast';
+import CurrentForecast from './CurrentForecast';
 
 const SIZE_CONFIG = {
   small: { widthClass: 'w-36' },
   medium: { widthClass: 'w-96' },
   large: { widthClass: 'w-96' },
 };
+
+export type SizeType = keyof typeof SIZE_CONFIG;
 
 type WeatherForecastProps = {
   location?: string;
@@ -23,7 +25,7 @@ export default function WeatherForecast({
   iconUrl = './weather-icon.png',
   description = 'Mostly Cloudy',
 }: WeatherForecastProps) {
-  const [selectedSize, setSelectedSize] = useState<keyof typeof SIZE_CONFIG>('small');
+  const [selectedSize, setSelectedSize] = useState<SizeType>('small');
 
   const sizeConfig = useMemo(() => SIZE_CONFIG[selectedSize], [selectedSize]);
 
@@ -36,39 +38,14 @@ export default function WeatherForecast({
         `}
       >
         {/* current weather */}
-        <div
-          className={`${sizeConfig.widthClass} flex ${selectedSize === 'small' ? 'flex-col' : 'flex-row'} gap-4`}
-        >
-          <div>
-            <div className="flex items-center gap-2">
-              <div className="w-fit overflow-hidden text-ellipsis whitespace-nowrap">
-                {location}
-              </div>
-              <Image
-                className="rotate-45"
-                src={'/direction_arrow.svg'}
-                alt="wind icon"
-                width={12}
-                height={12}
-              />
-            </div>
-            <div className="text-5xl font-normal">{temperature}°</div>
-          </div>
-
-          <div
-            className={`flex-1 flex flex-col ${selectedSize !== 'small' && 'items-end'} text-sm`}
-          >
-            <Image
-              className="scale-90 -mb-2 -ml-2"
-              src={'https://openweathermap.org/img/wn/10d@2x.png'}
-              alt=""
-              width={40}
-              height={40}
-            />
-            <div>{description}</div>
-            <div>H:36° L:28°</div>
-          </div>
-        </div>
+        <CurrentForecast
+          location={location}
+          description={description}
+          iconUrl={iconUrl}
+          selectedSize={selectedSize}
+          temperature={temperature}
+          sizeConfig={sizeConfig}
+        />
 
         {selectedSize === 'large' && (
           <div className="w-full h-[0.5px] bg-white opacity-50 mt-5 mx-auto" />
@@ -81,7 +58,7 @@ export default function WeatherForecast({
               <HourlyForecast
                 key={data.hour}
                 hour={data.hour}
-                iconUrl={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
+                weatherStatus="Rain"
                 temperature={data.temperature}
               />
             ))}
