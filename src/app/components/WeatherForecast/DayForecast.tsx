@@ -5,7 +5,8 @@ type DayForecastProps = {
   dayOfWeek: string;
   iconUrl: string;
   temperature: {
-    temp: number;
+    upperLimit: number;
+    lowerLimit: number;
     max: number;
     min: number;
   };
@@ -26,7 +27,8 @@ export default function DayForecast({ dayOfWeek, iconUrl, temperature }: DayFore
         classNames="col-span-4"
         maxTemp={temperature.max}
         minTemp={temperature.min}
-        temp={temperature.temp}
+        upperLimit={temperature.upperLimit}
+        lowerLimit={temperature.lowerLimit}
       />
     </div>
   );
