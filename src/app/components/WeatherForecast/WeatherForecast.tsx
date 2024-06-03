@@ -7,8 +7,8 @@ import { iconMappingToWeatherStatus } from '@/services/iconMapper';
 
 const SIZE_CONFIG = {
   small: { widthClass: 'w-48' },
-  medium: { widthClass: 'w-96' },
-  large: { widthClass: 'w-96' },
+  medium: { widthClass: 'w-[25rem]' },
+  large: { widthClass: 'w-[25rem]' },
 };
 
 export type SizeType = keyof typeof SIZE_CONFIG;
@@ -19,11 +19,11 @@ export default function WeatherForecast() {
   const sizeConfig = useMemo(() => SIZE_CONFIG[selectedSize], [selectedSize]);
 
   return (
-    <div className="flex justify-center items-center flex-col gap-5 p-5 bg-slate-200 rounded-xl">
+    <div className="flex justify-center items-center flex-col gap-5 p-6 bg-slate-200 rounded-xl">
       <div
         className={`
           ${sizeConfig.widthClass} flex flex-col text-white bg-gradient-to-b from-sky-800 to-sky-500 
-          shadow-xl font-semibold rounded-2xl py-3 px-4
+          shadow-xl font-semibold rounded-2xl py-4 px-5
         `}
       >
         {/* current weather */}
@@ -36,7 +36,7 @@ export default function WeatherForecast() {
         />
 
         {selectedSize === 'large' && (
-          <div className="w-full h-[0.5px] bg-white opacity-50 mt-5 mx-auto" />
+          <div className="w-full h-[1px] bg-white opacity-30 mt-5 mx-auto" />
         )}
 
         {/* Hourly Forecast */}
@@ -54,12 +54,12 @@ export default function WeatherForecast() {
         )}
 
         {selectedSize === 'large' && (
-          <div className="w-full h-[0.5px] bg-white opacity-50 mt-5 mb-4 mx-auto" />
+          <div className="w-full h-[1px] bg-white opacity-30 mt-3 mb-4 mx-auto" />
         )}
 
         {/* Daily Forecast */}
         {selectedSize === 'large' && (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             {dailyForecast.map((data) => (
               <DayForecast
                 dayOfWeek={data.dayOfWeek}
