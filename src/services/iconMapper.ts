@@ -1,6 +1,7 @@
 import { WeatherStatus } from '@/app/components/WeatherForecast/Weather';
 
-export const iconMapperFromOpenWeatherMap: (icon: string) => WeatherStatus = (iconCode: string) => {
+// Icon mapping for icon code from OpenWeatherMap
+export const iconMappingToWeatherStatus: (icon: string) => WeatherStatus = (iconCode: string) => {
   switch (iconCode) {
     case '01d':
       return 'Sunny';

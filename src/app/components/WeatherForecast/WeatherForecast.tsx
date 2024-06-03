@@ -3,6 +3,7 @@ import HourlyForecast from './HourlyForecast';
 import { currentForecast, dailyForecast, hourlyForecast } from '@/assets/mockdata';
 import DayForecast from './DayForecast';
 import CurrentForecast from './CurrentForecast';
+import { iconMappingToWeatherStatus } from '@/services/iconMapper';
 
 const SIZE_CONFIG = {
   small: { widthClass: 'w-48' },
@@ -26,7 +27,13 @@ export default function WeatherForecast() {
         `}
       >
         {/* current weather */}
-        <CurrentForecast data={currentForecast} selectedSize={selectedSize} />
+        <CurrentForecast
+          location={currentForecast.location}
+          description={currentForecast.description}
+          temperature={currentForecast.temperature}
+          weatherStatus={iconMappingToWeatherStatus(currentForecast.icon)}
+          selectedSize={selectedSize}
+        />
 
         {selectedSize === 'large' && (
           <div className="w-full h-[0.5px] bg-white opacity-50 mt-5 mx-auto" />
@@ -39,7 +46,7 @@ export default function WeatherForecast() {
               <HourlyForecast
                 key={data.hour}
                 hour={data.hour}
-                weatherStatus="Rainy"
+                weatherStatus={iconMappingToWeatherStatus(data.icon)}
                 temperature={data.temperature}
               />
             ))}
@@ -56,7 +63,7 @@ export default function WeatherForecast() {
             {dailyForecast.map((data) => (
               <DayForecast
                 dayOfWeek={data.dayOfWeek}
-                iconUrl={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
+                weatherStatus={iconMappingToWeatherStatus(data.icon)}
                 temperature={data.temperature}
               />
             ))}
