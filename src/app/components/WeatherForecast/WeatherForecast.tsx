@@ -1,30 +1,18 @@
 import { useMemo, useState } from 'react';
 import HourlyForecast from './HourlyForecast';
-import { dailyForecast, hourlyForecast } from '@/assets/mockdata';
+import { currentForecast, dailyForecast, hourlyForecast } from '@/assets/mockdata';
 import DayForecast from './DayForecast';
 import CurrentForecast from './CurrentForecast';
 
 const SIZE_CONFIG = {
-  small: { widthClass: 'w-36' },
+  small: { widthClass: 'w-48' },
   medium: { widthClass: 'w-96' },
   large: { widthClass: 'w-96' },
 };
 
 export type SizeType = keyof typeof SIZE_CONFIG;
 
-type WeatherForecastProps = {
-  location?: string;
-  temperature?: number;
-  iconUrl?: string;
-  description?: string;
-};
-
-export default function WeatherForecast({
-  location = 'Ho Chi Minh City',
-  temperature = 36,
-  iconUrl = './weather-icon.png',
-  description = 'Mostly Cloudy',
-}: WeatherForecastProps) {
+export default function WeatherForecast() {
   const [selectedSize, setSelectedSize] = useState<SizeType>('small');
 
   const sizeConfig = useMemo(() => SIZE_CONFIG[selectedSize], [selectedSize]);
@@ -33,19 +21,12 @@ export default function WeatherForecast({
     <div className="flex justify-center items-center flex-col gap-5 p-5 bg-slate-200 rounded-xl">
       <div
         className={`
-          flex flex-col text-white bg-gradient-to-b from-sky-800 to-sky-500 shadow-xl 
-          font-semibold rounded-2xl py-3 px-4
+          ${sizeConfig.widthClass} flex flex-col text-white bg-gradient-to-b from-sky-800 to-sky-500 
+          shadow-xl font-semibold rounded-2xl py-3 px-4
         `}
       >
         {/* current weather */}
-        <CurrentForecast
-          location={location}
-          description={description}
-          iconUrl={iconUrl}
-          selectedSize={selectedSize}
-          temperature={temperature}
-          sizeConfig={sizeConfig}
-        />
+        <CurrentForecast data={currentForecast} selectedSize={selectedSize} />
 
         {selectedSize === 'large' && (
           <div className="w-full h-[0.5px] bg-white opacity-50 mt-5 mx-auto" />

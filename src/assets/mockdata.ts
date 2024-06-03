@@ -1,3 +1,10 @@
+export const currentForecast = {
+  location: 'Ho Chi Minh City',
+  description: 'Mostly Cloudy',
+  icon: '02n',
+  temperature: 36,
+};
+
 export const hourlyForecast = [
   { hour: 12, icon: '09d', temperature: 36 },
   { hour: 13, icon: '10d', temperature: 35 },
