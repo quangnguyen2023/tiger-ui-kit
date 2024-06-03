@@ -27,7 +27,13 @@ export default function WeatherForecast() {
         `}
       >
         {/* current weather */}
-        <CurrentForecast data={currentForecast} selectedSize={selectedSize} />
+        <CurrentForecast
+          location={currentForecast.location}
+          description={currentForecast.description}
+          temperature={currentForecast.temperature}
+          weatherStatus={iconMappingToWeatherStatus(currentForecast.icon)}
+          selectedSize={selectedSize}
+        />
 
         {selectedSize === 'large' && (
           <div className="w-full h-[0.5px] bg-white opacity-50 mt-5 mx-auto" />
