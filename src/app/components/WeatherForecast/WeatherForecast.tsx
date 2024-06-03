@@ -58,7 +58,7 @@ export default function WeatherForecast({
               <HourlyForecast
                 key={data.hour}
                 hour={data.hour}
-                weatherStatus="Rain"
+                weatherStatus="Rainy"
                 temperature={data.temperature}
               />
             ))}
