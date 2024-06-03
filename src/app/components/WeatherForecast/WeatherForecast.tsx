@@ -57,7 +57,7 @@ export default function WeatherForecast() {
             {dailyForecast.map((data) => (
               <DayForecast
                 dayOfWeek={data.dayOfWeek}
-                iconUrl={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
+                weatherStatus={iconMappingToWeatherStatus(data.icon)}
                 temperature={data.temperature}
               />
             ))}
