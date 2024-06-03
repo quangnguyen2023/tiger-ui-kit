@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { SizeType } from './WeatherForecast';
 import { getWeatherIcon } from './Weather';
-import { iconMapperFromOpenWeatherMap } from '@/services/iconMapper';
+import { iconMappingToWeatherStatus } from '@/services/iconMapper';
 
 type CurrentForecastProps = {
   data: {
@@ -33,7 +33,7 @@ export default function CurrentForecast({ data, selectedSize }: CurrentForecastP
       </div>
 
       <div className={`flex-1 flex flex-col ${selectedSize !== 'small' && 'items-end'} text-sm`}>
-        {getWeatherIcon(iconMapperFromOpenWeatherMap(data.icon), 25, 25)}
+        {getWeatherIcon(iconMappingToWeatherStatus(data.icon), 25, 25)}
         <div className="mt-2">{data.description}</div>
         <div>H:36° L:28°</div>
       </div>

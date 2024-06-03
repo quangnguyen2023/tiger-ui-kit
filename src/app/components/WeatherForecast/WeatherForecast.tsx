@@ -3,6 +3,7 @@ import HourlyForecast from './HourlyForecast';
 import { currentForecast, dailyForecast, hourlyForecast } from '@/assets/mockdata';
 import DayForecast from './DayForecast';
 import CurrentForecast from './CurrentForecast';
+import { iconMappingToWeatherStatus } from '@/services/iconMapper';
 
 const SIZE_CONFIG = {
   small: { widthClass: 'w-48' },
@@ -39,7 +40,7 @@ export default function WeatherForecast() {
               <HourlyForecast
                 key={data.hour}
                 hour={data.hour}
-                weatherStatus="Rainy"
+                weatherStatus={iconMappingToWeatherStatus(data.icon)}
                 temperature={data.temperature}
               />
             ))}
