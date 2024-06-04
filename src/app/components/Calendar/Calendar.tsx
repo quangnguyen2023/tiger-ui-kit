@@ -17,10 +17,12 @@ export default function Calendar() {
   const daysOfMonth: DayOfMonthType[] = (() => {
     let days = [];
 
+    // Add empty days before the first day of the month
     const firstWeekDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
     const numOfEmptyPositions = firstWeekDayOfMonth === 0 ? 6 : firstWeekDayOfMonth - 1;
     days.push(...Array(numOfEmptyPositions).fill(''));
 
+    // Add days of the month
     for (let i = 1; i <= totalDaysOfMonth; i++) {
       const date = new Date(currentYear, currentMonth, i);
 
@@ -35,7 +37,7 @@ export default function Calendar() {
 
   return (
     <div className=" bg-[#2e2e2e] rounded-3xl font-semibold py-5 px-7">
-      <div className="text-[#f64338] uppercase">{format(currentDate, 'MMM')}</div>
+      <div className="text-[#f64338] uppercase">{format(currentDate, 'MMMM')}</div>
 
       <div className="text-sm text-white -mx-2">
         <DaysOfWeek />
