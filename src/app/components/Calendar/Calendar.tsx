@@ -34,8 +34,8 @@ export default function Calendar() {
   })();
 
   return (
-    <div className=" bg-black rounded-3xl font-semibold py-5 px-7">
-      <div className="text-[#f64338]  uppercase">{format(currentDate, 'MMM')}</div>
+    <div className=" bg-[#2e2e2e] rounded-3xl font-semibold py-5 px-7">
+      <div className="text-[#f64338] uppercase">{format(currentDate, 'MMM')}</div>
 
       <div className="text-sm text-white -mx-2">
         <DaysOfWeek />
