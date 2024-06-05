@@ -10,11 +10,17 @@ export type DayOfMonthType = {
   isWeekendDay: boolean;
 };
 
+export type firstDayOfWeekType = 'Sunday' | 'Monday';
+
 type CalendarProps = {
   enableLunarCalendar?: boolean;
+  firstDayOfWeek?: firstDayOfWeekType;
 };
 
-export default function Calendar({ enableLunarCalendar = true }: CalendarProps) {
+export default function Calendar({
+  enableLunarCalendar = true,
+  firstDayOfWeek = 'Sunday',
+}: CalendarProps) {
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
@@ -23,9 +29,19 @@ export default function Calendar({ enableLunarCalendar = true }: CalendarProps) 
   const daysOfMonth: DayOfMonthType[] = (() => {
     let days: DayOfMonthType[] = [];
 
-    // Add empty days before the first day of the month
+    // Get the first day of the current month and determine the weekday of that day.
     const firstWeekDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-    const numOfEmptyPositions = firstWeekDayOfMonth === 0 ? 6 : firstWeekDayOfMonth - 1;
+
+    // Caculate the number of empty positions based on
+    // whether the first day of week is Monday or Sunday.
+    let numOfEmptyPositions = 0;
+    if (firstDayOfWeek === 'Monday') {
+      numOfEmptyPositions = firstWeekDayOfMonth === 0 ? 6 : firstWeekDayOfMonth - 1;
+    } else {
+      numOfEmptyPositions = firstWeekDayOfMonth === 0 ? 0 : firstWeekDayOfMonth;
+    }
+
+    // Add the empty positions to the 'days' array
     days.push(...Array(numOfEmptyPositions).fill(''));
 
     // Add days of the month
@@ -47,7 +63,7 @@ export default function Calendar({ enableLunarCalendar = true }: CalendarProps) 
       <div className="text-[#f64338] uppercase">{format(currentDate, 'MMMM')}</div>
 
       <div className={`${enableLunarCalendar ? 'text-base' : 'text-sm'} text-white -mx-2`}>
-        <DaysOfWeek />
+        <DaysOfWeek firstDayOfWeek={firstDayOfWeek} />
         <DaysOfMonth daysOfMonth={daysOfMonth} enableLunarCalendar={enableLunarCalendar} />
       </div>
     </div>
