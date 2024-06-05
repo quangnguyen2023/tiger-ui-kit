@@ -18,7 +18,12 @@ export default function DaysOfMonth({ daysOfMonth, enableLunarCalendar }: DaysOf
             ${enableLunarCalendar ? 'p-5 rounded-md' : 'p-3.5'} 
           `}
         >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+          <div
+            className={`
+              absolute ${enableLunarCalendar ? 'top-[65%]' : 'top-1/2'} left-1/2 -translate-x-1/2 -translate-y-1/2 
+              flex flex-col items-center
+            `}
+          >
             <span className="">{day.value}</span>
 
             {enableLunarCalendar && day.value && (
