@@ -17,13 +17,18 @@ export default function DaysOfWeek({ firstDayOfWeek }: DaysOfWeekProps) {
   ]);
 
   useEffect(() => {
+    // If the first day of the week is Sunday and the first element of the daysOfWeek array is not Sunday,
+    // swap the first element with the element containing Sunday and return the new array
     if (firstDayOfWeek === 'Sunday' && daysOfWeek[0].value !== 'Sun') {
       setDaysOfWeek((prev: any) => {
         const sunday = prev.find((day: any) => day.value === 'Sun');
         const otherDays = prev.filter((day: any) => day.value !== 'Sun');
         return [sunday, ...otherDays];
       });
-    } else if (firstDayOfWeek === 'Monday' && daysOfWeek[0].value !== 'Mon') {
+    }
+    // If the first day of the week is Monday and the first element of the daysOfWeek array is not Monday,
+    // move the Sunday element to the end of the array and return the new array
+    else if (firstDayOfWeek === 'Monday' && daysOfWeek[0].value !== 'Mon') {
       setDaysOfWeek((prev: any) => {
         const sunday = prev.find((day: any) => day.value === 'Sun');
         const otherDays = prev.filter((day: any) => day.value !== 'Sun');
