@@ -6,8 +6,9 @@ import { LunarDate } from 'vietnamese-lunar-calendar';
 export type DayOfMonthType = {
   value: number;
   lunarValue?: LunarDate;
-  isCurrentDay: boolean;
-  isWeekendDay: boolean;
+  isCurrentDay?: boolean;
+  isWeekendDay?: boolean;
+  isDayOfCurrentMonth?: boolean;
 };
 
 export type firstDayOfWeekType = 'Sunday' | 'Monday';
@@ -31,18 +32,33 @@ export default function Calendar({
 
     // Get the first day of the current month and determine the weekday of that day.
     const firstWeekDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+    const lastWeekDayOfMonth = new Date(currentYear, currentMonth, totalDaysOfMonth).getDay();
 
     // Caculate the number of empty positions based on
     // whether the first day of week is Monday or Sunday.
-    let numOfEmptyPositions = 0;
+    let previousMonthPadding = 0;
+    let nextMonthPadding = 0;
+
     if (firstDayOfWeek === 'Monday') {
-      numOfEmptyPositions = firstWeekDayOfMonth === 0 ? 6 : firstWeekDayOfMonth - 1;
+      previousMonthPadding = firstWeekDayOfMonth === 0 ? 6 : firstWeekDayOfMonth - 1;
+      nextMonthPadding = lastWeekDayOfMonth === 0 ? 0 : 7 - lastWeekDayOfMonth;
     } else {
-      numOfEmptyPositions = firstWeekDayOfMonth === 0 ? 0 : firstWeekDayOfMonth;
+      previousMonthPadding = firstWeekDayOfMonth === 0 ? 0 : firstWeekDayOfMonth;
+      nextMonthPadding = 7 - (lastWeekDayOfMonth + 1);
     }
 
-    // Add the empty positions to the 'days' array
-    days.push(...Array(numOfEmptyPositions).fill(''));
+    // Add days of the Previous Month to fill empty spaces
+    let lastDayOfPreviousMonth = new Date(currentYear, currentMonth, 0).getDate(); // 30 | 31 | 28 | 29
+
+    for (let i = previousMonthPadding - 1; i >= 0; i--) {
+      const date = new Date(currentYear, currentMonth - 1, lastDayOfPreviousMonth - i);
+
+      days.push({
+        value: lastDayOfPreviousMonth - i,
+        lunarValue: new LunarDate(date),
+        isDayOfCurrentMonth: false,
+      });
+    }
 
     // Add days of the month
     for (let i = 1; i <= totalDaysOfMonth; i++) {
@@ -55,6 +71,17 @@ export default function Calendar({
         isWeekendDay: isSaturday(date) || isSunday(date),
       });
     }
+
+    // Add days of the next month to fill the remaining empty spaces
+    for (let i = 1; i <= nextMonthPadding; i++) {
+      const date = new Date(currentYear, currentMonth + 1, i);
+      days.push({
+        value: i,
+        lunarValue: new LunarDate(date),
+        isDayOfCurrentMonth: false,
+      });
+    }
+
     return days;
   })();
 
