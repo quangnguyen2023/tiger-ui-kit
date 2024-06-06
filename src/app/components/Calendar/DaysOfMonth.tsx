@@ -7,14 +7,15 @@ type DaysOfMonthProps = {
 
 export default function DaysOfMonth({ daysOfMonth, enableLunarCalendar }: DaysOfMonthProps) {
   return (
-    <div className="grid grid-cols-7 mt-2 gap-1 gap-y-2">
+    <div className="grid grid-cols-7 mt-2 gap-1.5 gap-y-2">
       {daysOfMonth.map((day, index) => (
         <div
           key={index}
           className={`
             relative 
-            ${day.isCurrentDay ? 'bg-[#f64338] rounded-full' : ''} 
-            ${day.isWeekendDay ? 'text-[#9b9b9b]' : ''} 
+            ${day?.isCurrentDay ? 'bg-[#f64338] rounded-full' : ''} 
+            ${day?.isWeekendDay ? 'text-[#a8a8a8]' : ''} 
+            ${day?.isNotCurrentMonthDay ? 'text-[#5d5d5d]' : ''} 
             ${enableLunarCalendar ? 'p-5 rounded-md' : 'p-3.5'} 
           `}
         >
@@ -30,9 +31,9 @@ export default function DaysOfMonth({ daysOfMonth, enableLunarCalendar }: DaysOf
               <span
                 className={`
                   -mt-2 ml-4 text-[0.55rem] 
-                  ${day.isWeekendDay ? '!text-[#9b9b9b]' : ''}
-                  ${day.lunarValue?.date === 1 && !day.isCurrentDay ? 'text-red-500' : ''}
-                  ${day.lunarValue?.date === 1 && day.isCurrentDay ? 'text-white' : ''}
+                  ${day?.isWeekendDay ? '!text-[#9b9b9b]' : ''}
+                  ${day.lunarValue?.date === 1 && !day?.isCurrentDay ? 'text-red-500' : ''}
+                  ${day.lunarValue?.date === 1 && day?.isCurrentDay ? 'text-white' : ''}
                 `}
               >
                 {day.lunarValue?.date === 1
