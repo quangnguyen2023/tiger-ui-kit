@@ -8,7 +8,7 @@ export type DayOfMonthType = {
   lunarValue?: LunarDate;
   isCurrentDay?: boolean;
   isWeekendDay?: boolean;
-  isDayOfCurrentMonth?: boolean;
+  isNotCurrentMonthDay?: boolean;
 };
 
 export type firstDayOfWeekType = 'Sunday' | 'Monday';
@@ -56,7 +56,7 @@ export default function Calendar({
       days.push({
         value: lastDayOfPreviousMonth - i,
         lunarValue: new LunarDate(date),
-        isDayOfCurrentMonth: false,
+        isNotCurrentMonthDay: true,
       });
     }
 
@@ -78,7 +78,7 @@ export default function Calendar({
       days.push({
         value: i,
         lunarValue: new LunarDate(date),
-        isDayOfCurrentMonth: false,
+        isNotCurrentMonthDay: true,
       });
     }
 
