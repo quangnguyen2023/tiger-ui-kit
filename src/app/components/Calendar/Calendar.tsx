@@ -1,7 +1,9 @@
-import { format, getDaysInMonth, isSaturday, isSunday } from 'date-fns';
 import DaysOfWeek from './DaysOfWeek';
 import DaysOfMonth from './DaysOfMonth';
 import { LunarDate } from 'vietnamese-lunar-calendar';
+import MonthNavigator from './MonthNavigator';
+import { useMemo, useState } from 'react';
+import { generateDaysOfMonth } from './services';
 
 export type DayOfMonthType = {
   value: number;
@@ -10,8 +12,8 @@ export type DayOfMonthType = {
   isWeekendDay?: boolean;
   isNotCurrentMonthDay?: boolean;
 };
-
 export type firstDayOfWeekType = 'Sunday' | 'Monday';
+export type MonthRange = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
 type CalendarProps = {
   enableLunarCalendar?: boolean;
@@ -22,74 +24,23 @@ export default function Calendar({
   enableLunarCalendar = true,
   firstDayOfWeek = 'Sunday',
 }: CalendarProps) {
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  const currentYear = currentDate.getFullYear();
-  const totalDaysOfMonth = getDaysInMonth(currentDate);
+  const [selectedTime, setSelectedTime] = useState({
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
+  });
 
-  const daysOfMonth: DayOfMonthType[] = (() => {
-    let days: DayOfMonthType[] = [];
-
-    // Get the first day of the current month and determine the weekday of that day.
-    const firstWeekDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-    const lastWeekDayOfMonth = new Date(currentYear, currentMonth, totalDaysOfMonth).getDay();
-
-    // Caculate the number of empty positions based on
-    // whether the first day of week is Monday or Sunday.
-    let previousMonthPadding = 0;
-    let nextMonthPadding = 0;
-
-    if (firstDayOfWeek === 'Monday') {
-      previousMonthPadding = firstWeekDayOfMonth === 0 ? 6 : firstWeekDayOfMonth - 1;
-      nextMonthPadding = lastWeekDayOfMonth === 0 ? 0 : 7 - lastWeekDayOfMonth;
-    } else {
-      previousMonthPadding = firstWeekDayOfMonth === 0 ? 0 : firstWeekDayOfMonth;
-      nextMonthPadding = 7 - (lastWeekDayOfMonth + 1);
-    }
-
-    // Add days of the Previous Month to fill empty spaces
-    let lastDayOfPreviousMonth = new Date(currentYear, currentMonth, 0).getDate(); // 30 | 31 | 28 | 29
-
-    for (let i = previousMonthPadding - 1; i >= 0; i--) {
-      const date = new Date(currentYear, currentMonth - 1, lastDayOfPreviousMonth - i);
-
-      days.push({
-        value: lastDayOfPreviousMonth - i,
-        lunarValue: new LunarDate(date),
-        isNotCurrentMonthDay: true,
-      });
-    }
-
-    // Add days of the month
-    for (let i = 1; i <= totalDaysOfMonth; i++) {
-      const date = new Date(currentYear, currentMonth, i);
-
-      days.push({
-        value: i,
-        lunarValue: new LunarDate(new Date(currentYear, currentMonth, i)),
-        isCurrentDay: i === currentDate.getDate(),
-        isWeekendDay: isSaturday(date) || isSunday(date),
-      });
-    }
-
-    // Add days of the next month to fill the remaining empty spaces
-    for (let i = 1; i <= nextMonthPadding; i++) {
-      const date = new Date(currentYear, currentMonth + 1, i);
-      days.push({
-        value: i,
-        lunarValue: new LunarDate(date),
-        isNotCurrentMonthDay: true,
-      });
-    }
-
-    return days;
-  })();
+  const daysOfMonth = useMemo(
+    () => generateDaysOfMonth(selectedTime.month as MonthRange, selectedTime.year, firstDayOfWeek),
+    [selectedTime]
+  );
 
   return (
-    <div className="w-fit bg-[#2e2e2e] rounded-3xl font-semibold py-5 px-7">
-      <div className="text-[#f64338] uppercase">{format(currentDate, 'MMMM')}</div>
+    <div className="w-fit bg-[#2e2e2e] rounded-3xl py-5 px-4">
+      <MonthNavigator />
 
-      <div className={`${enableLunarCalendar ? 'text-base' : 'text-sm'} text-white -mx-2`}>
+      <div
+        className={`${enableLunarCalendar ? 'text-base' : 'text-sm'} font-semibold text-white mt-3`}
+      >
         <DaysOfWeek firstDayOfWeek={firstDayOfWeek} />
         <DaysOfMonth daysOfMonth={daysOfMonth} enableLunarCalendar={enableLunarCalendar} />
       </div>
