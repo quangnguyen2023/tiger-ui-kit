@@ -2,6 +2,7 @@ import { format, getDaysInMonth, isSaturday, isSunday } from 'date-fns';
 import DaysOfWeek from './DaysOfWeek';
 import DaysOfMonth from './DaysOfMonth';
 import { LunarDate } from 'vietnamese-lunar-calendar';
+import MonthNavigator from './MonthNavigator';
 
 export type DayOfMonthType = {
   value: number;
@@ -86,10 +87,12 @@ export default function Calendar({
   })();
 
   return (
-    <div className="w-fit bg-[#2e2e2e] rounded-3xl font-semibold py-5 px-7">
-      <div className="text-[#f64338] uppercase">{format(currentDate, 'MMMM')}</div>
+    <div className="w-fit bg-[#2e2e2e] rounded-3xl py-5 px-4">
+      <MonthNavigator />
 
-      <div className={`${enableLunarCalendar ? 'text-base' : 'text-sm'} text-white -mx-2`}>
+      <div
+        className={`${enableLunarCalendar ? 'text-base' : 'text-sm'} font-semibold text-white mt-3`}
+      >
         <DaysOfWeek firstDayOfWeek={firstDayOfWeek} />
         <DaysOfMonth daysOfMonth={daysOfMonth} enableLunarCalendar={enableLunarCalendar} />
       </div>
