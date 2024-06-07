@@ -31,7 +31,7 @@ export default function Calendar({
 
   const daysOfMonth = useMemo(
     () => generateDaysOfMonth(selectedTime.month as MonthRange, selectedTime.year, firstDayOfWeek),
-    [selectedTime]
+    [selectedTime, firstDayOfWeek]
   );
 
   const onMonthChange = (newTime: { month: number; year: number }) => {
