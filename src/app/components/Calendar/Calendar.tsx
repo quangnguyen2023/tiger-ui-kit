@@ -34,12 +34,16 @@ export default function Calendar({
     [selectedTime]
   );
 
+  const onMonthChange = (newTime: { month: number; year: number }) => {
+    setSelectedTime(newTime);
+  };
+
   return (
     <div className="w-fit bg-[#2e2e2e] rounded-3xl py-5 px-4">
-      <MonthNavigator />
+      <MonthNavigator selectedTime={selectedTime} onMonthChange={onMonthChange} />
 
       <div
-        className={`${enableLunarCalendar ? 'text-base' : 'text-sm'} font-semibold text-white mt-3`}
+        className={`${enableLunarCalendar ? 'text-base' : 'text-sm'} font-semibold text-white mt-4`}
       >
         <DaysOfWeek firstDayOfWeek={firstDayOfWeek} />
         <DaysOfMonth daysOfMonth={daysOfMonth} enableLunarCalendar={enableLunarCalendar} />
