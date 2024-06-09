@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import DropdownMenu from './DropdownMenu/DropdownMenu';
 
 type MonthNavigatorProps = {
   selectedTime: { month: number; year: number };
@@ -10,14 +11,14 @@ export default function MonthNavigator({ selectedTime, onMonthChange }: MonthNav
   const date = new Date(selectedTime.year, selectedTime.month);
 
   return (
-    <div className="grid grid-cols-7 group">
+    <div className="flex items-center justify-between group">
       <div className=" col-span-4 text-[#f64338] font-semibold uppercase flex items-center ml-3">
         {format(date, 'MMMM yyyy')}
       </div>
 
-      <div className="col-span-3 text-white grid grid-cols-3 font-medium opacity-0 group-hover:opacity-100 transition-all duration-300">
+      <div className="col-span-3 text-white flex justify-center items-center gap-1 font-medium opacity-0 group-hover:opacity-100 transition-all duration-300">
         <div
-          className="py-1 opacity-60 transition-opacity hover:opacity-100 rounded-md cursor-pointer flex justify-center"
+          className="p-1 opacity-60 transition-opacity hover:opacity-100 hover:bg-[#555] rounded-full cursor-pointer flex justify-center"
           onClick={() =>
             onMonthChange({
               month: selectedTime.month - 1,
@@ -29,7 +30,7 @@ export default function MonthNavigator({ selectedTime, onMonthChange }: MonthNav
         </div>
 
         <div
-          className="py-1 px-1 opacity-60 transition-opacity hover:opacity-100 rounded-md cursor-pointer text-sm"
+          className="py-1 px-2 opacity-60 transition-opacity hover:opacity-100 hover:bg-[#555] rounded-full cursor-pointer text-xs"
           onClick={() =>
             onMonthChange({
               month: new Date().getMonth(),
@@ -41,7 +42,7 @@ export default function MonthNavigator({ selectedTime, onMonthChange }: MonthNav
         </div>
 
         <div
-          className="py-1 opacity-60 transition-opacity hover:opacity-100 rounded-md cursor-pointer flex justify-center"
+          className="flex justify-center p-1 opacity-60 transition-opacity hover:opacity-100 hover:bg-[#555] rounded-full cursor-pointer"
           onClick={() =>
             onMonthChange({
               month: selectedTime.month + 1,
@@ -51,6 +52,8 @@ export default function MonthNavigator({ selectedTime, onMonthChange }: MonthNav
         >
           <ChevronDownIcon width={22} height={22} />
         </div>
+
+        <DropdownMenu />
       </div>
     </div>
   );
