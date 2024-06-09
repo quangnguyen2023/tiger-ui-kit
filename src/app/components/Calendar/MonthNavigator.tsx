@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import DropdownMenu from './DropdownMenu/DropdownMenu';
 
 type MonthNavigatorProps = {
   selectedTime: { month: number; year: number };
@@ -51,6 +52,8 @@ export default function MonthNavigator({ selectedTime, onMonthChange }: MonthNav
         >
           <ChevronDownIcon width={22} height={22} />
         </div>
+
+        <DropdownMenu />
       </div>
     </div>
   );
