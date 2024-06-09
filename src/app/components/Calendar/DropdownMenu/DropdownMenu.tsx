@@ -37,7 +37,7 @@ const MainMenu = ({ menuOptions, onClick }: MainMenuProps) => {
           <ListItemIcon>
             <CalendarDaysIcon width={20} height={20} />
           </ListItemIcon>
-          <Typography variant="caption"> {option.label} </Typography>
+          <Typography sx={{ fontSize: '0.875rem' }}> {option.label} </Typography>
         </MenuItem>
       ))}
     </>
@@ -53,7 +53,7 @@ export default function DropdownMenu() {
         // prettier-ignore
         selectedOption 
         ? <div className='p-2'>
-            <Stack direction='row' alignItems='center' spacing={1.5} sx={{ mb: 3 }}>
+            <Stack direction='row' alignItems='center' spacing={1.5} sx={{ mb: 2.5 }}>
               <ArrowLeftIcon width={16} height={16} color='#aaa' className='font-semibold cursor-pointer' />
               <div className='text-sm font-semibold'> {selectedOption?.label} </div>
             </Stack>
