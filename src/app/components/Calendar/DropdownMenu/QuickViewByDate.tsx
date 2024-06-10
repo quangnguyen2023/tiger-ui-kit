@@ -14,18 +14,18 @@ type TimeSelectorProps = {
 const CustomTextField = styled(TextField)({
   '& .MuiInputBase-root': {
     padding: '2px !important',
-    fontSize: '0.875rem',
+    fontSize: '0.75rem',
   },
 });
 
 const StyledPopper = styled(Popper)({
   '& .MuiAutocomplete-listbox': {
-    fontSize: '0.875rem',
+    fontSize: '0.75rem',
   },
 });
 
 const CustomTypography = styled(Typography)({
-  fontSize: '0.875rem',
+  fontSize: '0.75rem',
 });
 
 const QuickViewByDate = () => {
@@ -109,13 +109,13 @@ const QuickViewByDate = () => {
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Stack direction="row" alignItems="center" spacing={1}>
             <SunIcon width={18} height={18} />
-            <CustomTypography> Dương lịch </CustomTypography>
+            <CustomTypography> Gregorian calendar </CustomTypography>
           </Stack>
           <div
             className="text-[0.75rem] text-[rgb(35,131,226)] hover:bg-[rgba(35,131,226,0.07)] cursor-pointer p-1 rounded-[4px] transition-colors select-none"
             onClick={() => setEnableLunarCalendar(!enableLunarCalendar)}
           >
-            {enableLunarCalendar ? 'Ẩn âm lịch' : 'Hiện âm lịch'}
+            {enableLunarCalendar ? 'Hide lunar' : 'Show lunar'}
           </div>
         </Stack>
         <TimeSelector dates={dates} months={months} years={years} />
@@ -131,7 +131,7 @@ const QuickViewByDate = () => {
         <Stack spacing={1}>
           <Stack direction="row" alignItems="center" spacing={1}>
             <MoonIcon width={18} height={18} />
-            <CustomTypography> Âm lịch </CustomTypography>
+            <CustomTypography> Lunar calendar </CustomTypography>
           </Stack>
           <TimeSelector dates={dates} months={months} years={years} />
         </Stack>

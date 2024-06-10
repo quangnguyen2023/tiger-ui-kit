@@ -1,4 +1,4 @@
-import { ListItemIcon, MenuItem, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { MenuOption } from './DropdownMenu';
 import { CalendarDaysIcon } from '@heroicons/react/24/outline';
 
@@ -13,15 +13,21 @@ export default function MainMenu({ menuOptions, onClick }: MainMenuProps) {
   };
 
   return (
-    <>
+    <div className="min-w-52">
+      <div className="text-sm font-semibold p-2 px-3"> Calendar options </div>
+
       {menuOptions.map((option, index) => (
-        <MenuItem key={index} onClick={() => handleClick(option)}>
-          <ListItemIcon>
+        <div
+          key={index}
+          className="flex items-center py-2 px-3 transition-colors hover:bg-slate-100 rounded-[4px] cursor-pointer"
+          onClick={() => handleClick(option)}
+        >
+          <div className="mr-2">
             <CalendarDaysIcon width={20} height={20} />
-          </ListItemIcon>
+          </div>
           <Typography sx={{ fontSize: '0.875rem' }}> {option.label} </Typography>
-        </MenuItem>
+        </div>
       ))}
-    </>
+    </div>
   );
 }
