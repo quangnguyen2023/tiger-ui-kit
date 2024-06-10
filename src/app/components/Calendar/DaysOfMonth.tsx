@@ -12,10 +12,11 @@ export default function DaysOfMonth({ daysOfMonth, enableLunarCalendar }: DaysOf
         <div
           key={index}
           className={`
-            relative 
+            relative border-[1.5px] border-transparent
             ${day?.isCurrentDay ? 'bg-[#f64338] rounded-full' : ''} 
             ${!day?.isCurrentDay && day?.isWeekendDay ? 'text-[#a8a8a8]' : ''} 
             ${day?.isNotCurrentMonthDay ? 'text-[#5d5d5d]' : ''} 
+            ${day?.isSelectedDay ? '!border-[#f64338]' : ''}
             ${enableLunarCalendar ? 'p-5 rounded-md' : 'p-3.5'} 
           `}
         >
