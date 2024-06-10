@@ -9,7 +9,7 @@ export type MenuOption = {
   label: string;
 };
 
-const menuOptions: MenuOption[] = [{ id: 'quick_view', label: 'Xem nhanh theo ngày' }];
+const menuOptions: MenuOption[] = [{ id: 'quick_view', label: 'Go to date' }];
 
 const MoreActionButton = () => (
   <div className="flex justify-center p-1 opacity-60 transition-opacity hover:opacity-100 hover:bg-[#555] rounded-full cursor-pointer">

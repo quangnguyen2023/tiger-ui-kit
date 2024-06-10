@@ -22,8 +22,8 @@ const SelectedOptionContent = ({ selectedOption, onBack }: SelectedOptionContent
     <div className="p-2">
       <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 2.5 }}>
         <ArrowLeftIcon
-          width={22}
-          height={22}
+          width={20}
+          height={20}
           color="#aaa"
           className="font-semibold cursor-pointer hover:bg-slate-100 rounded-[4px] p-0.5 transition-colors"
           onClick={onBack}
