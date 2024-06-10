@@ -3,6 +3,7 @@ import { DayOfMonthType, MonthRange, firstDayOfWeekType } from './Calendar';
 import { LunarDate } from 'vietnamese-lunar-calendar';
 
 export const generateDaysOfMonth = (
+  day: number | undefined,
   month: MonthRange,
   year: number,
   firstDayOfWeek: firstDayOfWeekType
@@ -50,6 +51,7 @@ export const generateDaysOfMonth = (
       lunarValue: new LunarDate(date),
       isCurrentDay: isSameDay(new Date(year, month, i), currentDate),
       isWeekendDay: isSaturday(date) || isSunday(date),
+      isSelectedDay: i === day,
     });
   }
 
