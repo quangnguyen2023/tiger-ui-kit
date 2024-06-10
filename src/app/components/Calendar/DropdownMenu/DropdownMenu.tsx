@@ -1,50 +1,23 @@
-import { CalendarDaysIcon, EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import PopoverWrapper from '../../PopoverWrapper';
-import { ListItemIcon, MenuItem, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import { ArrowLeftIcon } from '@heroicons/react/16/solid';
-import QuickViewByDate from './QuickViewByDate';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
+import PopoverWrapper from '../../PopoverWrapper';
+import MainMenu from './MainMenu';
+import SelectedOptionContent from './SelectedOptionContent';
 
-type MenuOption = {
+export type MenuOption = {
+  id: string;
   label: string;
-  component: () => JSX.Element;
 };
 
-type MainMenuProps = {
-  menuOptions: MenuOption[];
-  onClick: (option: MenuOption) => void;
-};
-
-const menuOptions: MenuOption[] = [{ label: 'Xem nhanh theo ngày', component: QuickViewByDate }];
+const menuOptions: MenuOption[] = [{ id: 'quick_view', label: 'Xem nhanh theo ngày' }];
 
 const MoreActionButton = () => (
-  <div
-    className={`flex justify-center p-1 opacity-60 transition-opacity hover:opacity-100 hover:bg-[#555] rounded-full cursor-pointer`}
-  >
+  <div className="flex justify-center p-1 opacity-60 transition-opacity hover:opacity-100 hover:bg-[#555] rounded-full cursor-pointer">
     <EllipsisVerticalIcon width={20} height={20} />
   </div>
 );
 
-const MainMenu = ({ menuOptions, onClick }: MainMenuProps) => {
-  const handleClick = (option: MenuOption) => {
-    onClick(option);
-  };
-
-  return (
-    <>
-      {menuOptions.map((option, index) => (
-        <MenuItem key={index} onClick={() => handleClick(option)}>
-          <ListItemIcon>
-            <CalendarDaysIcon width={20} height={20} />
-          </ListItemIcon>
-          <Typography sx={{ fontSize: '0.875rem' }}> {option.label} </Typography>
-        </MenuItem>
-      ))}
-    </>
-  );
-};
-
-export default function DropdownMenu() {
+const DropdownMenu = () => {
   const [selectedOption, setSelectedOption] = useState<MenuOption | null>(null);
 
   return (
@@ -52,15 +25,17 @@ export default function DropdownMenu() {
       {
         // prettier-ignore
         selectedOption 
-        ? <div className='p-2'>
-            <Stack direction='row' alignItems='center' spacing={1.5} sx={{ mb: 2.5 }}>
-              <ArrowLeftIcon width={16} height={16} color='#aaa' className='font-semibold cursor-pointer' />
-              <div className='text-sm font-semibold'> {selectedOption?.label} </div>
-            </Stack>
-            {selectedOption?.component()}
-          </div>
-        : <MainMenu menuOptions={menuOptions} onClick={(option) => setSelectedOption(option)} />
+          ? <SelectedOptionContent 
+              selectedOption={selectedOption} 
+              onBack={() => setSelectedOption(null)} 
+            />
+          : <MainMenu 
+              menuOptions={menuOptions} 
+              onClick={(option) => setSelectedOption(option)} 
+            />
       }
     </PopoverWrapper>
   );
-}
+};
+
+export default DropdownMenu;
