@@ -55,7 +55,7 @@ const QuickViewByDate = () => {
           blurOnSelect
           size="small"
           options={dates}
-          sx={{ width: 60 }}
+          sx={{ width: 70 }}
           renderInput={(params) => <CustomTextField {...params} placeholder="Date" />}
           getOptionLabel={(option) => `${option}`}
           popupIcon={<ChevronDownIcon width={20} height={20} color="#bfbebc" />}
@@ -112,7 +112,7 @@ const QuickViewByDate = () => {
             <CustomTypography> Dương lịch </CustomTypography>
           </Stack>
           <div
-            className="text-[0.75rem] text-[rgb(35,131,226)] hover:bg-[rgba(35,131,226,0.07)] cursor-pointer p-1 rounded-[4px] transition-colors"
+            className="text-[0.75rem] text-[rgb(35,131,226)] hover:bg-[rgba(35,131,226,0.07)] cursor-pointer p-1 rounded-[4px] transition-colors select-none"
             onClick={() => setEnableLunarCalendar(!enableLunarCalendar)}
           >
             {enableLunarCalendar ? 'Ẩn âm lịch' : 'Hiện âm lịch'}
