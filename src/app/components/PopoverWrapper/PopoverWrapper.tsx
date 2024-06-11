@@ -1,11 +1,15 @@
 import { Box, Popover } from '@mui/material';
-import { useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 type PopoverWrapperProps = {
   triggerComponent: React.ReactNode;
   children: React.ReactNode;
   onClose?: () => void;
 };
+
+export const PopoverWrapperContext = createContext({
+  onClosePopover: () => {},
+});
 
 export default function PopoverWrapper({
   triggerComponent,
@@ -21,36 +25,38 @@ export default function PopoverWrapper({
 
   const handleClose = () => {
     setAnchorEl(null);
-    onClose?.();
+    setTimeout(() => onClose?.(), 100);
   };
 
   return (
     <>
       <div onClick={handleClick}>{triggerComponent}</div>
 
-      <Popover
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
+      <PopoverWrapperContext.Provider value={{ onClosePopover: handleClose }}>
+        <Popover
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: 'visible',
+              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              mt: 1.5,
+              '& .MuiAvatar-root': {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
+              },
             },
-          },
-        }}
-      >
-        <Box sx={{ py: 1, px: 0.5 }}>{children}</Box>
-      </Popover>
+          }}
+        >
+          {children}
+        </Popover>
+      </PopoverWrapperContext.Provider>
     </>
   );
 }

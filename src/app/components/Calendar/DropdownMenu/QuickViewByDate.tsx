@@ -4,6 +4,7 @@ import { CalendarContext } from '../Calendar';
 import { format } from 'date-fns';
 import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import { ArrowsUpDownIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
+import { PopoverWrapperContext } from '../../PopoverWrapper/PopoverWrapper';
 
 type TimeSelectorProps = {
   dates: number[];
@@ -25,7 +26,9 @@ const StyledPopper = styled(Popper)({
 });
 
 const QuickViewByDate = () => {
+  const { onClosePopover } = useContext(PopoverWrapperContext);
   const { selectedTime, changeTime } = useContext(CalendarContext);
+
   const [enableLunarCalendar, setEnableLunarCalendar] = useState(false);
   const [tempSelectedTime, setTempSelectedTime] = useState(selectedTime);
 
@@ -45,6 +48,7 @@ const QuickViewByDate = () => {
 
   const onGoToDate = () => {
     changeTime(tempSelectedTime);
+    onClosePopover();
   };
 
   const TimeSelector = ({ dates, months, years }: TimeSelectorProps) => {
