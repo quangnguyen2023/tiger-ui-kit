@@ -1,5 +1,4 @@
-import { CalendarDaysIcon, EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import { Box, ListItemIcon, Menu, MenuItem, Popover, Typography } from '@mui/material';
+import { Box, Popover } from '@mui/material';
 import { useState } from 'react';
 
 type PopoverWrapperProps = {

@@ -27,6 +27,7 @@ const StyledPopper = styled(Popper)({
 const QuickViewByDate = () => {
   const { selectedTime, changeTime } = useContext(CalendarContext);
   const [enableLunarCalendar, setEnableLunarCalendar] = useState(false);
+  const [tempSelectedTime, setTempSelectedTime] = useState(selectedTime);
 
   const minYear = 1900;
   const maxYear = 2199;
@@ -42,6 +43,10 @@ const QuickViewByDate = () => {
     .fill('')
     .map((_, i) => i + 1);
 
+  const onGoToDate = () => {
+    changeTime(tempSelectedTime);
+  };
+
   const TimeSelector = ({ dates, months, years }: TimeSelectorProps) => {
     return (
       <Stack direction="row" spacing={1}>
@@ -56,9 +61,9 @@ const QuickViewByDate = () => {
           getOptionLabel={(option) => `${option}`}
           popupIcon={<ChevronDownIcon width={20} height={20} color="#bfbebc" />}
           PopperComponent={(props) => <StyledPopper {...props} />}
-          value={selectedTime.day}
+          value={tempSelectedTime.day}
           onChange={(_, newValue) => {
-            changeTime({ ...selectedTime, day: (newValue as number) || 0 });
+            setTempSelectedTime({ ...tempSelectedTime, day: (newValue as number) || 0 });
           }}
         />
 
@@ -73,9 +78,9 @@ const QuickViewByDate = () => {
           getOptionLabel={(option) => format(new Date(selectedTime.year, option), 'MMMM')}
           popupIcon={<ChevronDownIcon width={20} height={20} color="#bfbebc" />}
           PopperComponent={(props) => <StyledPopper {...props} />}
-          value={selectedTime.month}
+          value={tempSelectedTime.month}
           onChange={(_, newValue) => {
-            changeTime({ ...selectedTime, month: (newValue as number) || 0 });
+            setTempSelectedTime({ ...tempSelectedTime, month: (newValue as number) || 0 });
           }}
         />
 
@@ -90,9 +95,9 @@ const QuickViewByDate = () => {
           getOptionLabel={(option) => option.toString()}
           popupIcon={<ChevronDownIcon width={20} height={20} color="#bfbebc" />}
           PopperComponent={(props) => <StyledPopper {...props} />}
-          value={selectedTime.year}
+          value={tempSelectedTime.year}
           onChange={(_, newValue) => {
-            changeTime({ ...selectedTime, year: (newValue as number) || 0 });
+            setTempSelectedTime({ ...tempSelectedTime, year: (newValue as number) || 0 });
           }}
         />
       </Stack>
@@ -134,9 +139,8 @@ const QuickViewByDate = () => {
       )}
 
       <button
-        className="
-          block w-full ml-auto text-xs bg-[#2383e2] hover:bg-[#3a83cc] text-white font-medium py-2 px-2 
-          rounded transition-colors mt-4"
+        className="block w-full ml-auto text-xs bg-[#2383e2] hover:bg-[#3a83cc] active:bg-[#377abe] text-white font-medium py-2 px-2 rounded transition-colors mt-4"
+        onClick={onGoToDate}
       >
         Go to date
       </button>
