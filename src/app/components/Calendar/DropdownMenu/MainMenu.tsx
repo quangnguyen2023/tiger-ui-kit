@@ -1,6 +1,9 @@
 import { Typography } from '@mui/material';
 import { MenuOption } from './DropdownMenu';
 import { CalendarDaysIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon } from '@heroicons/react/16/solid';
+import { useContext } from 'react';
+import { PopoverWrapperContext } from '../../PopoverWrapper/PopoverWrapper';
 
 type MainMenuProps = {
   menuOptions: MenuOption[];
@@ -8,13 +11,24 @@ type MainMenuProps = {
 };
 
 export default function MainMenu({ menuOptions, onClick }: MainMenuProps) {
+  const { onClosePopover } = useContext(PopoverWrapperContext);
+
   const handleClick = (option: MenuOption) => {
     onClick(option);
   };
 
   return (
-    <div className="min-w-52">
-      <div className="text-sm font-semibold p-2 px-3"> Calendar options </div>
+    <div className="min-w-52 p-1 pb-2">
+      <div className="flex justify-between items-center p-3 pt-2">
+        <div className="text-sm font-semibold"> Calendar options </div>
+        <XMarkIcon
+          width={18}
+          height={18}
+          color="#777"
+          className="cursor-pointer bg-[#EFEFEE] -mr-1 hover:bg-gray-300 transition-colors rounded-full"
+          onClick={onClosePopover}
+        />
+      </div>
 
       {menuOptions.map((option, index) => (
         <div
