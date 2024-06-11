@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Popper, Stack, TextField, Typography, styled } from '@mui/material';
+import { Autocomplete, Box, Popper, Stack, TextField, styled } from '@mui/material';
 import { useContext, useState } from 'react';
 import { CalendarContext } from '../Calendar';
 import { format } from 'date-fns';
@@ -22,10 +22,6 @@ const StyledPopper = styled(Popper)({
   '& .MuiAutocomplete-listbox': {
     fontSize: '0.75rem',
   },
-});
-
-const CustomTypography = styled(Typography)({
-  fontSize: '0.75rem',
 });
 
 const QuickViewByDate = () => {
@@ -109,10 +105,10 @@ const QuickViewByDate = () => {
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Stack direction="row" alignItems="center" spacing={1}>
             <SunIcon width={18} height={18} />
-            <CustomTypography> Gregorian calendar </CustomTypography>
+            <div className="text-[0.75rem] font-medium"> Gregorian calendar </div>
           </Stack>
           <div
-            className="text-[0.75rem] text-[rgb(35,131,226)] hover:bg-[rgba(35,131,226,0.07)] cursor-pointer p-1 rounded-[4px] transition-colors select-none"
+            className="text-[0.625rem] text-[rgb(35,131,226)] hover:bg-[rgba(35,131,226,0.07)] cursor-pointer p-1 rounded-[4px] transition-colors select-none"
             onClick={() => setEnableLunarCalendar(!enableLunarCalendar)}
           >
             {enableLunarCalendar ? 'Hide lunar' : 'Show lunar'}
@@ -122,8 +118,8 @@ const QuickViewByDate = () => {
       </Stack>
 
       {enableLunarCalendar && (
-        <Stack alignItems="center" mt={1.5} mb={0.5}>
-          <ArrowsUpDownIcon width={16} height={16} />
+        <Stack alignItems="center" mt={1.3} mb={0.3}>
+          <ArrowsUpDownIcon width={14} height={14} color="#888" />
         </Stack>
       )}
 
@@ -131,11 +127,19 @@ const QuickViewByDate = () => {
         <Stack spacing={1}>
           <Stack direction="row" alignItems="center" spacing={1}>
             <MoonIcon width={18} height={18} />
-            <CustomTypography> Lunar calendar </CustomTypography>
+            <div className="text-[0.75rem] font-medium"> Lunar calendar </div>
           </Stack>
           <TimeSelector dates={dates} months={months} years={years} />
         </Stack>
       )}
+
+      <button
+        className="
+          block w-full ml-auto text-xs bg-[#2383e2] hover:bg-[#3a83cc] text-white font-medium py-2 px-2 
+          rounded transition-colors mt-4"
+      >
+        Go to date
+      </button>
     </Box>
   );
 };
