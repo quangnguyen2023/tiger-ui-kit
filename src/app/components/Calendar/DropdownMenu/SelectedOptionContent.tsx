@@ -19,7 +19,7 @@ const getComponentByOptionId = (optionId: string) => {
 
 const SelectedOptionContent = ({ selectedOption, onBack }: SelectedOptionContentProps) => {
   return (
-    <div className="p-2">
+    <div className="px-2 py-1">
       <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 2.5 }}>
         <ArrowLeftIcon
           width={20}
