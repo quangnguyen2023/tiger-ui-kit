@@ -3,7 +3,7 @@ import { MenuOption } from './DropdownMenu';
 import { CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { XMarkIcon } from '@heroicons/react/16/solid';
 import { useContext } from 'react';
-import { PopoverWrapperContext } from '../../PopoverWrapper/PopoverWrapper';
+import { PopoverWrapperContext } from '../../../base/PopoverWrapper/PopoverWrapper';
 
 type MainMenuProps = {
   menuOptions: MenuOption[];

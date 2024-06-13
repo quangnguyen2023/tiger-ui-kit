@@ -1,14 +1,14 @@
-import ClearSkyNightIcon from '../Icons/ClearSkyNightIcon';
-import CloudyDayIcon from '../Icons/CloudyDayIcon';
-import CloudyNightIcon from '../Icons/CloudyNightIcon';
-import MistIcon from '../Icons/MistIcon';
-import OvercastIcon from '../Icons/OvercastIcon';
-import PartlyCloudyDayIcon from '../Icons/PartlyCloudyDayIcon';
-import PartlyCloudyNightIcon from '../Icons/PartlyCloudyNightIcon';
-import RainyIcon from '../Icons/RainyIcon';
-import SnowIcon from '../Icons/SnowIcon';
-import SunnyIcon from '../Icons/SunnyIcon';
-import ThunderStormIcon from '../Icons/ThunderStormIcon';
+import ClearSkyNightIcon from '../../icons/ClearSkyNightIcon';
+import CloudyDayIcon from '../../icons/CloudyDayIcon';
+import CloudyNightIcon from '../../icons/CloudyNightIcon';
+import MistIcon from '../../icons/MistIcon';
+import OvercastIcon from '../../icons/OvercastIcon';
+import PartlyCloudyDayIcon from '../../icons/PartlyCloudyDayIcon';
+import PartlyCloudyNightIcon from '../../icons/PartlyCloudyNightIcon';
+import RainyIcon from '../../icons/RainyIcon';
+import SnowIcon from '../../icons/SnowIcon';
+import SunnyIcon from '../../icons/SunnyIcon';
+import ThunderStormIcon from '../../icons/ThunderStormIcon';
 
 export type WeatherStatus =
   | 'Sunny'

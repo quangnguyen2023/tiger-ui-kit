@@ -4,7 +4,7 @@ import QuickViewByDate from './QuickViewByDate';
 import { MenuOption } from './DropdownMenu';
 import { XMarkIcon } from '@heroicons/react/16/solid';
 import { useContext } from 'react';
-import { PopoverWrapperContext } from '../../PopoverWrapper/PopoverWrapper';
+import { PopoverWrapperContext } from '../../../base/PopoverWrapper/PopoverWrapper';
 
 type SelectedOptionContentProps = {
   selectedOption: MenuOption;
