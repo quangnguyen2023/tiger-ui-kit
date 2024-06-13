@@ -2,8 +2,8 @@ import { Box, Popper, Stack, TextField, styled } from '@mui/material';
 import { useContext, useState } from 'react';
 import { CalendarContext } from '../Calendar';
 import { ArrowsUpDownIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
-import { PopoverWrapperContext } from '../../PopoverWrapper/PopoverWrapper';
-import BaseAutocomplete from '../../base-components/Autocomplete';
+import { PopoverWrapperContext } from '../../../base/PopoverWrapper/PopoverWrapper';
+import BaseAutocomplete from '../../../base/Autocomplete';
 
 type TimeSelectorProps = {
   dates: number[];

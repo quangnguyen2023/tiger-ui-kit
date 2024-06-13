@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import PopoverWrapper from '../../PopoverWrapper';
+import PopoverWrapper from '../../../base/PopoverWrapper';
 import MainMenu from './MainMenu';
 import SelectedOptionContent from './SelectedOptionContent';
 

@@ -1,4 +1,4 @@
-import { WeatherStatus } from '@/app/components/WeatherForecast/Weather';
+import { WeatherStatus } from '@/app/ui/WeatherForecast/Weather';
 
 // Icon mapping for icon code from OpenWeatherMap
 export const iconMappingToWeatherStatus: (icon: string) => WeatherStatus = (iconCode: string) => {
