@@ -1,29 +1,15 @@
-import { Autocomplete, Box, Popper, Stack, TextField, styled } from '@mui/material';
+import { Box, Popper, Stack, TextField, styled } from '@mui/material';
 import { useContext, useState } from 'react';
 import { CalendarContext } from '../Calendar';
-import { format } from 'date-fns';
-import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import { ArrowsUpDownIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { PopoverWrapperContext } from '../../PopoverWrapper/PopoverWrapper';
+import BaseAutocomplete from '../../base-components/Autocomplete';
 
 type TimeSelectorProps = {
   dates: number[];
   months: number[];
   years: number[];
 };
-
-const CustomTextField = styled(TextField)({
-  '& .MuiInputBase-root': {
-    padding: '2px !important',
-    fontSize: '0.75rem',
-  },
-});
-
-const StyledPopper = styled(Popper)({
-  '& .MuiAutocomplete-listbox': {
-    fontSize: '0.75rem',
-  },
-});
 
 const QuickViewByDate = () => {
   const { onClosePopover } = useContext(PopoverWrapperContext);
@@ -54,55 +40,26 @@ const QuickViewByDate = () => {
   const TimeSelector = ({ dates, months, years }: TimeSelectorProps) => {
     return (
       <Stack direction="row" spacing={1}>
-        <Autocomplete
-          disablePortal
-          disableClearable
-          blurOnSelect
-          size="small"
+        <BaseAutocomplete
           options={dates}
-          sx={{ width: 70 }}
-          renderInput={(params) => <CustomTextField {...params} placeholder="Date" />}
-          getOptionLabel={(option) => `${option}`}
-          popupIcon={<ChevronDownIcon width={20} height={20} color="#bfbebc" />}
-          PopperComponent={(props) => <StyledPopper {...props} />}
           value={tempSelectedTime.day}
-          onChange={(_, newValue) => {
-            setTempSelectedTime({ ...tempSelectedTime, day: (newValue as number) || 0 });
-          }}
+          onChangeVal={(newValue) =>
+            setTempSelectedTime({ ...tempSelectedTime, day: (newValue as number) || 0 })
+          }
         />
-
-        <Autocomplete
-          disablePortal
-          disableClearable
-          blurOnSelect
-          size="small"
+        <BaseAutocomplete
           options={months}
-          sx={{ width: 110 }}
-          renderInput={(params) => <CustomTextField {...params} placeholder="Month" />}
-          getOptionLabel={(option) => format(new Date(selectedTime.year, option), 'MMMM')}
-          popupIcon={<ChevronDownIcon width={20} height={20} color="#bfbebc" />}
-          PopperComponent={(props) => <StyledPopper {...props} />}
           value={tempSelectedTime.month}
-          onChange={(_, newValue) => {
-            setTempSelectedTime({ ...tempSelectedTime, month: (newValue as number) || 0 });
-          }}
+          onChangeVal={(newValue) =>
+            setTempSelectedTime({ ...tempSelectedTime, month: (newValue as number) || 0 })
+          }
         />
-
-        <Autocomplete
-          disablePortal
-          disableClearable
-          blurOnSelect
-          size="small"
+        <BaseAutocomplete
           options={years}
-          sx={{ width: 80 }}
-          renderInput={(params) => <CustomTextField {...params} placeholder="Year" />}
-          getOptionLabel={(option) => option.toString()}
-          popupIcon={<ChevronDownIcon width={20} height={20} color="#bfbebc" />}
-          PopperComponent={(props) => <StyledPopper {...props} />}
           value={tempSelectedTime.year}
-          onChange={(_, newValue) => {
-            setTempSelectedTime({ ...tempSelectedTime, year: (newValue as number) || 0 });
-          }}
+          onChangeVal={(newValue) =>
+            setTempSelectedTime({ ...tempSelectedTime, year: (newValue as number) || 0 })
+          }
         />
       </Stack>
     );
