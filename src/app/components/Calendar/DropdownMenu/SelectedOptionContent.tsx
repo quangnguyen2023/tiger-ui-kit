@@ -40,7 +40,7 @@ const SelectedOptionContent = ({ selectedOption, onBack }: SelectedOptionContent
           width={18}
           height={18}
           color="#777"
-          className="cursor-pointer bg-[#EFEFEE] hover:bg-gray-300 transition-colors rounded-full"
+          className="cursor-pointer bg-[#EFEFEE] hover:bg-gray-30 dark:bg-zinc-400 dark:hover:bg-zinc-300 transition-colors rounded-full"
           onClick={onClosePopover}
         />
       </Stack>

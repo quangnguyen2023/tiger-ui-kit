@@ -7,15 +7,15 @@ type DaysOfMonthProps = {
 
 export default function DaysOfMonth({ daysOfMonth, enableLunarCalendar }: DaysOfMonthProps) {
   return (
-    <div className="grid grid-cols-7 mt-2 gap-1.5 gap-y-2">
+    <div className="grid grid-cols-7 mt-2 gap-1 gap-y-2">
       {daysOfMonth.map((day, index) => (
         <div
           key={index}
           className={`
             relative border-[1.5px] border-transparent
-            ${day?.isCurrentDay ? 'bg-[#f64338] rounded-full' : ''} 
-            ${!day?.isCurrentDay && day?.isWeekendDay ? 'text-[#a8a8a8]' : ''} 
-            ${day?.isNotCurrentMonthDay ? 'text-[#5d5d5d]' : ''} 
+            ${day?.isCurrentDay ? 'bg-[#f64338] text-white rounded-full' : ''} 
+            ${!day?.isCurrentDay && day?.isWeekendDay ? 'text-[#949494] dark:text-[#a8a8a8]' : ''}  
+            ${day?.isNotCurrentMonthDay ? 'text-[#dbdbdb] dark:text-[#5d5d5d]' : ''} 
             ${day?.isSelectedDay ? '!border-[#f64338]' : ''}
             ${enableLunarCalendar ? 'p-5 rounded-md' : 'p-3.5'} 
           `}
