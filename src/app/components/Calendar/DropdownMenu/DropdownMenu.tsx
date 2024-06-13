@@ -12,7 +12,7 @@ export type MenuOption = {
 const menuOptions: MenuOption[] = [{ id: 'quick_view', label: 'Go to date' }];
 
 const MoreActionButton = () => (
-  <div className="flex justify-center p-1 opacity-60 transition-opacity hover:opacity-100 hover:bg-[#555] rounded-full cursor-pointer">
+  <div className="flex justify-center p-1 opacity-60 transition-opacity hover:opacity-100 hover:bg-[#eee] dark:hover:bg-[#555] rounded-full cursor-pointer">
     <EllipsisVerticalIcon width={20} height={20} />
   </div>
 );

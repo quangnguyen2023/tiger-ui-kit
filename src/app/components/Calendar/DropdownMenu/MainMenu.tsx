@@ -25,7 +25,7 @@ export default function MainMenu({ menuOptions, onClick }: MainMenuProps) {
           width={18}
           height={18}
           color="#777"
-          className="cursor-pointer bg-[#EFEFEE] -mr-1 hover:bg-gray-300 transition-colors rounded-full"
+          className="cursor-pointer -mr-1 bg-[#EFEFEE] hover:bg-gray-300 dark:bg-zinc-400 dark:hover:bg-zinc-300 transition-colors rounded-full"
           onClick={onClosePopover}
         />
       </div>
@@ -33,10 +33,10 @@ export default function MainMenu({ menuOptions, onClick }: MainMenuProps) {
       {menuOptions.map((option, index) => (
         <div
           key={index}
-          className="flex items-center py-2 px-3 transition-colors hover:bg-slate-100 rounded-[4px] cursor-pointer"
+          className="flex items-center py-2 px-3 transition-colors hover:bg-slate-100 dark:hover:bg-zinc-600 rounded-[4px] cursor-pointer"
           onClick={() => handleClick(option)}
         >
-          <div className="mr-2">
+          <div className="mr-3">
             <CalendarDaysIcon width={20} height={20} />
           </div>
           <Typography sx={{ fontSize: '0.875rem' }}> {option.label} </Typography>

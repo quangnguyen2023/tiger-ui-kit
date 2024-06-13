@@ -54,7 +54,7 @@ export default function PopoverWrapper({
             },
           }}
         >
-          {children}
+          <div className="dark:bg-[#404040] dark:text-white">{children}</div>
         </Popover>
       </PopoverWrapperContext.Provider>
     </>
