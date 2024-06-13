@@ -7,7 +7,7 @@ type DaysOfMonthProps = {
 
 export default function DaysOfMonth({ daysOfMonth, enableLunarCalendar }: DaysOfMonthProps) {
   return (
-    <div className="grid grid-cols-7 mt-2 gap-1.5 gap-y-2">
+    <div className="grid grid-cols-7 mt-2 gap-1 gap-y-2">
       {daysOfMonth.map((day, index) => (
         <div
           key={index}
