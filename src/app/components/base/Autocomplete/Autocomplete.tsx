@@ -4,6 +4,7 @@ import { Autocomplete, AutocompleteProps, Popper, TextField, styled } from '@mui
 interface BaseAutocompleteProps<Value>
   extends Omit<AutocompleteProps<any, boolean, boolean, boolean>, 'onChange' | 'renderInput'> {
   options: any[];
+  hint?: string;
   value: any;
   onChangeVal: (newValue: any) => void;
 }
@@ -23,6 +24,7 @@ const StyledPopper = styled(Popper)({
 
 const BaseAutocomplete = <Value,>({
   options,
+  hint = '',
   value,
   onChangeVal,
   ...props
@@ -33,7 +35,7 @@ const BaseAutocomplete = <Value,>({
     size="small"
     options={options}
     sx={{ width: 70 }}
-    renderInput={(params) => <CustomTextField {...params} placeholder="Date" />}
+    renderInput={(params) => <CustomTextField {...params} placeholder={hint} />}
     getOptionLabel={(option) => `${option}`}
     popupIcon={<ChevronDownIcon width={20} height={20} color="#bfbebc" />}
     PopperComponent={(props) => <StyledPopper {...props} />}
