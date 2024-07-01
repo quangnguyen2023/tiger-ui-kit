@@ -5,13 +5,13 @@ import { Poppins } from 'next/font/google';
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700'] });
 
 type DigitalWatchProps = {
-  color?: string;
-  backgroundColor?: string;
+  colorClass?: string;
+  backgroundColorClass?: string;
 };
 
 export default function DigitalWatch({
-  color = 'text-black-200',
-  backgroundColor = 'bg-[#FEF3C7]',
+  colorClass = 'text-black-200',
+  backgroundColorClass = 'bg-[#FEF3C7]',
 }: DigitalWatchProps) {
   const [time, setTime] = useState<Record<string, any>>({
     hours: '00',
@@ -50,22 +50,22 @@ export default function DigitalWatch({
       `}
     >
       <div
-        className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md ${backgroundColor}`}
+        className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md ${backgroundColorClass}`}
       >
-        <span className={`text-[10rem] ${color}`}> {time.hours} </span>
+        <span className={`text-[10rem] ${colorClass}`}> {time.hours} </span>
         <span
-          className={`absolute bottom-3 left-4 font-semibold tracking-wide uppercase text-xl ${color}`}
+          className={`absolute bottom-3 left-4 font-semibold tracking-wide uppercase text-xl ${colorClass}`}
         >
           {time.period}
         </span>
       </div>
 
       <div
-        className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md min-h-[18rem] ${backgroundColor}`}
+        className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md min-h-[18rem] ${backgroundColorClass}`}
       >
-        <span className={`text-[10rem] ${color}`}> {time.minutes} </span>
+        <span className={`text-[10rem] ${colorClass}`}> {time.minutes} </span>
         <span
-          className={`absolute bottom-3 right-4 font-semibold tracking-wide uppercase text-xl ${color}`}
+          className={`absolute bottom-3 right-4 font-semibold tracking-wide uppercase text-xl ${colorClass}`}
         >
           {time.dayOfWeek}
         </span>
