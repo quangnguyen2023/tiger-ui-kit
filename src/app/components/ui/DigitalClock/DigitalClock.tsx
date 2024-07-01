@@ -7,13 +7,11 @@ const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700'] });
 type DigitalWatchProps = {
   color?: string;
   backgroundColor?: string;
-  classes?: string;
 };
 
 export default function DigitalWatch({
   color = 'text-black-200',
   backgroundColor = 'bg-[#FEF3C7]',
-  classes,
 }: DigitalWatchProps) {
   const [time, setTime] = useState<Record<string, any>>({
     hours: '00',
@@ -46,7 +44,7 @@ export default function DigitalWatch({
   return (
     <div
       className={`
-        ${classes} ${poppins.className} flex items-stretch gap-2 rounded-lg w-fit min-w-[32rem] text-center relative
+        ${poppins.className} flex items-stretch gap-2 rounded-lg w-fit min-w-[32rem] text-center relative
       before:bg-white before:absolute before:top-1/2 before:-translate-y-1/2 before:h-0.5 before:w-full
         before:z-50
       `}
