@@ -51,6 +51,7 @@ export default function DigitalWatch({
     >
       <div
         className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md ${backgroundColorClass}`}
+        data-testid="time-element"
       >
         <span className={`text-[10rem] ${colorClass}`}> {time.hours} </span>
         <span
@@ -62,6 +63,7 @@ export default function DigitalWatch({
 
       <div
         className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md min-h-[18rem] ${backgroundColorClass}`}
+        data-testid="time-element"
       >
         <span className={`text-[10rem] ${colorClass}`}> {time.minutes} </span>
         <span
