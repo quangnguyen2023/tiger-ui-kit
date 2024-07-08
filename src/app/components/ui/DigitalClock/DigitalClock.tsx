@@ -5,13 +5,13 @@ import { Poppins } from 'next/font/google';
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700'] });
 
 type DigitalWatchProps = {
-  colorClass?: string;
-  backgroundColorClass?: string;
+  textColor?: string;
+  backgroundColor?: string;
 };
 
 export default function DigitalWatch({
-  colorClass = 'text-black-200',
-  backgroundColorClass = 'bg-[#FEF3C7]',
+  textColor = '#333',
+  backgroundColor = '#FEF3C7',
 }: DigitalWatchProps) {
   const [time, setTime] = useState<Record<string, any>>({
     hours: '00',
@@ -50,24 +50,28 @@ export default function DigitalWatch({
       `}
     >
       <div
-        className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md ${backgroundColorClass}`}
+        className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md`}
+        style={{ backgroundColor }}
         data-testid="time-element"
       >
-        <span className={`text-[10rem] ${colorClass}`}> {time.hours} </span>
+        <span className={`text-[10rem]`} style={{ color: textColor }}> {time.hours} </span>
         <span
-          className={`absolute bottom-3 left-4 font-semibold tracking-wide uppercase text-xl ${colorClass}`}
+          className={`absolute bottom-3 left-4 font-semibold tracking-wide uppercase text-xl`}
+          style={{ color: textColor }}
         >
           {time.period}
         </span>
       </div>
 
       <div
-        className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md min-h-[18rem] ${backgroundColorClass}`}
+        className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md min-h-[18rem]`}
+        style={{ backgroundColor }}
         data-testid="time-element"
       >
-        <span className={`text-[10rem] ${colorClass}`}> {time.minutes} </span>
+        <span className={`text-[10rem]`} style={{ color: textColor }}> {time.minutes} </span>
         <span
-          className={`absolute bottom-3 right-4 font-semibold tracking-wide uppercase text-xl ${colorClass}`}
+          className={`absolute bottom-3 right-4 font-semibold tracking-wide uppercase text-xl`}
+          style={{ color: textColor }}
         >
           {time.dayOfWeek}
         </span>
