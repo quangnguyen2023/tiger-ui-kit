@@ -1,7 +1,6 @@
 'use client';
 
-import AnalogClock from './components/AnalogClock';
-import DigitalClock from './components/DigitalClock';
+import DigitalClock from './components/ui/DigitalClock';
 
 export default function Home() {
   return (
