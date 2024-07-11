@@ -4,7 +4,7 @@ import PopoverWrapper from '../../base/PopoverWrapper';
 
 type ColorPickerProps = {
   horizontal?: 'left' | 'right';
-}
+};
 
 export default function ColorPicker({ horizontal = 'left' }: ColorPickerProps) {
   const [color, setColor] = useState<RGBColor>({ r: 0, g: 0, b: 0, a: 1 });
@@ -15,10 +15,15 @@ export default function ColorPicker({ horizontal = 'left' }: ColorPickerProps) {
 
   const triggerButton = useMemo(() => {
     return (
-      <button
-        className="w-10 h-10 rounded-full  shadow"
-        style={{ background: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})` }}
-      />
+      <div className="flex items-center gap-2 bg-[#fdfdfd] w-fit px-3 py-1.5 rounded-md shadow cursor-pointer">
+        <span
+          className="w-8 h-8 rounded-md"
+          style={{ background: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})` }}
+        />
+        <span className='font-semibold text-sm tracking-wider text-[#555] uppercase'>
+          { `#${color.r.toString(16)}${color.g.toString(16)}${color.b.toString(16)}` }
+        </span> 
+      </div>
     );
   }, [color]);
 
