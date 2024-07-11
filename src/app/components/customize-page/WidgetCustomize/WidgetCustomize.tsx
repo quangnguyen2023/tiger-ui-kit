@@ -1,4 +1,4 @@
-import ColorPicker from './ColorPicker';
+import ColorPicker from '@/app/components/ui/ColorPicker';
 
 export enum CustomizeItemType {
   'COLOR',
