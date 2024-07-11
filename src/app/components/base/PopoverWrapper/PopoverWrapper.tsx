@@ -5,6 +5,8 @@ type PopoverWrapperProps = {
   triggerComponent: React.ReactNode;
   children: React.ReactNode;
   onClose?: () => void;
+  anchorHorizontal?: 'left' | 'right';
+  transformHorizontal?: 'left' | 'right';
 };
 
 export const PopoverWrapperContext = createContext({
@@ -15,6 +17,8 @@ export default function PopoverWrapper({
   triggerComponent,
   children,
   onClose,
+  anchorHorizontal = 'right',
+  transformHorizontal = 'right',
 }: PopoverWrapperProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -37,8 +41,8 @@ export default function PopoverWrapper({
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: anchorHorizontal }}
+          transformOrigin={{ vertical: 'top', horizontal: transformHorizontal }}
           PaperProps={{
             elevation: 0,
             sx: {
