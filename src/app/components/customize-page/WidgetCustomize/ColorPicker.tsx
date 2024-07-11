@@ -14,15 +14,18 @@ export default function ColorPicker({ horizontal = 'left' }: ColorPickerProps) {
   };
 
   const triggerButton = useMemo(() => {
+    const { r, g, b, a } = color;
+    const bgColor = `rgba(${r}, ${g}, ${b}, ${a})`;
+    const hexColor = `
+      #${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}
+    `;
+
     return (
       <div className="flex items-center gap-2 bg-[#fdfdfd] w-fit px-3 py-1.5 rounded-md shadow cursor-pointer">
-        <span
-          className="w-8 h-8 rounded-md"
-          style={{ background: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})` }}
-        />
-        <span className='font-semibold text-sm tracking-wider text-[#555] uppercase'>
-          { `#${color.r.toString(16)}${color.g.toString(16)}${color.b.toString(16)}` }
-        </span> 
+        <span className="w-8 h-8 rounded-md shadow" style={{ background: bgColor }} />
+        <span className="font-semibold text-sm tracking-wider text-[#555] uppercase">
+          {hexColor}
+        </span>
       </div>
     );
   }, [color]);
