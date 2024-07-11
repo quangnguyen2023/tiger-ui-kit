@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import AnalogClock from './AnalogClock';
 
 const meta = {
-  title: 'UI/AnalogClock',
+  title: 'Widget/AnalogClock',
   component: AnalogClock,
   tags: ['autodocs'],
 } satisfies Meta<typeof AnalogClock>;
