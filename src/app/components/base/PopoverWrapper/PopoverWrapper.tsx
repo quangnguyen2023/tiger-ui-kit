@@ -34,7 +34,7 @@ export default function PopoverWrapper({
 
   return (
     <>
-      <div onClick={handleClick}>{triggerComponent}</div>
+      <div className='w-fit' onClick={handleClick}>{triggerComponent}</div>
 
       <PopoverWrapperContext.Provider value={{ onClosePopover: handleClose }}>
         <Popover
