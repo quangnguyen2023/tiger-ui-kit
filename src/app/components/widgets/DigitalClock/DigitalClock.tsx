@@ -4,15 +4,15 @@ import { Poppins } from 'next/font/google';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700'] });
 
-type DigitalWatchProps = {
+type DigitalClockProps = {
   textColor?: string;
   backgroundColor?: string;
 };
 
-export default function DigitalWatch({
+export default function DigitalClock({
   textColor = '#333',
   backgroundColor = '#FEF3C7',
-}: DigitalWatchProps) {
+}: DigitalClockProps) {
   const [time, setTime] = useState<Record<string, any>>({
     hours: '00',
     minutes: '00',
