@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import DigitalClock from '.';
 
 const meta = {
-  title: 'UI/DigitalClock',
+  title: 'Widget/DigitalClock',
   component: DigitalClock,
   tags: ['autodocs'],
 } satisfies Meta<typeof DigitalClock>;
@@ -14,7 +14,7 @@ export const Default: Story = {};
 
 export const CustomColor: Story = {
   args: {
-    color: 'text-blue-500',
+    textColor: 'text-blue-500',
     backgroundColor: 'bg-slate-100',
   },
 };
