@@ -5,7 +5,7 @@ import {
   CustomizeItemType,
 } from '@/app/components/customize-page/WidgetCustomize/WidgetCustomize';
 import WidgetPreview from '@/app/components/customize-page/WidgetPreview';
-import DigitalClock from '@/app/components/ui/DigitalClock';
+import DigitalClock from '@/app/components/widgets/DigitalClock';
 import { ReactNode, useEffect, useState } from 'react';
 
 enum WidgetType {
@@ -33,6 +33,23 @@ const getWidgetData: (widgetType: WidgetType) => Widget = (widgetType) => {
             title: 'Text Color',
             type: CustomizeItemType.COLOR,
           },
+          {
+            title: 'Size',
+            type: CustomizeItemType.SWITCHER,
+            options: [
+              { label: 'Small', value: 1 },
+              { label: 'Medium', value: 2 },
+              { label: 'Large', value: 3 },
+            ],
+          },
+          {
+            title: 'Duration',
+            type: CustomizeItemType.NUMBER,
+          },
+          {
+            title: 'Title',
+            type: CustomizeItemType.INPUT,
+          },
         ],
       };
     default:
@@ -54,7 +71,7 @@ export default function ComponentConfiguration() {
   }, [widgetType]);
 
   return (
-    <div className="grid h-dvh grid-cols-3 xl:grid-cols-4">
+    <div className="grid h-dvh grid-cols-3 xl:grid-cols-4 overflow-hidden">
       <main className="col-span-2 p-5 xl:col-span-3">
         <WidgetPreview
           widgetName={selectedWidget.name}
@@ -62,7 +79,7 @@ export default function ComponentConfiguration() {
         />
       </main>
 
-      <aside className="bg-[#F5F7F8] p-5">
+      <aside className="bg-[#F5F7F8] p-5 overflow-auto">
         <WidgetCustomize customizeItems={selectedWidget.customizeItems} />
       </aside>
     </div>
