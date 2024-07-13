@@ -6,7 +6,7 @@ type SwitcherOption = {
 };
 
 type SwitcherProps = {
-  value: boolean | string | number;
+  value?: boolean | string | number;
   options: SwitcherOption[];
   onSwitch: (newValue: any) => void;
 };
