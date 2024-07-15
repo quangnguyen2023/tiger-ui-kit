@@ -1,24 +1,16 @@
 'use client';
+import { useEffect, useState } from 'react';
 import WidgetCustomize from '@/app/components/customize-page/WidgetCustomize';
 import {
   CustomizeItem,
   CustomizeItemType,
 } from '@/app/components/customize-page/WidgetCustomize/WidgetCustomize';
 import WidgetPreview from '@/app/components/customize-page/WidgetPreview';
-import DigitalClock from '@/app/components/widgets/DigitalClock';
-import { ReactNode, useEffect, useState } from 'react';
-
-enum WidgetType {
-  Analog_Clock,
-  Digital_Clock,
-  World_Clock,
-  Calendar,
-  Weather_Forecast,
-}
+import { WidgetType } from '@/app/types';
 
 type Widget = {
   name: string;
-  component: ReactNode;
+  type: WidgetType | null;
   customizeItems: CustomizeItem[];
 };
 
@@ -27,7 +19,7 @@ const getWidgetData: (widgetType: WidgetType) => Widget = (widgetType) => {
     case WidgetType.Digital_Clock:
       return {
         name: 'Digital Clock',
-        component: <DigitalClock />,
+        type: WidgetType.Digital_Clock,
         customizeItems: [
           {
             title: 'Text Color',
@@ -53,7 +45,7 @@ const getWidgetData: (widgetType: WidgetType) => Widget = (widgetType) => {
         ],
       };
     default:
-      return { name: '', component: <></>, customizeItems: [] };
+      return { name: '', type: null, customizeItems: [] };
   }
 };
 
@@ -61,7 +53,7 @@ export default function ComponentConfiguration() {
   const [widgetType, setWidgetType] = useState<WidgetType>(WidgetType.Digital_Clock);
   const [selectedWidget, setSelectedWidget] = useState<Widget>({
     name: '',
-    component: <></>,
+    type: null,
     customizeItems: [],
   });
 
@@ -73,10 +65,7 @@ export default function ComponentConfiguration() {
   return (
     <div className="grid h-dvh grid-cols-3 xl:grid-cols-4 overflow-hidden">
       <main className="col-span-2 p-5 xl:col-span-3">
-        <WidgetPreview
-          widgetName={selectedWidget.name}
-          widgetComponent={selectedWidget.component}
-        />
+        <WidgetPreview widgetName={selectedWidget.name} widgetType={selectedWidget.type} />
       </main>
 
       <aside className="bg-[#F5F7F8] p-5 overflow-auto">
