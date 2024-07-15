@@ -7,11 +7,13 @@ const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700'] });
 type DigitalClockProps = {
   textColor?: string;
   backgroundColor?: string;
+  scaleValue?: number;
 };
 
 export default function DigitalClock({
   textColor = '#333',
   backgroundColor = '#FEF3C7',
+  scaleValue = 1,
 }: DigitalClockProps) {
   const [time, setTime] = useState<Record<string, any>>({
     hours: '00',
@@ -48,6 +50,7 @@ export default function DigitalClock({
       before:bg-white before:absolute before:top-1/2 before:-translate-y-1/2 before:h-0.5 before:w-full
         before:z-50
       `}
+      style={{ transform: `scale(${scaleValue})` }}
     >
       <div
         className={`grow basis-0 flex justify-center items-center rounded-lg px-5 relative shadow-md`}

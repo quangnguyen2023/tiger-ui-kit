@@ -1,15 +1,55 @@
-import { ReactNode } from 'react';
+import { WidgetType } from '@/app/types';
+import { useEffect, useMemo, useState } from 'react';
+import { ResizableBox } from 'react-resizable';
+import DigitalClock from '../../widgets/DigitalClock';
 
 type WidgetPreviewProps = {
   widgetName: string;
-  widgetComponent: ReactNode;
+  widgetType: WidgetType | null;
 };
 
-export default function WidgetPreview({ widgetName, widgetComponent }: WidgetPreviewProps) {
+function getWidgetComponent(widgetType: WidgetType | null, scaleValue: number) {
+  switch (widgetType) {
+    case WidgetType.Digital_Clock:
+      return <DigitalClock scaleValue={scaleValue} />;
+    default:
+      return <></>;
+  }
+}
+
+export default function WidgetPreview({ widgetName, widgetType }: WidgetPreviewProps) {
+  const initialSize = { w: 600, h: 300 };
+  const [size, setSize] = useState(initialSize);
+  const [widget, setWidget] = useState(<></>);
+
+  const scaleX = useMemo(() => size.w / initialSize.w, [size.w, initialSize.w]);
+  const scaleY = useMemo(() => size.h / initialSize.h, [size.h, initialSize.h]);
+  const scaleValue = useMemo(() => Math.min(scaleX, scaleY), [scaleX, scaleY]);
+
+  function handleResize({ width, height }: { width: number; height: number }) {
+    setSize({ w: width, h: height });
+  }
+
+  useEffect(() => {
+    setWidget(getWidgetComponent(widgetType, scaleValue));
+  }, [widgetType, scaleValue]);
+
   return (
     <>
       <div className="text-xl font-semibold"> {widgetName} </div>
-      <div className="flex h-5/6 items-center justify-center"> {widgetComponent} </div>
+      <div className="flex h-5/6 items-center justify-center">
+        <ResizableBox
+          width={initialSize.w}
+          height={initialSize.h}
+          minConstraints={[200, 200]}
+          maxConstraints={[800, 450]}
+          onResize={(e, { node, size }) => handleResize(size)}
+        >
+          <div className="w-full h-full rounded-md flex justify-center items-center border-2 border-dotted">
+            {widget}
+          </div>
+        </ResizableBox>
+      </div>
     </>
   );
 }
