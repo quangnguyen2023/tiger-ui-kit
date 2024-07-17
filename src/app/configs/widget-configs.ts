@@ -8,11 +8,13 @@ export const DIGITAL_CLOCK_CONFIG: WidgetConfig = {
       title: 'Text Color',
       fieldName: 'textColor',
       type: CustomizeItemType.COLOR,
+      defaultValue: '#7BDCB5',
     },
     {
       title: 'Background Color',
       fieldName: 'bgColor',
       type: CustomizeItemType.COLOR,
+      defaultValue: '#333'
     },
   ],
 }
