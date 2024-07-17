@@ -65,17 +65,17 @@ export default function WidgetPreview({
     <>
       <div className="text-xl font-semibold"> {widgetName} </div>
       <div className="flex h-5/6 items-center justify-center">
-        <ResizableBox
+        {/* <ResizableBox
           width={initialSize.w}
           height={initialSize.h}
           minConstraints={[200, 200]}
           maxConstraints={[800, 450]}
           onResize={(e, { node, size }) => handleResize(size)}
         >
-          <div className="w-full h-full rounded-md flex justify-center items-center border-2 border-dotted">
+          <div className="w-full h-full rounded-md flex justify-center items-center border-2 border-dotted"> */}
             {widget}
-          </div>
-        </ResizableBox>
+          {/* </div>
+        </ResizableBox> */}
       </div>
     </>
   );

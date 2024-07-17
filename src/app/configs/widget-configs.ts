@@ -25,13 +25,13 @@ export const ANALOG_CLOCK_CONFIG: WidgetConfig = {
       title: 'Text Color',
       fieldName: 'textColor',
       type: CustomizeItemType.COLOR,
-      defaultValue: '#00f',
+      defaultValue: '#7BDCB5',
     },
     {
       title: 'Background Color',
       fieldName: 'bgColor',
       type: CustomizeItemType.COLOR,
-      defaultValue: '#eee'
+      defaultValue: '#333'
     },
     {
       title: 'Enable indicators',

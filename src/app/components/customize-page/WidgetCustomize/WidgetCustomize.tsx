@@ -35,6 +35,7 @@ export default function WidgetCustomize({ customizeItems, handleChange }: Widget
       case CustomizeItemType.SWITCHER:
         return (
           <Switcher
+            value={item.defaultValue}
             options={item?.options || []}
             onSwitch={(value) => handleChange({ [item.fieldName]: value })}
           />

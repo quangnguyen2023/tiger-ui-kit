@@ -12,7 +12,7 @@ type SwitcherProps = {
 };
 
 export default function Switcher({ value, options = [], onSwitch }: SwitcherProps) {
-  const [selectedOptionVal, setSelectedOptionVal] = useState(options[0].value);
+  const [selectedOptionVal, setSelectedOptionVal] = useState<any>(options[1].value);
 
   const handleSwitch = (newOption: SwitcherOption) => {
     setSelectedOptionVal(newOption.value);
@@ -20,13 +20,8 @@ export default function Switcher({ value, options = [], onSwitch }: SwitcherProp
   };
 
   useEffect(() => {
-    console.log("value Switcher: ", value, selectedOptionVal)
-    value && setSelectedOptionVal(value);
+    setSelectedOptionVal(value);
   }, [value]);
-
-  useEffect(() => {
-    console.log("selectedOptionVal changed: ", selectedOptionVal)
-  }, [selectedOptionVal]);
 
   return (
     <div className="flex items-center justify-between p-1 w-fit rounded-full shadow bg-[#fdfdfd]">
