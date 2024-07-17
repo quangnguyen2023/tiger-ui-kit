@@ -1,15 +1,10 @@
 import ColorPicker from '@/app/components/ui/ColorPicker';
 import Switcher from '@/app/components/ui/Switcher';
 import Input from '../../ui/Input';
-
-export enum CustomizeItemType {
-  'COLOR',
-  'SWITCHER',
-  'INPUT',
-  'NUMBER',
-}
+import { CustomizeItemType, CustomizeProps } from '@/app/types';
 
 export type CustomizeItem = {
+  fieldName: string;
   title: string;
   type: CustomizeItemType;
   options?: {
@@ -21,25 +16,20 @@ export type CustomizeItem = {
 
 type WidgetCustomizeProps = {
   customizeItems: CustomizeItem[];
+  onChange: (newProps: CustomizeProps) => void;
 };
 
-export default function WidgetCustomize({ customizeItems }: WidgetCustomizeProps) {
+export default function WidgetCustomize({ customizeItems, onChange }: WidgetCustomizeProps) {
   const getCustomizeItem = (item: CustomizeItem) => {
     switch (item.type) {
       case CustomizeItemType.COLOR:
-        return <ColorPicker />;
-      case CustomizeItemType.SWITCHER:
         return (
-          <Switcher
-            value={1}
-            options={item?.options || []}
-            onSwitch={(value) => console.log(value)}
+          <ColorPicker
+            onChangeColor={(color) => {
+              onChange({ [item.fieldName]: color });
+            }}
           />
         );
-      case CustomizeItemType.INPUT:
-        return <Input />;
-      case CustomizeItemType.NUMBER:
-        return <Input type="number" />;
       default:
         return null;
     }
