@@ -43,6 +43,7 @@ export default function WidgetCustomize({ customizeItems, handleChange }: Widget
       case CustomizeItemType.INPUT:
         return (
           <Input
+            value={item.defaultValue}
             onChange={(value) => {
               handleChange({ [item.fieldName]: value });
             }}
@@ -52,6 +53,7 @@ export default function WidgetCustomize({ customizeItems, handleChange }: Widget
         return (
           <Input
             type="number"
+            value={item.defaultValue}
             onChange={(value) => {
               handleChange({ [item.fieldName]: value });
             }}

@@ -58,7 +58,7 @@ export const ANALOG_CLOCK_CONFIG: WidgetConfig = {
       title: 'Title',
       fieldName: 'title',
       type: CustomizeItemType.INPUT,
-      defaultValue: ''
+      defaultValue: 'HCM'
     },
     {
       title: 'Update Duration',
