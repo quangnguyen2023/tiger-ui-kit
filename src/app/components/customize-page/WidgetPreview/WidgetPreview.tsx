@@ -1,4 +1,4 @@
-import { WidgetType } from '@/app/types';
+import { CustomizeProps, WidgetType } from '@/app/types';
 import { useEffect, useMemo, useState } from 'react';
 import { ResizableBox } from 'react-resizable';
 import DigitalClock from '../../widgets/DigitalClock';
@@ -6,18 +6,33 @@ import DigitalClock from '../../widgets/DigitalClock';
 type WidgetPreviewProps = {
   widgetName: string;
   widgetType: WidgetType | null;
+  customizeProps: CustomizeProps;
 };
 
-function getWidgetComponent(widgetType: WidgetType | null, scaleValue: number) {
+function getWidgetComponentByType(
+  widgetType: WidgetType | null,
+  scaleValue: number,
+  customizeProps: CustomizeProps
+) {
   switch (widgetType) {
     case WidgetType.Digital_Clock:
-      return <DigitalClock scaleValue={scaleValue} />;
+      return (
+        <DigitalClock
+          textColor={customizeProps?.textColor}
+          backgroundColor={customizeProps?.bgColor}
+          scaleValue={scaleValue}
+        />
+      );
     default:
       return <></>;
   }
 }
 
-export default function WidgetPreview({ widgetName, widgetType }: WidgetPreviewProps) {
+export default function WidgetPreview({
+  widgetName,
+  widgetType,
+  customizeProps,
+}: WidgetPreviewProps) {
   const initialSize = { w: 600, h: 300 };
   const [size, setSize] = useState(initialSize);
   const [widget, setWidget] = useState(<></>);
@@ -31,8 +46,8 @@ export default function WidgetPreview({ widgetName, widgetType }: WidgetPreviewP
   }
 
   useEffect(() => {
-    setWidget(getWidgetComponent(widgetType, scaleValue));
-  }, [widgetType, scaleValue]);
+    setWidget(getWidgetComponentByType(widgetType, scaleValue, customizeProps));
+  }, [widgetType, scaleValue, customizeProps]);
 
   return (
     <>
