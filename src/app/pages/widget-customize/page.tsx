@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import WidgetCustomize from '@/app/components/customize-page/WidgetCustomize';
 import WidgetPreview from '@/app/components/customize-page/WidgetPreview';
-import {  CustomizeProps, WidgetConfig, WidgetType } from '@/app/types';
+import { CustomizeProps, WidgetConfig, WidgetType } from '@/app/types';
 import { ANALOG_CLOCK_CONFIG, DIGITAL_CLOCK_CONFIG } from '@/app/configs/widget-configs';
 
 const getWidgetData: (widgetType: WidgetType) => WidgetConfig = (widgetType) => {
@@ -16,9 +16,20 @@ const getWidgetData: (widgetType: WidgetType) => WidgetConfig = (widgetType) => 
   }
 };
 
+function getInitialWidgetConfigs(widgetConfig: WidgetConfig) {
+  const { customizeItems } = widgetConfig;
+
+  return customizeItems.reduce((acc, item) => {
+    return {
+      ...acc,
+      [item.fieldName]: item.defaultValue,
+    };
+  }, {});
+}
+
 export default function ComponentConfiguration() {
   const [widgetType, setWidgetType] = useState<WidgetType>(WidgetType.Analog_Clock);
-  const [selectedWidget, setSelectedWidget] = useState<WidgetConfig>({
+  const [widgetConfig, setWidgetConfig] = useState<WidgetConfig>({
     name: '',
     type: null,
     customizeItems: [],
@@ -31,22 +42,26 @@ export default function ComponentConfiguration() {
 
   useEffect(() => {
     const widget = getWidgetData(widgetType);
-    setSelectedWidget(widget);
+    setWidgetConfig(widget);
   }, [widgetType]);
+
+  useEffect(() => {
+    setCustomizeProps(getInitialWidgetConfigs(widgetConfig));
+  }, [widgetConfig]);
 
   return (
     <div className="grid h-dvh grid-cols-3 xl:grid-cols-4 overflow-hidden">
       <main className="col-span-2 p-5 xl:col-span-3">
         <WidgetPreview
-          widgetName={selectedWidget.name}
-          widgetType={selectedWidget.type}
+          widgetName={widgetConfig.name}
+          widgetType={widgetConfig.type}
           customizeProps={customizeProps}
         />
       </main>
 
       <aside className="bg-[#F5F7F8] p-5 overflow-auto">
         <WidgetCustomize
-          customizeItems={selectedWidget.customizeItems}
+          customizeItems={widgetConfig.customizeItems}
           handleChange={changeCustomizeProps}
         />
       </aside>

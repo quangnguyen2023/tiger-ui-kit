@@ -1,4 +1,4 @@
-import { Key, useState } from 'react';
+import { Key, useEffect, useState } from 'react';
 
 type SwitcherOption = {
   label: string;
@@ -12,12 +12,16 @@ type SwitcherProps = {
 };
 
 export default function Switcher({ value, options = [], onSwitch }: SwitcherProps) {
-  const [selectedOptionVal, setSelectedOptionVal] = useState(value || options[0].value);
+  const [selectedOptionVal, setSelectedOptionVal] = useState<any>(options[1].value);
 
   const handleSwitch = (newOption: SwitcherOption) => {
     setSelectedOptionVal(newOption.value);
     onSwitch(newOption.value);
   };
+
+  useEffect(() => {
+    setSelectedOptionVal(value);
+  }, [value]);
 
   return (
     <div className="flex items-center justify-between p-1 w-fit rounded-full shadow bg-[#fdfdfd]">

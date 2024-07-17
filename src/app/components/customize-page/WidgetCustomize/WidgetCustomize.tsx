@@ -7,6 +7,7 @@ export type CustomizeItem = {
   fieldName: string;
   title: string;
   type: CustomizeItemType;
+  defaultValue?: string | number | boolean;
   options?: {
     label: string;
     value: any;
@@ -25,6 +26,7 @@ export default function WidgetCustomize({ customizeItems, handleChange }: Widget
       case CustomizeItemType.COLOR:
         return (
           <ColorPicker
+            customValue={item.defaultValue as string}
             onChangeColor={(color) => {
               handleChange({ [item.fieldName]: color });
             }}
@@ -33,6 +35,7 @@ export default function WidgetCustomize({ customizeItems, handleChange }: Widget
       case CustomizeItemType.SWITCHER:
         return (
           <Switcher
+            value={item.defaultValue}
             options={item?.options || []}
             onSwitch={(value) => handleChange({ [item.fieldName]: value })}
           />
@@ -40,6 +43,7 @@ export default function WidgetCustomize({ customizeItems, handleChange }: Widget
       case CustomizeItemType.INPUT:
         return (
           <Input
+            value={item.defaultValue}
             onChange={(value) => {
               handleChange({ [item.fieldName]: value });
             }}
@@ -49,6 +53,7 @@ export default function WidgetCustomize({ customizeItems, handleChange }: Widget
         return (
           <Input
             type="number"
+            value={item.defaultValue}
             onChange={(value) => {
               handleChange({ [item.fieldName]: value });
             }}
