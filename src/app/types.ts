@@ -15,7 +15,7 @@ export enum CustomizeItemType {
   'NUMBER',
 }
 
-export type WidgetConfig = {
+export type Widget = {
   name: string;
   type: WidgetType | null;
   customizeItems: CustomizeItem[];

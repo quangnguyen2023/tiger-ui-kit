@@ -2,7 +2,6 @@ import { CustomizeProps, WidgetType } from '@/app/types';
 import { useEffect, useMemo, useState } from 'react';
 import { ResizableBox } from 'react-resizable';
 import DigitalClock from '../../widgets/DigitalClock';
-import AnalogClock from '../../widgets/AnalogClock';
 
 type WidgetPreviewProps = {
   widgetName: string;
@@ -22,17 +21,6 @@ function getWidgetComponentByType(
           textColor={customizeProps?.textColor}
           backgroundColor={customizeProps?.bgColor}
           scaleValue={scaleValue}
-        />
-      );
-    case WidgetType.Analog_Clock:
-      return (
-        <AnalogClock
-          textColor={customizeProps?.textColor}
-          backgroundColor={customizeProps?.bgColor}
-          enableIndicators={customizeProps?.enableIndicators}
-          size={customizeProps?.size}
-          title={customizeProps?.title}
-          updateDuration={customizeProps?.updateDuration}
         />
       );
     default:

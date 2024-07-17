@@ -16,41 +16,17 @@ export type CustomizeItem = {
 
 type WidgetCustomizeProps = {
   customizeItems: CustomizeItem[];
-  handleChange: (newProps: CustomizeProps) => void;
+  onChange: (newProps: CustomizeProps) => void;
 };
 
-export default function WidgetCustomize({ customizeItems, handleChange }: WidgetCustomizeProps) {
+export default function WidgetCustomize({ customizeItems, onChange }: WidgetCustomizeProps) {
   const getCustomizeItem = (item: CustomizeItem) => {
     switch (item.type) {
       case CustomizeItemType.COLOR:
         return (
           <ColorPicker
             onChangeColor={(color) => {
-              handleChange({ [item.fieldName]: color });
-            }}
-          />
-        );
-      case CustomizeItemType.SWITCHER:
-        return (
-          <Switcher
-            options={item?.options || []}
-            onSwitch={(value) => handleChange({ [item.fieldName]: value })}
-          />
-        );
-      case CustomizeItemType.INPUT:
-        return (
-          <Input
-            onChange={(value) => {
-              handleChange({ [item.fieldName]: value });
-            }}
-          />
-        );
-      case CustomizeItemType.NUMBER:
-        return (
-          <Input
-            type="number"
-            onChange={(value) => {
-              handleChange({ [item.fieldName]: value });
+              onChange({ [item.fieldName]: color });
             }}
           />
         );
