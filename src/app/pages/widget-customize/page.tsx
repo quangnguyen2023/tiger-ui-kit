@@ -2,21 +2,23 @@
 import { useEffect, useState } from 'react';
 import WidgetCustomize from '@/app/components/customize-page/WidgetCustomize';
 import WidgetPreview from '@/app/components/customize-page/WidgetPreview';
-import {  CustomizeProps, Widget, WidgetType } from '@/app/types';
-import { DIGITAL_CLOCK_CONFIG } from '@/app/configs/widget-configs';
+import {  CustomizeProps, WidgetConfig, WidgetType } from '@/app/types';
+import { ANALOG_CLOCK_CONFIG, DIGITAL_CLOCK_CONFIG } from '@/app/configs/widget-configs';
 
-const getWidgetData: (widgetType: WidgetType) => Widget = (widgetType) => {
+const getWidgetData: (widgetType: WidgetType) => WidgetConfig = (widgetType) => {
   switch (widgetType) {
     case WidgetType.Digital_Clock:
       return DIGITAL_CLOCK_CONFIG;
+    case WidgetType.Analog_Clock:
+      return ANALOG_CLOCK_CONFIG;
     default:
       return { name: '', type: null, customizeItems: [] };
   }
 };
 
 export default function ComponentConfiguration() {
-  const [widgetType, setWidgetType] = useState<WidgetType>(WidgetType.Digital_Clock);
-  const [selectedWidget, setSelectedWidget] = useState<Widget>({
+  const [widgetType, setWidgetType] = useState<WidgetType>(WidgetType.Analog_Clock);
+  const [selectedWidget, setSelectedWidget] = useState<WidgetConfig>({
     name: '',
     type: null,
     customizeItems: [],
@@ -45,7 +47,7 @@ export default function ComponentConfiguration() {
       <aside className="bg-[#F5F7F8] p-5 overflow-auto">
         <WidgetCustomize
           customizeItems={selectedWidget.customizeItems}
-          onChange={changeCustomizeProps}
+          handleChange={changeCustomizeProps}
         />
       </aside>
     </div>
