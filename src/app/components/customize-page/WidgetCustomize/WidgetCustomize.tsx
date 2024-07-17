@@ -7,6 +7,7 @@ export type CustomizeItem = {
   fieldName: string;
   title: string;
   type: CustomizeItemType;
+  defaultValue?: string | number | boolean;
   options?: {
     label: string;
     value: any;
@@ -25,6 +26,7 @@ export default function WidgetCustomize({ customizeItems, handleChange }: Widget
       case CustomizeItemType.COLOR:
         return (
           <ColorPicker
+            customValue={item.defaultValue as string}
             onChangeColor={(color) => {
               handleChange({ [item.fieldName]: color });
             }}

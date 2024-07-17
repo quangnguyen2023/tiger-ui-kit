@@ -1,20 +1,29 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ColorResult, RGBColor, TwitterPicker } from 'react-color';
 import PopoverWrapper from '../../base/PopoverWrapper';
-import convertRGBToHex from '@/app/utils';
+import { convertHexToRGB, convertRGBToHex } from '@/app/utils';
 
 type ColorPickerProps = {
+  customValue?: string;
   horizontal?: 'left' | 'right';
   onChangeColor?: (newHexColor: string) => void;
 };
 
-export default function ColorPicker({ horizontal = 'left', onChangeColor }: ColorPickerProps) {
-  const [color, setColor] = useState<RGBColor>({ r: 0, g: 0, b: 0, a: 1 });
+export default function ColorPicker({
+  customValue,
+  horizontal = 'left',
+  onChangeColor,
+}: ColorPickerProps) {
+  const [color, setColor] = useState<RGBColor>({ r: 0, g: 0, b: 255, a: 1 });
 
   const handleChange = (newColor: ColorResult) => {
     setColor(newColor.rgb);
     onChangeColor?.(convertRGBToHex(newColor.rgb));
   };
+
+  useEffect(() => {
+    customValue && setColor(convertHexToRGB(customValue));
+  }, [customValue]);
 
   const triggerButton = useMemo(() => {
     const { r, g, b, a } = color;

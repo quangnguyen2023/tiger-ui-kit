@@ -25,16 +25,19 @@ export const ANALOG_CLOCK_CONFIG: WidgetConfig = {
       title: 'Text Color',
       fieldName: 'textColor',
       type: CustomizeItemType.COLOR,
+      defaultValue: '#00f',
     },
     {
       title: 'Background Color',
       fieldName: 'bgColor',
       type: CustomizeItemType.COLOR,
+      defaultValue: '#eee'
     },
     {
       title: 'Enable indicators',
       fieldName: 'enableIndicators',
       type: CustomizeItemType.SWITCHER,
+      defaultValue: false,
       options: [
         { label: 'On', value: true },
         { label: 'Off', value: false }
@@ -44,6 +47,7 @@ export const ANALOG_CLOCK_CONFIG: WidgetConfig = {
       title: 'Size',
       fieldName: 'size',
       type: CustomizeItemType.SWITCHER,
+      defaultValue: 'medium',
       options: [
         { label: 'Small', value: 'small' },
         { label: 'Medium', value: 'medium' },
@@ -54,11 +58,13 @@ export const ANALOG_CLOCK_CONFIG: WidgetConfig = {
       title: 'Title',
       fieldName: 'title',
       type: CustomizeItemType.INPUT,
+      defaultValue: ''
     },
     {
       title: 'Update Duration',
       fieldName: 'updateDuration',
-      type: CustomizeItemType.NUMBER
+      type: CustomizeItemType.NUMBER,
+      defaultValue: 1000
     }
   ],
 }
