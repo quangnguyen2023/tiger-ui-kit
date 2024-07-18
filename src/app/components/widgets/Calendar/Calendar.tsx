@@ -14,13 +14,13 @@ export type DayOfMonthType = {
   isNotCurrentMonthDay?: boolean;
   isSelectedDay?: boolean;
 };
-export type firstDayOfWeekType = 'Sunday' | 'Monday';
+export type FirstDayOfWeekType = 'Sunday' | 'Monday';
 export type MonthRange = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 type SelectedTime = { day?: number; month: number; year: number };
 
 type CalendarProps = {
   enableLunarCalendar?: boolean;
-  firstDayOfWeek?: firstDayOfWeekType;
+  firstDayOfWeek?: FirstDayOfWeekType;
 };
 
 export const CalendarContext = createContext({

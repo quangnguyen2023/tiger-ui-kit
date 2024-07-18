@@ -1,12 +1,12 @@
 import { getDaysInMonth, isSameDay, isSaturday, isSunday } from 'date-fns';
-import { DayOfMonthType, MonthRange, firstDayOfWeekType } from './Calendar';
+import { DayOfMonthType, MonthRange, FirstDayOfWeekType } from './Calendar';
 import { LunarDate } from 'vietnamese-lunar-calendar';
 
 export const generateDaysOfMonth = (
   day: number | undefined,
   month: MonthRange,
   year: number,
-  firstDayOfWeek: firstDayOfWeekType
+  firstDayOfWeek: FirstDayOfWeekType
 ) => {
   let days: DayOfMonthType[] = [];
   const totalDaysOfMonth = getDaysInMonth(new Date(year, month));

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { firstDayOfWeekType } from './Calendar';
+import { FirstDayOfWeekType } from './Calendar';
 
 type DaysOfWeekProps = {
-  firstDayOfWeek: firstDayOfWeekType;
+  firstDayOfWeek: FirstDayOfWeekType;
 };
 
 export default function DaysOfWeek({ firstDayOfWeek }: DaysOfWeekProps) {
