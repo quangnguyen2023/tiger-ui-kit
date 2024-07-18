@@ -1,3 +1,4 @@
+import { SIZE } from '../components/widgets/WorldClock/constants';
 import { CustomizeItemType, WidgetConfig, WidgetType } from '../types';
 
 export const DIGITAL_CLOCK_CONFIG: WidgetConfig = {
@@ -112,6 +113,23 @@ export const WEATHER_FORECAST_CONFIG: WidgetConfig = {
         { label: 'Medium', value: 'medium' },
         { label: 'Large', value: 'large' },
       ],
-    }
+    },
+  ],
+};
+
+export const WORLD_CLOCK_CONFIG: WidgetConfig = {
+  name: 'World Clock',
+  type: WidgetType.World_Clock,
+  customizeItems: [
+    {
+      title: 'Size',
+      fieldName: 'size',
+      type: CustomizeItemType.SWITCHER,
+      defaultValue: 'small',
+      options: [
+        { label: 'Small', value: SIZE.SMALL },
+        { label: 'Medium', value: SIZE.MEDIUM },
+      ],
+    },
   ],
 };
