@@ -70,3 +70,30 @@ export const ANALOG_CLOCK_CONFIG: WidgetConfig = {
     }
   ],
 }
+
+export const CALENDAR_CONFIG: WidgetConfig = {
+  name: 'Calendar',
+  type: WidgetType.Calendar,
+  customizeItems: [
+    {
+      title: 'Enable Lunar Calendar',
+      fieldName: 'enableLunar',
+      type: CustomizeItemType.SWITCHER,
+      options: [
+        { label: 'On', value: true },
+        { label: 'Off', value: false }
+      ],
+      defaultValue: false
+    },
+    {
+      title: 'First Day of the Week',
+      fieldName: 'firstDayOfWeek',
+      type: CustomizeItemType.SWITCHER,
+      options: [
+        { label: 'Monday', value: 'Monday' },
+        { label: 'Sunday', value: 'Sunday' }
+      ],
+      defaultValue: 'Monday'
+    }
+  ],
+}
