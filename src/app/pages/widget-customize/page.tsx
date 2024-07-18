@@ -3,7 +3,13 @@ import { useEffect, useState } from 'react';
 import WidgetCustomize from '@/app/components/customize-page/WidgetCustomize';
 import WidgetPreview from '@/app/components/customize-page/WidgetPreview';
 import { CustomizeProps, WidgetConfig, WidgetType } from '@/app/types';
-import { ANALOG_CLOCK_CONFIG, CALENDAR_CONFIG, DIGITAL_CLOCK_CONFIG, WEATHER_FORECAST_CONFIG } from '@/app/configs/widget-configs';
+import {
+  ANALOG_CLOCK_CONFIG,
+  CALENDAR_CONFIG,
+  DIGITAL_CLOCK_CONFIG,
+  WEATHER_FORECAST_CONFIG,
+  WORLD_CLOCK_CONFIG,
+} from '@/app/configs/widget-configs';
 
 const getWidgetData: (widgetType: WidgetType) => WidgetConfig = (widgetType) => {
   switch (widgetType) {
@@ -11,10 +17,12 @@ const getWidgetData: (widgetType: WidgetType) => WidgetConfig = (widgetType) => 
       return DIGITAL_CLOCK_CONFIG;
     case WidgetType.Analog_Clock:
       return ANALOG_CLOCK_CONFIG;
-    case WidgetType.Calendar: 
+    case WidgetType.Calendar:
       return CALENDAR_CONFIG;
     case WidgetType.Weather_Forecast:
       return WEATHER_FORECAST_CONFIG;
+    case WidgetType.World_Clock:
+      return WORLD_CLOCK_CONFIG;
     default:
       return { name: '', type: null, customizeItems: [] };
   }

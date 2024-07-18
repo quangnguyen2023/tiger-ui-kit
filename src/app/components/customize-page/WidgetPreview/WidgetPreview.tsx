@@ -5,6 +5,7 @@ import DigitalClock from '../../widgets/DigitalClock';
 import AnalogClock from '../../widgets/AnalogClock';
 import Calendar from '../../widgets/Calendar';
 import WeatherForecast from '../../widgets/WeatherForecast';
+import WorldClock from '../../widgets/WorldClock';
 
 type WidgetPreviewProps = {
   widgetName: string;
@@ -45,9 +46,9 @@ function getWidgetComponentByType(
         />
       );
     case WidgetType.Weather_Forecast:
-      return (
-        <WeatherForecast selectedSize={customizeProps?.size} />
-      );
+      return <WeatherForecast selectedSize={customizeProps?.size} />;
+    case WidgetType.World_Clock:
+      return <WorldClock selectedSize={customizeProps?.size} />;
     default:
       return <></>;
   }
