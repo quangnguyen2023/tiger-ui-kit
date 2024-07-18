@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import WidgetCustomize from '@/app/components/customize-page/WidgetCustomize';
 import WidgetPreview from '@/app/components/customize-page/WidgetPreview';
 import { CustomizeProps, WidgetConfig, WidgetType } from '@/app/types';
-import { ANALOG_CLOCK_CONFIG, DIGITAL_CLOCK_CONFIG } from '@/app/configs/widget-configs';
+import { ANALOG_CLOCK_CONFIG, CALENDAR_CONFIG, DIGITAL_CLOCK_CONFIG } from '@/app/configs/widget-configs';
 
 const getWidgetData: (widgetType: WidgetType) => WidgetConfig = (widgetType) => {
   switch (widgetType) {
@@ -11,6 +11,8 @@ const getWidgetData: (widgetType: WidgetType) => WidgetConfig = (widgetType) => 
       return DIGITAL_CLOCK_CONFIG;
     case WidgetType.Analog_Clock:
       return ANALOG_CLOCK_CONFIG;
+    case WidgetType.Calendar: 
+      return CALENDAR_CONFIG;
     default:
       return { name: '', type: null, customizeItems: [] };
   }
@@ -28,7 +30,7 @@ function getInitialWidgetConfigs(widgetConfig: WidgetConfig) {
 }
 
 export default function ComponentConfiguration() {
-  const [widgetType, setWidgetType] = useState<WidgetType>(WidgetType.Analog_Clock);
+  const [widgetType, setWidgetType] = useState<WidgetType>(WidgetType.Calendar);
   const [widgetConfig, setWidgetConfig] = useState<WidgetConfig>({
     name: '',
     type: null,

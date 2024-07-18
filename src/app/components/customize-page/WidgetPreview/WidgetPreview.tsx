@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { ResizableBox } from 'react-resizable';
 import DigitalClock from '../../widgets/DigitalClock';
 import AnalogClock from '../../widgets/AnalogClock';
+import Calendar from '../../widgets/Calendar';
 
 type WidgetPreviewProps = {
   widgetName: string;
@@ -33,6 +34,13 @@ function getWidgetComponentByType(
           size={customizeProps?.size}
           title={customizeProps?.title}
           updateDuration={customizeProps?.updateDuration}
+        />
+      );
+    case WidgetType.Calendar:
+      return (
+        <Calendar
+          enableLunarCalendar={customizeProps?.enableLunar}
+          firstDayOfWeek={customizeProps?.firstDayOfWeek}
         />
       );
     default:
@@ -73,8 +81,8 @@ export default function WidgetPreview({
           onResize={(e, { node, size }) => handleResize(size)}
         >
           <div className="w-full h-full rounded-md flex justify-center items-center border-2 border-dotted"> */}
-            {widget}
-          {/* </div>
+        {widget}
+        {/* </div>
         </ResizableBox> */}
       </div>
     </>
