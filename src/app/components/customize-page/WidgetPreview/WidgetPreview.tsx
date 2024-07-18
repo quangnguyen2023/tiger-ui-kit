@@ -4,6 +4,7 @@ import { ResizableBox } from 'react-resizable';
 import DigitalClock from '../../widgets/DigitalClock';
 import AnalogClock from '../../widgets/AnalogClock';
 import Calendar from '../../widgets/Calendar';
+import WeatherForecast from '../../widgets/WeatherForecast';
 
 type WidgetPreviewProps = {
   widgetName: string;
@@ -42,6 +43,10 @@ function getWidgetComponentByType(
           enableLunarCalendar={customizeProps?.enableLunar}
           firstDayOfWeek={customizeProps?.firstDayOfWeek}
         />
+      );
+    case WidgetType.Weather_Forecast:
+      return (
+        <WeatherForecast selectedSize={customizeProps?.size} />
       );
     default:
       return <></>;

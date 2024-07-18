@@ -1,4 +1,4 @@
-import { CustomizeItemType, WidgetConfig, WidgetType } from "../types";
+import { CustomizeItemType, WidgetConfig, WidgetType } from '../types';
 
 export const DIGITAL_CLOCK_CONFIG: WidgetConfig = {
   name: 'Digital Clock',
@@ -14,10 +14,10 @@ export const DIGITAL_CLOCK_CONFIG: WidgetConfig = {
       title: 'Background Color',
       fieldName: 'bgColor',
       type: CustomizeItemType.COLOR,
-      defaultValue: '#333'
+      defaultValue: '#333',
     },
   ],
-}
+};
 
 export const ANALOG_CLOCK_CONFIG: WidgetConfig = {
   name: 'Analog Clock',
@@ -33,7 +33,7 @@ export const ANALOG_CLOCK_CONFIG: WidgetConfig = {
       title: 'Background Color',
       fieldName: 'bgColor',
       type: CustomizeItemType.COLOR,
-      defaultValue: '#333'
+      defaultValue: '#333',
     },
     {
       title: 'Enable indicators',
@@ -42,8 +42,8 @@ export const ANALOG_CLOCK_CONFIG: WidgetConfig = {
       defaultValue: false,
       options: [
         { label: 'On', value: true },
-        { label: 'Off', value: false }
-      ]
+        { label: 'Off', value: false },
+      ],
     },
     {
       title: 'Size',
@@ -54,22 +54,22 @@ export const ANALOG_CLOCK_CONFIG: WidgetConfig = {
         { label: 'Small', value: 'small' },
         { label: 'Medium', value: 'medium' },
         { label: 'Large', value: 'large' },
-      ]
+      ],
     },
     {
       title: 'Title',
       fieldName: 'title',
       type: CustomizeItemType.INPUT,
-      defaultValue: 'HCM'
+      defaultValue: 'HCM',
     },
     {
       title: 'Update Duration',
       fieldName: 'updateDuration',
       type: CustomizeItemType.NUMBER,
-      defaultValue: 1000
-    }
+      defaultValue: 1000,
+    },
   ],
-}
+};
 
 export const CALENDAR_CONFIG: WidgetConfig = {
   name: 'Calendar',
@@ -81,9 +81,9 @@ export const CALENDAR_CONFIG: WidgetConfig = {
       type: CustomizeItemType.SWITCHER,
       options: [
         { label: 'On', value: true },
-        { label: 'Off', value: false }
+        { label: 'Off', value: false },
       ],
-      defaultValue: false
+      defaultValue: false,
     },
     {
       title: 'First Day of the Week',
@@ -91,9 +91,27 @@ export const CALENDAR_CONFIG: WidgetConfig = {
       type: CustomizeItemType.SWITCHER,
       options: [
         { label: 'Monday', value: 'Monday' },
-        { label: 'Sunday', value: 'Sunday' }
+        { label: 'Sunday', value: 'Sunday' },
       ],
-      defaultValue: 'Monday'
+      defaultValue: 'Monday',
+    },
+  ],
+};
+
+export const WEATHER_FORECAST_CONFIG: WidgetConfig = {
+  name: 'Weather Forecast',
+  type: WidgetType.Weather_Forecast,
+  customizeItems: [
+    {
+      title: 'Size',
+      fieldName: 'size',
+      type: CustomizeItemType.SWITCHER,
+      defaultValue: 'small',
+      options: [
+        { label: 'Small', value: 'small' },
+        { label: 'Medium', value: 'medium' },
+        { label: 'Large', value: 'large' },
+      ],
     }
   ],
-}
+};
