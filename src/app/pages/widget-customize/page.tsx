@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 import WidgetCustomize from '@/app/components/customize-page/WidgetCustomize';
 import WidgetPreview from '@/app/components/customize-page/WidgetPreview';
 import { CustomizeProps, WidgetConfig, WidgetType } from '@/app/types';
@@ -52,6 +53,10 @@ export default function ComponentConfiguration() {
     setCustomizeProps((prev: any) => ({ ...prev, ...newProps }));
   };
 
+  const saveNewCustomizeProps = () => {
+    Cookies.set('customizeProps', JSON.stringify(customizeProps));
+  };
+
   useEffect(() => {
     const widget = getWidgetData(widgetType);
     setWidgetConfig(widget);
@@ -75,6 +80,7 @@ export default function ComponentConfiguration() {
         <WidgetCustomize
           customizeItems={widgetConfig.customizeItems}
           handleChange={changeCustomizeProps}
+          handleSave={saveNewCustomizeProps}
         />
       </aside>
     </div>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ColorResult, RGBColor, TwitterPicker } from 'react-color';
 import PopoverWrapper from '../../base/PopoverWrapper';
-import { convertHexToRGB, convertRGBToHex } from '@/app/utils';
+import { convertHexToRGB, convertRGBToHex } from '@/app/utils/convertColor';
 
 type ColorPickerProps = {
   customValue?: string;
