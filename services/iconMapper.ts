@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/services/iconMapper.ts
-import { WeatherStatus } from '@/app/components/ui/WeatherForecast/Weather';
-=======
 import { WeatherStatus } from '@/components/WeatherForecast/Weather'
->>>>>>> d40c26a (refactor: restructure file system):services/iconMapper.ts
 
 // Icon mapping for icon code from OpenWeatherMap
 export const iconMappingToWeatherStatus: (icon: string) => WeatherStatus = (
