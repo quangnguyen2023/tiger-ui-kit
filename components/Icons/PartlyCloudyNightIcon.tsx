@@ -1,6 +1,9 @@
-import { IconType } from '@/app/types';
+import { IconType } from '@/types';
 
-export default function PartlyCloudyNightIcon({ width = 30, height = 30 }: IconType) {
+export default function PartlyCloudyNightIcon({
+  width = 30,
+  height = 30,
+}: IconType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

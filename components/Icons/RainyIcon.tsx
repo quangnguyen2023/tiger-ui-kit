@@ -1,4 +1,4 @@
-import { IconType } from '@/app/types';
+import { IconType } from '@/types';
 
 export default function RainyIcon({ height = 30, width = 30 }: IconType) {
   return (

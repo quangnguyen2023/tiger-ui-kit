@@ -14,7 +14,10 @@ export default function LocationClock({
   const locationCompact = location.slice(0, 3).toUpperCase(); // LON, TOK,...
 
   const Clock = isLightMode ? (
-    <AnalogClock size="small" title={!detailedLocation ? locationCompact : ''} />
+    <AnalogClock
+      size="small"
+      title={!detailedLocation ? locationCompact : ''}
+    />
   ) : (
     <AnalogClock
       size="small"
@@ -27,7 +30,11 @@ export default function LocationClock({
   return (
     <div className="flex flex-col justify-center items-center gap-4">
       {Clock}
-      <div className={`flex flex-col gap-1 items-center ${!detailedLocation && 'hidden'}`}>
+      <div
+        className={`flex flex-col gap-1 items-center ${
+          !detailedLocation && 'hidden'
+        }`}
+      >
         <div className="text-white text-sm font-semibold"> {location} </div>
         <div className="text-[#99999b] text-xs font-semibold"> Today </div>
         <div className="text-[#99999b] text-xs font-semibold"> +7HRS </div>

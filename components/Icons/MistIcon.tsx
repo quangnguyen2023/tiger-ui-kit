@@ -1,4 +1,4 @@
-import { IconType } from '@/app/types';
+import { IconType } from '@/types';
 
 export default function MistIcon({ width = 30, height = 30 }: IconType) {
   return (
