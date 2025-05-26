@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { Poppins } from 'next/font/google';
@@ -57,7 +59,9 @@ export default function DigitalClock({
         style={{ backgroundColor }}
         data-testid="time-element"
       >
-        <span className={`text-[10rem]`} style={{ color: textColor }}> {time.hours} </span>
+        <span className={`text-[10rem]`} style={{ color: textColor }}>
+          {time.hours}
+        </span>
         <span
           className={`absolute bottom-3 left-4 font-semibold tracking-wide uppercase text-xl`}
           style={{ color: textColor }}
@@ -71,7 +75,9 @@ export default function DigitalClock({
         style={{ backgroundColor }}
         data-testid="time-element"
       >
-        <span className={`text-[10rem]`} style={{ color: textColor }}> {time.minutes} </span>
+        <span className={`text-[10rem]`} style={{ color: textColor }}>
+          {time.minutes}
+        </span>
         <span
           className={`absolute bottom-3 right-4 font-semibold tracking-wide uppercase text-xl`}
           style={{ color: textColor }}

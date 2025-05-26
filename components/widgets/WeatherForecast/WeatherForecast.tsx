@@ -1,26 +1,28 @@
-import { useMemo, useState } from 'react'
-import HourlyForecast from './HourlyForecast'
+'use client';
+
+import { useMemo, useState } from 'react';
+import HourlyForecast from './HourlyForecast';
 import {
   currentForecast,
   dailyForecast,
   hourlyForecast,
-} from '@/assets/mockdata'
-import DayForecast from './DayForecast'
-import CurrentForecast from './CurrentForecast'
-import { iconMappingToWeatherStatus } from '@/services/iconMapper'
+} from '@/assets/mockdata';
+import DayForecast from './DayForecast';
+import CurrentForecast from './CurrentForecast';
+import { iconMappingToWeatherStatus } from '@/services/iconMapper';
 
 const SIZE_CONFIG = {
   small: { widthClass: 'w-48' },
   medium: { widthClass: 'w-[25rem]' },
   large: { widthClass: 'w-[25rem]' },
-}
+};
 
-export type SizeType = keyof typeof SIZE_CONFIG
+export type SizeType = keyof typeof SIZE_CONFIG;
 
 export default function WeatherForecast() {
-  const [selectedSize, setSelectedSize] = useState<SizeType>('small')
+  const [selectedSize, setSelectedSize] = useState<SizeType>('small');
 
-  const sizeConfig = useMemo(() => SIZE_CONFIG[selectedSize], [selectedSize])
+  const sizeConfig = useMemo(() => SIZE_CONFIG[selectedSize], [selectedSize]);
 
   return (
     <div className="flex justify-center items-center flex-col gap-5 p-6 bg-slate-200 rounded-xl">
@@ -94,5 +96,5 @@ export default function WeatherForecast() {
         ))}
       </div>
     </div>
-  )
+  );
 }

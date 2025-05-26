@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+'use client';
+
+import { useEffect, useMemo, useState } from 'react';
 
 const SIZE = {
   small: {
@@ -43,30 +45,30 @@ const SIZE = {
     titleSizeClass: 'text-2xl',
     title: '',
   },
-}
+};
 
 type AnalogClockProps = {
-  updateDuration?: number // Cập nhật thời gian render kim giây
-  enableIndicators?: boolean
-  backgroundColor?: string
-  textColor?: string
-  size?: keyof typeof SIZE //'small' | 'medium' | 'large'
-  title?: string
-}
+  updateDuration?: number; // Cập nhật thời gian render kim giây
+  enableIndicators?: boolean;
+  backgroundColor?: string;
+  textColor?: string;
+  size?: keyof typeof SIZE; //'small' | 'medium' | 'large'
+  title?: string;
+};
 
 interface InnerConfig extends AnalogClockProps {
-  diameter: number
-  offsetWithoutIndicators: number
-  indicatorSize: { width: number; height: number }
-  hourHandSize: { width: number; height: number }
-  minuteHandSize: { width: number; height: number }
-  secondHandSize: { width: number; height: number }
-  fontSizeClass: string
-  titleSizeClass: string
+  diameter: number;
+  offsetWithoutIndicators: number;
+  indicatorSize: { width: number; height: number };
+  hourHandSize: { width: number; height: number };
+  minuteHandSize: { width: number; height: number };
+  secondHandSize: { width: number; height: number };
+  fontSizeClass: string;
+  titleSizeClass: string;
 }
 
 export default function AnalogClock(props: AnalogClockProps) {
-  const { size = 'medium', textColor = 'black' } = props
+  const { size = 'medium', textColor = 'black' } = props;
 
   const innerConfig: InnerConfig = useMemo(
     () => ({
@@ -75,67 +77,67 @@ export default function AnalogClock(props: AnalogClockProps) {
       textColor,
     }),
     [props, size, textColor]
-  )
+  );
 
   const [handsDeg, setHandsDeg] = useState({
     hourHandDeg: 0,
     minuteHandDeg: 0,
     secondHandDeg: 0,
-  })
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const time = new Date()
+      const time = new Date();
 
       // Tính toán vị trí kim giờ:
       // (time.getHours() / 24) * 720:   1 vòng quay 360 độ => 2 vòng 720 độ = 24 giờ
       // Tính độ chênh lệch cho kim giờ theo phút:
       // (time.getMinutes() / 60) * 30:  360 độ = 12 giờ => (1 giờ =) 60 phút = 30 độ
       const hourHandDeg =
-        (time.getHours() / 24) * 720 + (time.getMinutes() / 60) * 30
+        (time.getHours() / 24) * 720 + (time.getMinutes() / 60) * 30;
       const minuteHandDeg =
-        (time.getMinutes() / 60) * 360 + (time.getSeconds() / 60) * 6
+        (time.getMinutes() / 60) * 360 + (time.getSeconds() / 60) * 6;
       const secondHandDeg =
-        (time.getSeconds() / 60 + time.getMilliseconds() / 60000) * 360
+        (time.getSeconds() / 60 + time.getMilliseconds() / 60000) * 360;
 
-      setHandsDeg({ hourHandDeg, minuteHandDeg, secondHandDeg })
-    }, innerConfig.updateDuration)
+      setHandsDeg({ hourHandDeg, minuteHandDeg, secondHandDeg });
+    }, innerConfig.updateDuration);
 
     return () => {
-      clearInterval(interval)
-    }
-  }, [innerConfig])
+      clearInterval(interval);
+    };
+  }, [innerConfig]);
 
   function calculatePositions(
     centerX: number,
     centerY: number,
     radius: number
   ) {
-    const positions = []
-    const angleStep = Math.PI / 6 // 30 degrees between each number
+    const positions = [];
+    const angleStep = Math.PI / 6; // 30 degrees between each number
 
     for (let i = 0; i < 12; i++) {
-      const angle = (i - 2) * angleStep
-      const x = centerX + radius * Math.cos(angle)
-      const y = centerY + radius * Math.sin(angle)
+      const angle = (i - 2) * angleStep;
+      const x = centerX + radius * Math.cos(angle);
+      const y = centerY + radius * Math.sin(angle);
 
       positions.push({
         top: Math.floor(y) + 'px',
         left: Math.floor(x) + 'px',
-      })
+      });
     }
 
-    return positions
+    return positions;
   }
 
   const renderNumbers = () => {
-    const { enableIndicators, diameter, offsetWithoutIndicators } = innerConfig
+    const { enableIndicators, diameter, offsetWithoutIndicators } = innerConfig;
 
     const radius = enableIndicators
       ? diameter / 2.6
-      : (diameter + offsetWithoutIndicators) / 2.5
-    const centerX = diameter / 2
-    const centerY = diameter / 2
+      : (diameter + offsetWithoutIndicators) / 2.5;
+    const centerX = diameter / 2;
+    const centerY = diameter / 2;
 
     const numbers = calculatePositions(centerX, centerY, radius).map(
       (position, index) => ({
@@ -143,7 +145,7 @@ export default function AnalogClock(props: AnalogClockProps) {
         top: `${position.top}`,
         left: `${position.left}`,
       })
-    )
+    );
 
     return (
       <>
@@ -161,8 +163,8 @@ export default function AnalogClock(props: AnalogClockProps) {
           </div>
         ))}
       </>
-    )
-  }
+    );
+  };
 
   const renderIndicators = () => {
     return (
@@ -170,7 +172,7 @@ export default function AnalogClock(props: AnalogClockProps) {
         {Array(60)
           .fill(0)
           .map((_, index) => {
-            const isFifth = (index + 0) % 5 === 0
+            const isFifth = (index + 0) % 5 === 0;
             return (
               <div
                 key={index}
@@ -183,11 +185,11 @@ export default function AnalogClock(props: AnalogClockProps) {
                   transformOrigin: `50% ${innerConfig.diameter / 2}px`,
                 }}
               />
-            )
+            );
           })}
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div
@@ -305,5 +307,5 @@ export default function AnalogClock(props: AnalogClockProps) {
         {innerConfig.enableIndicators && renderIndicators()}
       </div>
     </div>
-  )
+  );
 }
