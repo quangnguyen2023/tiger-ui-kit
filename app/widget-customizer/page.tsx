@@ -1,15 +1,15 @@
 import PrimarySidebar from '@/components/PrimarySidebar';
-// import SecondarySidebar from '@/components/SecondarySidebar';
+import SecondarySidebar from '@/components/SecondarySidebar';
 import { WidgetProvider } from '@/contexts/WidgetContext';
 
 const WidgetCustomizer = () => {
   return (
-    <div>
-      <WidgetProvider>
+    <WidgetProvider>
+      <div className="flex">
         <PrimarySidebar />
-        {/* <SecondarySidebar /> */}
-      </WidgetProvider>
-    </div>
+        <SecondarySidebar />
+      </div>
+    </WidgetProvider>
   );
 };
 
