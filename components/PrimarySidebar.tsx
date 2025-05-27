@@ -19,7 +19,7 @@ const PrimarySidebar = () => {
             key={index}
             variant="ghost"
             onClick={() => handleWidgetSelect(item.label)}
-            className={`w-full flex justify-start gap-3 py-5 text-sm font-sans transition-colors cursor-pointer mb-1 ${
+            className={`w-full flex justify-start gap-3 py-5 text-sm font-sans transition-colors mb-1 ${
               item.label === selectedWidget
                 ? 'bg-gray-100'
                 : 'text-gray-600 hover:bg-gray-100'
