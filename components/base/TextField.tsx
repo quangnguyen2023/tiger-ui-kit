@@ -7,7 +7,9 @@ const TextField = ({ label, type, placeholder, onChange }: TextFieldProps) => {
 
   return (
     <div className="grid max-w-sm items-center gap-1.5">
-      <Label htmlFor={inputId}> {label} </Label>
+      <Label htmlFor={inputId} className="font-semibold">
+        {label}
+      </Label>
       <Input
         type={type}
         id={inputId}

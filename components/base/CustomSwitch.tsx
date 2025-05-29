@@ -24,7 +24,9 @@ const CustomSwitch = ({
 
   return (
     <div className="flex gap-2 flex-col">
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={id} className="font-semibold">
+        {label}
+      </Label>
       <div
         id={id}
         className="flex w-full items-center gap-2 p-1 bg-gray-200 rounded-full"

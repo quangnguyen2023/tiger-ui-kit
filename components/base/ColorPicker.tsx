@@ -86,11 +86,11 @@ const ColorPreview: FC<ColorPreviewProps> = ({ color, onColorChange }) => (
 );
 
 const PredefinedColors: FC<PredefinedColorsProps> = ({ onColorSelect }) => (
-  <div className="mt-5 flex flex-wrap justify-between gap-2.5">
+  <div className="mt-5 flex flex-wrap gap-2">
     {PREDEFINED_COLORS.map((presetColor) => (
       <button
         key={presetColor}
-        className="w-9 h-9 rounded-md cursor-pointer hover:ring-1 hover:ring-offset-2 hover:ring-gray-300 transition-all duration-300"
+        className="w-8 h-8 rounded-md cursor-pointer hover:ring-1 hover:ring-offset-2 hover:ring-gray-300 transition-all duration-300"
         onClick={() => onColorSelect(presetColor)}
         style={{ background: presetColor }}
       />
@@ -115,7 +115,7 @@ const ColorPicker: FC<ColorPickerProps> = ({
 
   return (
     <div>
-      <Label className="mb-3">{label}</Label>
+      <Label className="mb-3 font-semibold">{label}</Label>
 
       <Popover>
         <ColorPreview color={color} onColorChange={handleColorChange} />
