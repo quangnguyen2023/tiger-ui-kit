@@ -13,35 +13,31 @@ declare global {
 
   type CustomSwitchType = {
     label: string;
-    options: { label: string; value: string | number }[];
-    selectedOption?: string | number;
-    onChange?: (value: string | number) => void;
+    options: { label: string; value: string | number | boolean }[];
+    selectedOption?: string | number | boolean;
+    onChange?: (value: string | number | boolean) => void;
   };
 }
 
 export enum WidgetType {
-  Analog_Clock,
-  Digital_Clock,
-  World_Clock,
-  Calendar,
-  Weather_Forecast,
+  ANALOG_CLOCK = 'ANALOG_CLOCK',
+  DIGITAL_CLOCK = 'DIGITAL_CLOCK',
+  WORLD_CLOCK = 'WORLD_CLOCK',
+  CALENDAR = 'CALENDAR',
+  WEATHER_FORECAST = 'WEATHER_FORECAST',
 }
 
-export enum CustomizeItemType {
-  'COLOR',
-  'SWITCHER',
-  'INPUT',
-  'NUMBER',
+export interface CustomizeField {
+  type: 'COLOR' | 'SWITCHER' | 'TEXT' | 'NUMBER';
+  prop: string;
+  label: string;
+  options?: { label: string; value: string | number | boolean }[];
+  defaultValue?: any;
 }
 
-// export type WidgetConfig = {
-//   name: string;
-//   type: WidgetType | null;
-//   customizeItems: CustomizeItem[];
-// };
-
-export type CustomizeProps = {
-  [key: string]: any;
+export type WidgetConfig = {
+  type: WidgetType;
+  customizeFields: CustomizeField[];
 };
 
 export type IconType = {
