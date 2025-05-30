@@ -115,7 +115,7 @@ const ColorPicker: FC<ColorPickerProps> = ({
 
   return (
     <div>
-      <Label className="mb-3 font-semibold">{label}</Label>
+      <Label className="mb-3 text-md font-semibold">{label}</Label>
 
       <Popover>
         <ColorPreview color={color} onColorChange={handleColorChange} />

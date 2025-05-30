@@ -14,7 +14,7 @@ const TextField = ({
 
   return (
     <div className="grid max-w-sm items-center gap-1.5">
-      <Label htmlFor={inputId} className="font-semibold">
+      <Label htmlFor={inputId} className="font-semibold text-md">
         {label}
       </Label>
       <Input

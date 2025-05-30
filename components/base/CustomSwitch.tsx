@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { cn } from '@/lib/utils';
@@ -15,16 +15,16 @@ const CustomSwitch = ({
     selectedOption || options[0]?.value
   );
 
-  const id = `switch-${Math.random().toString(36).slice(2, 11)}`;
+  const id = useId();
 
-  const handleOptionChange = (value: string | number) => {
+  const handleOptionChange = (value: string | number | boolean) => {
     setSelectedValue(value);
     onChange?.(value);
   };
 
   return (
     <div className="flex gap-2 flex-col">
-      <Label htmlFor={id} className="font-semibold">
+      <Label htmlFor={id} className="font-semibold text-md">
         {label}
       </Label>
       <div
@@ -33,7 +33,7 @@ const CustomSwitch = ({
       >
         {options.map((option) => (
           <Button
-            key={option.value}
+            key={option.value.toString()}
             variant="ghost"
             className={cn(
               'flex-1 px-4 py-2 h-fit rounded-full text-xs font-semibold hover:bg-white hover:shadow hover:font-semibold',

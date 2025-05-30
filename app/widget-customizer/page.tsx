@@ -1,5 +1,6 @@
 import PrimarySidebar from '@/components/PrimarySidebar';
 import SecondarySidebar from '@/components/SecondarySidebar';
+import WidgetPreview from '@/components/WidgetPreview';
 import { WidgetProvider } from '@/contexts/WidgetContext';
 
 const WidgetCustomizer = () => {
@@ -8,6 +9,7 @@ const WidgetCustomizer = () => {
       <div className="flex">
         <PrimarySidebar />
         <SecondarySidebar />
+        <WidgetPreview />
       </div>
     </WidgetProvider>
   );

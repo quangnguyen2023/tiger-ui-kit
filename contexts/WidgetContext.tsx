@@ -1,5 +1,7 @@
 'use client';
 
+import { SIDEBAR_ITEMS } from '@/constants';
+import { WidgetType } from '@/types';
 import {
   createContext,
   Dispatch,
@@ -9,8 +11,13 @@ import {
 } from 'react';
 
 interface WidgetContextType {
-  selectedWidget: string | null;
-  setSelectedWidget: Dispatch<SetStateAction<string | null>>;
+  selectedWidget: WidgetType;
+  setSelectedWidget: Dispatch<SetStateAction<WidgetType>>;
+  widgetProps?: Record<WidgetType, Record<string, any>>;
+  updateWidgetProps?: (
+    widgetType: WidgetType,
+    props: Record<string, any>
+  ) => void;
 }
 
 const WidgetContext = createContext<WidgetContextType | undefined>(undefined);
@@ -24,10 +31,41 @@ export function useWidgetContext() {
 }
 
 export function WidgetProvider({ children }: { children: React.ReactNode }) {
-  const [selectedWidget, setSelectedWidget] = useState<string | null>(null);
+  const [selectedWidget, setSelectedWidget] = useState<WidgetType>(
+    SIDEBAR_ITEMS[0].widgetType
+  );
+  const [widgetProps, setWidgetProps] = useState<
+    Record<WidgetType, Record<string, any>>
+  >({
+    [WidgetType.ANALOG_CLOCK]: {},
+    [WidgetType.DIGITAL_CLOCK]: {},
+    [WidgetType.WORLD_CLOCK]: {},
+    [WidgetType.CALENDAR]: {},
+    [WidgetType.WEATHER_FORECAST]: {},
+  });
+
+  const updateWidgetProps = (
+    widgetType: WidgetType,
+    props: Record<string, any>
+  ) => {
+    setWidgetProps((prev) => ({
+      ...prev,
+      [widgetType]: {
+        ...prev[widgetType],
+        ...props,
+      },
+    }));
+  };
 
   return (
-    <WidgetContext.Provider value={{ selectedWidget, setSelectedWidget }}>
+    <WidgetContext.Provider
+      value={{
+        selectedWidget,
+        setSelectedWidget,
+        widgetProps,
+        updateWidgetProps,
+      }}
+    >
       {children}
     </WidgetContext.Provider>
   );

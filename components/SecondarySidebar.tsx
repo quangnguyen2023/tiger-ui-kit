@@ -1,28 +1,27 @@
 'use client';
 
 import { useWidgetContext } from '@/contexts/WidgetContext';
-import TextField from './base/TextField';
-import CustomSwitch from './base/CustomSwitch';
-import ColorPalette from './base/ColorPicker';
+import { WIDGET_CONFIGS } from '@/configs/widgetConfigs';
+import CustomizeFieldComponent from './CustomizeFieldComponent';
 
 const SecondarySidebar = () => {
-  const { selectedWidget } = useWidgetContext();
+  const { selectedWidget, widgetProps, updateWidgetProps } = useWidgetContext();
+
+  const widgetConfig = WIDGET_CONFIGS[selectedWidget];
+
+  const handleFieldChange = (prop: string, value: any) => {
+    updateWidgetProps?.(selectedWidget, { [prop]: value });
+  };
 
   return (
-    <div className="flex flex-col gap-6 w-80 border-r border-gray-200 h-screen p-4">
-      <TextField label="Title" />
-      <CustomSwitch
-        label="Size"
-        options={[
-          { label: 'Small', value: 'small' },
-          { label: 'Medium', value: 'medium' },
-        ]}
-      />
-      <ColorPalette
-        label="Color"
-        initialColor="#000000"
-        onChange={(color) => {}}
-      />
+    <div className="flex flex-col gap-10 w-80 border-r border-gray-200 h-screen p-4">
+      {widgetConfig.customizeFields?.map((field) => (
+        <CustomizeFieldComponent
+          key={field.prop}
+          field={field}
+          onChange={(val) => handleFieldChange(field.prop, val)}
+        />
+      ))}
     </div>
   );
 };

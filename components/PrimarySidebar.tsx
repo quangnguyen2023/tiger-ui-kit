@@ -3,11 +3,12 @@
 import { SIDEBAR_ITEMS } from '@/constants';
 import { useWidgetContext } from '@/contexts/WidgetContext';
 import { Button } from '@/components/ui/button';
+import { WidgetType } from '@/types';
 
 const PrimarySidebar = () => {
   const { selectedWidget, setSelectedWidget } = useWidgetContext();
 
-  const handleWidgetSelect = (widget: string) => {
+  const handleWidgetSelect = (widget: WidgetType) => {
     setSelectedWidget(widget);
   };
 
@@ -18,9 +19,9 @@ const PrimarySidebar = () => {
           <Button
             key={index}
             variant="ghost"
-            onClick={() => handleWidgetSelect(item.label)}
+            onClick={() => handleWidgetSelect(item.widgetType)}
             className={`w-full flex justify-start gap-3 py-5 text-sm font-sans transition-colors mb-1 ${
-              item.label === selectedWidget
+              item.widgetType === selectedWidget
                 ? 'bg-gray-100'
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
