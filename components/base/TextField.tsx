@@ -1,7 +1,13 @@
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
-const TextField = ({ label, type, placeholder, onChange }: TextFieldProps) => {
+const TextField = ({
+  label,
+  value,
+  type,
+  placeholder,
+  onChange,
+}: TextFieldProps) => {
   // Generate unique ID for input-label connection
   const inputId = `${type}-${Math.random().toString(36).slice(2, 11)}`;
 
@@ -14,6 +20,7 @@ const TextField = ({ label, type, placeholder, onChange }: TextFieldProps) => {
         type={type}
         id={inputId}
         placeholder={placeholder}
+        value={value}
         onChange={onChange}
       />
     </div>
