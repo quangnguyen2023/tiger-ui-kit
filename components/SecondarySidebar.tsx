@@ -19,6 +19,7 @@ const SecondarySidebar = () => {
         <CustomizeFieldComponent
           key={field.prop}
           field={field}
+          value={widgetProps?.[selectedWidget]?.[field.prop]}
           onChange={(val) => handleFieldChange(field.prop, val)}
         />
       ))}
