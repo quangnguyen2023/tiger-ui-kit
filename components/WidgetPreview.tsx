@@ -7,6 +7,7 @@ import DigitalClock from './widgets/DigitalClock';
 import WeatherForecast from './widgets/WeatherForecast';
 import WorldClock from './widgets/WorldClock';
 import { useWidgetContext } from '@/contexts/WidgetContext';
+import EmbedLink from './EmbedLink';
 
 const WidgetPreview = () => {
   const { selectedWidget, widgetProps } = useWidgetContext();
@@ -29,7 +30,11 @@ const WidgetPreview = () => {
   };
 
   return (
-    <div className="flex-1 flex justify-center items-center">
+    <div className="flex-1 relative flex justify-center items-center">
+      <div className="absolute top-6 z-10">
+        <EmbedLink widgetType={selectedWidget} />
+      </div>
+
       {renderWidget()}
     </div>
   );
