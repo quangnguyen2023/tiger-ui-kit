@@ -1,24 +1,10 @@
 'use client';
 
 import { SIDEBAR_ITEMS } from '@/constants';
-import { WidgetType } from '@/types';
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useState,
-} from 'react';
-
-interface WidgetContextType {
-  selectedWidget: WidgetType;
-  setSelectedWidget: Dispatch<SetStateAction<WidgetType>>;
-  widgetProps?: Record<WidgetType, Record<string, any>>;
-  updateWidgetProps?: (
-    widgetType: WidgetType,
-    props: Record<string, any>
-  ) => void;
-}
+import { Widget, WidgetType } from '@/types/widget';
+import { WidgetContextType } from '@/types/widget';
+import { createContext, useContext, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const WidgetContext = createContext<WidgetContextType | undefined>(undefined);
 
@@ -34,27 +20,54 @@ export function WidgetProvider({ children }: { children: React.ReactNode }) {
   const [selectedWidget, setSelectedWidget] = useState<WidgetType>(
     SIDEBAR_ITEMS[0].widgetType
   );
-  const [widgetProps, setWidgetProps] = useState<
-    Record<WidgetType, Record<string, any>>
-  >({
-    [WidgetType.ANALOG_CLOCK]: {},
-    [WidgetType.DIGITAL_CLOCK]: {},
-    [WidgetType.WORLD_CLOCK]: {},
-    [WidgetType.CALENDAR]: {},
-    [WidgetType.WEATHER_FORECAST]: {},
-  });
+  const [widgets, setWidgets] = useState<Record<string, Widget>>({});
 
-  const updateWidgetProps = (
-    widgetType: WidgetType,
-    props: Record<string, any>
-  ) => {
-    setWidgetProps((prev) => ({
+  const createWidget = (type: WidgetType) => {
+    const id = uuidv4();
+    const instance: Widget = {
+      id,
+      type,
+      owner: '1',
+      customValues: {},
+      createdAt: new Date().toISOString(),
+      name: `New ${type.replace('_', ' ')}`,
+    };
+
+    setWidgets((prev) => ({
       ...prev,
-      [widgetType]: {
-        ...prev[widgetType],
-        ...props,
-      },
+      [id]: instance,
     }));
+
+    return id;
+  };
+
+  const updateWidget = (widgetId: string, prop: Record<string, any>) => {
+    setWidgets((prev) => {
+      const currentWidget = prev[widgetId];
+      const updatedWidget = {
+        ...currentWidget,
+        customValues: {
+          ...currentWidget.customValues,
+          ...prop,
+        },
+      };
+
+      return {
+        ...prev,
+        [widgetId]: updatedWidget,
+      };
+    });
+  };
+
+  const deleteWidget = (widgetId: string) => {
+    setWidgets((prev) => {
+      const { [widgetId]: deleted, ...rest } = prev;
+      return rest;
+    });
+  };
+
+  const getWidgetsByType = (type: WidgetType) => {
+    return Object.values(widgets).filter((widget) => widget.type === type);
   };
 
   return (
@@ -62,8 +75,11 @@ export function WidgetProvider({ children }: { children: React.ReactNode }) {
       value={{
         selectedWidget,
         setSelectedWidget,
-        widgetProps,
-        updateWidgetProps,
+        widgets,
+        createWidget,
+        updateWidget,
+        deleteWidget,
+        getWidgetsByType,
       }}
     >
       {children}
