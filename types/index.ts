@@ -19,27 +19,6 @@ declare global {
   };
 }
 
-export enum WidgetType {
-  ANALOG_CLOCK = 'ANALOG_CLOCK',
-  DIGITAL_CLOCK = 'DIGITAL_CLOCK',
-  WORLD_CLOCK = 'WORLD_CLOCK',
-  CALENDAR = 'CALENDAR',
-  WEATHER_FORECAST = 'WEATHER_FORECAST',
-}
-
-export interface CustomizeField {
-  type: 'COLOR' | 'SWITCHER' | 'TEXT' | 'NUMBER';
-  prop: string;
-  label: string;
-  options?: { label: string; value: string | number | boolean }[];
-  defaultValue?: any;
-}
-
-export type WidgetConfig = {
-  type: WidgetType;
-  customizeFields: CustomizeField[];
-};
-
 export type IconType = {
   width?: number | string;
   height?: number | string;

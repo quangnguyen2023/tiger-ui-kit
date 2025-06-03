@@ -1,5 +1,5 @@
 import { Clock, Clock10, Clock11Icon, Calendar, Wind } from 'lucide-react';
-import { WidgetType } from './types';
+import { WidgetType } from './types/widget';
 
 export const SIDEBAR_ITEMS = [
   { icon: Clock, label: 'Analog Clock', widgetType: WidgetType.ANALOG_CLOCK },
