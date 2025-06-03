@@ -1,4 +1,4 @@
-import { WidgetConfig, WidgetType } from '@/types';
+import { WidgetConfig, WidgetType } from '@/types/widget';
 
 export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
   [WidgetType.ANALOG_CLOCK]: {

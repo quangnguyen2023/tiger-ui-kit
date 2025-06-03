@@ -3,7 +3,7 @@
 import { SIDEBAR_ITEMS } from '@/constants';
 import { useWidgetContext } from '@/contexts/WidgetContext';
 import { Button } from '@/components/ui/button';
-import { WidgetType } from '@/types';
+import { WidgetType } from '@/types/widget';
 
 const PrimarySidebar = () => {
   const { selectedWidget, setSelectedWidget } = useWidgetContext();
