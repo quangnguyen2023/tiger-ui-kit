@@ -3,23 +3,29 @@
 import { useWidgetContext } from '@/contexts/WidgetContext';
 import { WIDGET_CONFIGS } from '@/configs/widgetConfigs';
 import CustomizeFieldComponent from './CustomizeFieldComponent';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 import { BadgePlus } from 'lucide-react';
 import DividerWithLabel from './base/DividerWithLabel';
 import WidgetCard from './WidgetCard';
+import { WidgetType } from '@/types/widget';
+import useWidget from '@/hooks/useWidget';
 
 const SecondarySidebar = () => {
   const { widgetId } = useParams() as { widgetId: string };
+  const { push } = useRouter();
 
   const {
-    selectedWidget,
     widgets,
+    isLoadingWidgets,
     createWidget,
     updateWidget,
     deleteWidget,
     getWidgetsByType,
-  } = useWidgetContext();
+  } = useWidget();
+  // console.log('widgets value:', widgets);
+
+  const { selectedWidget } = useWidgetContext();
 
   const widgetConfig = WIDGET_CONFIGS[selectedWidget];
 
@@ -29,14 +35,25 @@ const SecondarySidebar = () => {
     updateWidget(widgetId, { [prop]: value });
   };
 
-  if (widgetId) {
+  const handleCreateWidget = async (widgetType: WidgetType) => {
+    const newId = await createWidget(widgetType);
+    push(`/widget-customizer/${newId}`);
+  };
+
+  // If the widget is not found, redirect to the widget creation page
+  if (widgetId && !widgets[widgetId] && !isLoadingWidgets) {
+    push('/widget-customizer');
+    return null;
+  }
+
+  if (widgetId && widgets[widgetId]) {
     return (
       <div className="flex flex-col gap-10 w-80 border-r border-gray-200 h-screen p-4">
         {widgetConfig.customizeFields?.map((field) => (
           <CustomizeFieldComponent
             key={field.prop}
             field={field}
-            value={widgets[widgetId].customValues?.[field.prop]}
+            value={widgets[widgetId]?.customValues?.[field.prop]}
             onChange={(val) => handleFieldChange(field.prop, val)}
           />
         ))}
@@ -48,7 +65,7 @@ const SecondarySidebar = () => {
     <div className="flex flex-col gap-6 w-80 border-r border-gray-200 h-screen p-4">
       <Button
         className="py-5 bg-blue-500 hover:bg-blue-400 transition-all duration-300"
-        onClick={() => createWidget(selectedWidget)}
+        onClick={() => handleCreateWidget(selectedWidget)}
       >
         <BadgePlus /> Create New
       </Button>
