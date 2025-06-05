@@ -1,6 +1,7 @@
 import { SlidersVertical, SquaresExclude, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { Widget } from '@/types/widget';
+import { useRouter } from 'next/navigation';
 
 type WidgetCardProps = {
   widget: Widget;
@@ -8,6 +9,8 @@ type WidgetCardProps = {
 };
 
 const WidgetCard = ({ widget, onDelete }: WidgetCardProps) => {
+  const { push } = useRouter();
+
   return (
     <div className="relative flex flex-col gap-4 border border-gray-200 p-4 py-3 rounded-lg">
       <div className="flex items-center gap-2 max-w-10/12">
@@ -20,7 +23,7 @@ const WidgetCard = ({ widget, onDelete }: WidgetCardProps) => {
       <Button
         variant="outline"
         className="w-fit self-center"
-        onClick={() => (window.location.href = `?widgetId=${widget.id}`)}
+        onClick={() => push(`/widget-customizer/${widget.id}`)}
       >
         <SlidersVertical /> Customize
       </Button>
