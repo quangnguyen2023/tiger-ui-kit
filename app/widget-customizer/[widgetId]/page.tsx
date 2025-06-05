@@ -1,7 +1,7 @@
 import SecondarySidebar from '@/components/SecondarySidebar';
 import WidgetPreview from '@/components/WidgetPreview';
 
-const WidgetCustomizer = () => {
+const WidgetCustomizerDetail = () => {
   return (
     <>
       <SecondarySidebar />
@@ -10,4 +10,4 @@ const WidgetCustomizer = () => {
   );
 };
 
-export default WidgetCustomizer;
+export default WidgetCustomizerDetail;
