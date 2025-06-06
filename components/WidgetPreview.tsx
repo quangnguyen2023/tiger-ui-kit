@@ -32,9 +32,11 @@ const WidgetPreview = () => {
 
   return (
     <div className="flex-1 relative flex justify-center items-center">
-      <div className="absolute top-6 z-10">
-        <EmbedLink widgetType={currentWidget} />
-      </div>
+      {currentWidget && (
+        <div className="absolute top-6 z-10">
+          <EmbedLink widgetType={currentWidget} />
+        </div>
+      )}
 
       {renderWidget()}
     </div>
