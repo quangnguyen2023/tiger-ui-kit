@@ -26,9 +26,11 @@ export interface WidgetContextType {
   selectedWidget: WidgetType;
   setSelectedWidget: Dispatch<SetStateAction<WidgetType>>;
   widgets: Record<string, Widget>;
-  createWidget: (type: WidgetType) => string;
+  isLoadingWidgets: boolean;
+  createWidget: (type: WidgetType) => Promise<string>;
   updateWidget: (widgetId: string, prop: Record<string, any>) => void;
-  deleteWidget: (widgetId: string) => void;
+  saveWidget: (widgetId: string) => Promise<void>;
+  deleteWidget: (widgetId: string) => Promise<void>;
   getWidgetsByType: (type: WidgetType) => Widget[];
 }
 

@@ -1,10 +1,11 @@
 'use client';
 
+import { getExistingWidgets } from '@/api/widget';
 import { SIDEBAR_ITEMS } from '@/constants';
+import useWidgetActions from '@/hooks/useWidgetActions';
 import { Widget, WidgetType } from '@/types/widget';
 import { WidgetContextType } from '@/types/widget';
-import { createContext, useContext, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const WidgetContext = createContext<WidgetContextType | undefined>(undefined);
 
@@ -21,54 +22,23 @@ export function WidgetProvider({ children }: { children: React.ReactNode }) {
     SIDEBAR_ITEMS[0].widgetType
   );
   const [widgets, setWidgets] = useState<Record<string, Widget>>({});
+  const [isLoadingWidgets, setIsLoadingWidgets] = useState<boolean>(true);
 
-  const createWidget = (type: WidgetType) => {
-    const id = uuidv4();
-    const instance: Widget = {
-      id,
-      type,
-      owner: '1',
-      customValues: {},
-      createdAt: new Date().toISOString(),
-      name: `New ${type.replace('_', ' ')}`,
+  const actions = useWidgetActions({ widgets, setWidgets });
+
+  useEffect(() => {
+    const fetchWidgets = async () => {
+      try {
+        const existingWidgets = await getExistingWidgets();
+        setWidgets(existingWidgets);
+      } catch (error) {
+        console.error('Error fetching widgets:', error);
+      }
+      setIsLoadingWidgets(false);
     };
 
-    setWidgets((prev) => ({
-      ...prev,
-      [id]: instance,
-    }));
-
-    return id;
-  };
-
-  const updateWidget = (widgetId: string, prop: Record<string, any>) => {
-    setWidgets((prev) => {
-      const currentWidget = prev[widgetId];
-      const updatedWidget = {
-        ...currentWidget,
-        customValues: {
-          ...currentWidget.customValues,
-          ...prop,
-        },
-      };
-
-      return {
-        ...prev,
-        [widgetId]: updatedWidget,
-      };
-    });
-  };
-
-  const deleteWidget = (widgetId: string) => {
-    setWidgets((prev) => {
-      const { [widgetId]: deleted, ...rest } = prev;
-      return rest;
-    });
-  };
-
-  const getWidgetsByType = (type: WidgetType) => {
-    return Object.values(widgets).filter((widget) => widget.type === type);
-  };
+    fetchWidgets();
+  }, []);
 
   return (
     <WidgetContext.Provider
@@ -76,10 +46,8 @@ export function WidgetProvider({ children }: { children: React.ReactNode }) {
         selectedWidget,
         setSelectedWidget,
         widgets,
-        createWidget,
-        updateWidget,
-        deleteWidget,
-        getWidgetsByType,
+        isLoadingWidgets,
+        ...actions,
       }}
     >
       {children}

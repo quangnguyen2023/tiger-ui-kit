@@ -9,7 +9,6 @@ import { BadgePlus } from 'lucide-react';
 import DividerWithLabel from './base/DividerWithLabel';
 import WidgetCard from './WidgetCard';
 import { WidgetType } from '@/types/widget';
-import useWidget from '@/hooks/useWidget';
 
 const SecondarySidebar = () => {
   const { widgetId } = useParams() as { widgetId: string };
@@ -22,13 +21,11 @@ const SecondarySidebar = () => {
     updateWidget,
     deleteWidget,
     getWidgetsByType,
-  } = useWidget();
+  } = useWidgetContext();
   // console.log('widgets value:', widgets);
 
   const { selectedWidget } = useWidgetContext();
-
   const widgetConfig = WIDGET_CONFIGS[selectedWidget];
-
   const widgetsByType = getWidgetsByType(selectedWidget);
 
   const handleFieldChange = (prop: string, value: any) => {
@@ -46,6 +43,7 @@ const SecondarySidebar = () => {
     return null;
   }
 
+  // If widgetId exists then showing the customization fields
   if (widgetId && widgets[widgetId]) {
     return (
       <div className="flex flex-col gap-10 w-80 border-r border-gray-200 h-screen p-4">
@@ -61,6 +59,7 @@ const SecondarySidebar = () => {
     );
   }
 
+  // If no widgetId, show the sidebar with options to create or select existing widgets
   return (
     <div className="flex flex-col gap-6 w-80 border-r border-gray-200 h-screen p-4">
       <Button
@@ -71,21 +70,20 @@ const SecondarySidebar = () => {
       </Button>
 
       {widgetsByType.length > 0 && (
-        <DividerWithLabel label="or continue with" />
-      )}
+        <>
+          <DividerWithLabel label="or continue with" />
 
-      {widgetsByType.length > 0 && (
-        <div className="flex flex-col gap-4">
-          <h5 className="font-medium text-gray-600">Existing Widgets</h5>
-
-          {widgetsByType.map((widget) => (
-            <WidgetCard
-              key={widget.id}
-              widget={widget}
-              onDelete={deleteWidget}
-            />
-          ))}
-        </div>
+          <div className="flex flex-col gap-4">
+            <h5 className="font-medium text-gray-600">Existing Widgets</h5>
+            {widgetsByType.map((widget) => (
+              <WidgetCard
+                key={widget.id}
+                widget={widget}
+                onDelete={deleteWidget}
+              />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

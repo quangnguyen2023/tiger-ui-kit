@@ -5,27 +5,15 @@ import {
   getExistingWidgets,
 } from '@/api/widget';
 import { Widget, WidgetType } from '@/types/widget';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const useWidget = () => {
-  const [widgets, setWidgets] = useState<Record<string, Widget>>({});
-  const [isLoadingWidgets, setIsLoadingWidgets] = useState<boolean>(true);
+type UseWidgetActionsProps = {
+  widgets: Record<string, Widget>;
+  setWidgets: React.Dispatch<React.SetStateAction<Record<string, Widget>>>;
+};
 
-  useEffect(() => {
-    const fetchWidgets = async () => {
-      try {
-        const existingWidgets = await getExistingWidgets();
-        setWidgets(existingWidgets);
-      } catch (error) {
-        console.error('Error fetching widgets:', error);
-      }
-      setIsLoadingWidgets(false);
-    };
-
-    fetchWidgets();
-  }, []);
-
+const useWidgetActions = ({ widgets, setWidgets }: UseWidgetActionsProps) => {
   const refreshWidgets = useCallback(async () => {
     setWidgets(await getExistingWidgets());
   }, []);
@@ -90,8 +78,6 @@ const useWidget = () => {
   );
 
   return {
-    widgets,
-    isLoadingWidgets,
     getWidgetsByType,
     createWidget,
     updateWidget,
@@ -100,4 +86,4 @@ const useWidget = () => {
   };
 };
 
-export default useWidget;
+export default useWidgetActions;
