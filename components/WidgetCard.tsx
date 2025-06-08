@@ -2,6 +2,7 @@ import { SlidersVertical, SquaresExclude, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { Widget } from '@/types/widget';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 type WidgetCardProps = {
   widget: Widget;
@@ -10,6 +11,13 @@ type WidgetCardProps = {
 
 const WidgetCard = ({ widget, onDelete }: WidgetCardProps) => {
   const { push } = useRouter();
+  const [isNavigatingToCustomizer, setIsNavigatingToCustomizer] =
+    useState(false);
+
+  const handleCustomize = () => {
+    setIsNavigatingToCustomizer(true);
+    push(`/widget-customizer/${widget.id}`);
+  };
 
   return (
     <div className="relative flex flex-col gap-4 border border-gray-200 p-4 py-3 rounded-lg">
@@ -23,7 +31,8 @@ const WidgetCard = ({ widget, onDelete }: WidgetCardProps) => {
       <Button
         variant="outline"
         className="w-fit self-center"
-        onClick={() => push(`/widget-customizer/${widget.id}`)}
+        onClick={handleCustomize}
+        loading={isNavigatingToCustomizer}
       >
         <SlidersVertical /> Customize
       </Button>
@@ -33,6 +42,7 @@ const WidgetCard = ({ widget, onDelete }: WidgetCardProps) => {
         variant="ghost"
         size="icon"
         onClick={() => onDelete(widget.id)}
+        disabled={isNavigatingToCustomizer}
       >
         <X />
       </Button>

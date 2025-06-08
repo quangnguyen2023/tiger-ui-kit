@@ -9,6 +9,7 @@ import { BadgePlus } from 'lucide-react';
 import DividerWithLabel from './base/DividerWithLabel';
 import WidgetCard from './WidgetCard';
 import { WidgetType } from '@/types/widget';
+import { useState } from 'react';
 
 const SecondarySidebar = () => {
   const { widgetId } = useParams() as { widgetId: string };
@@ -21,10 +22,11 @@ const SecondarySidebar = () => {
     updateWidget,
     deleteWidget,
     getWidgetsByType,
+    selectedWidget,
   } = useWidgetContext();
-  // console.log('widgets value:', widgets);
 
-  const { selectedWidget } = useWidgetContext();
+  const [isCreating, setIsCreating] = useState(false);
+
   const widgetConfig = WIDGET_CONFIGS[selectedWidget];
   const widgetsByType = getWidgetsByType(selectedWidget);
 
@@ -33,8 +35,15 @@ const SecondarySidebar = () => {
   };
 
   const handleCreateWidget = async (widgetType: WidgetType) => {
-    const newId = await createWidget(widgetType);
-    push(`/widget-customizer/${newId}`);
+    try {
+      setIsCreating(true);
+      const newId = await createWidget(widgetType);
+      await push(`/widget-customizer/${newId}`);
+    } catch (err) {
+      console.error('Error creating widget:', err);
+    } finally {
+      setIsCreating(false);
+    }
   };
 
   // If the widget is not found, redirect to the widget creation page
@@ -65,6 +74,7 @@ const SecondarySidebar = () => {
       <Button
         className="py-5 bg-blue-500 hover:bg-blue-400 transition-all duration-300"
         onClick={() => handleCreateWidget(selectedWidget)}
+        loading={isCreating}
       >
         <BadgePlus /> Create New
       </Button>
