@@ -34,7 +34,7 @@ const WidgetPreview = () => {
     <div className="flex-1 relative flex justify-center items-center">
       {currentWidget && (
         <div className="absolute top-6 z-10">
-          <EmbedLink widgetType={currentWidget} />
+          <EmbedLink widgetType={currentWidget.type} />
         </div>
       )}
 
