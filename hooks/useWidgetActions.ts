@@ -66,7 +66,7 @@ const useWidgetActions = ({ widgets, setWidgets }: UseWidgetActionsProps) => {
       await apiSaveWidget(id, updatedWidget);
       refreshWidgets();
     },
-    [refreshWidgets]
+    [refreshWidgets, widgets]
   );
 
   const deleteWidget = useCallback(
