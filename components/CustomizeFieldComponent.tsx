@@ -1,4 +1,4 @@
-import { CustomizeField } from '@/types';
+import { CustomizeField } from '@/types/widget';
 import ColorPicker from './base/ColorPicker';
 import TextField from './base/TextField';
 import CustomSwitch from './base/CustomSwitch';

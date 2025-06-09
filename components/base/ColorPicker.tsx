@@ -8,10 +8,11 @@ import {
 } from '@/components/ui/popover';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
+import { isLightColor } from '@/lib/utils';
 
-// ============================================================================
-// Types
-// ============================================================================
+//
+// ======== Types ===============================================================
+//
 interface ColorPickerProps {
   label: string;
   initialColor?: string;
@@ -27,9 +28,9 @@ interface PredefinedColorsProps {
   onColorSelect: (color: string) => void;
 }
 
-// ============================================================================
-// Constants
-// ============================================================================
+//
+// ==== Constants ==============================================================
+//
 const PREDEFINED_COLORS = [
   '#FF6900',
   '#FCB900',
@@ -45,22 +46,9 @@ const PREDEFINED_COLORS = [
   '#34495E',
 ];
 
-// ============================================================================
-// Utility Functions
-// ============================================================================
-const isLightColor = (hexColor: string): boolean => {
-  const hex = hexColor.replace('#', '');
-  const r = parseInt(hex.slice(0, 2), 16);
-  const g = parseInt(hex.slice(2, 4), 16);
-  const b = parseInt(hex.slice(4, 6), 16);
-
-  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  return luminance > 0.5;
-};
-
-// ============================================================================
-// Sub Components
-// ============================================================================
+//
+// ==== Sub Components =========================================================
+//
 const ColorPreview: FC<ColorPreviewProps> = ({ color, onColorChange }) => (
   <div className="flex items-center gap-3">
     <PopoverTrigger asChild>
@@ -98,9 +86,9 @@ const PredefinedColors: FC<PredefinedColorsProps> = ({ onColorSelect }) => (
   </div>
 );
 
-// ============================================================================
-// Main Component
-// ============================================================================
+//
+// ==== Main Component =========================================================
+//
 const ColorPicker: FC<ColorPickerProps> = ({
   label,
   initialColor = '#000000',
