@@ -44,11 +44,13 @@ function Button({
   disabled,
   asChild = false,
   loading = false,
+  startIcon,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
     loading?: boolean
+    startIcon?: React.ReactNode
   }) {
   const Comp = asChild ? Slot : "button"
 
@@ -59,8 +61,16 @@ function Button({
       disabled={disabled || loading}
       {...props}
     >
-      {loading && <Loader className="animate-spin" />}
-      {!loading && <Slottable>{children}</Slottable>}
+      {loading ? (
+        <>
+          <Loader className="animate-spin" /> {children}
+        </>
+      ) : (
+        <>
+          {startIcon}
+          <Slottable>{children}</Slottable>
+        </>
+      )}
     </Comp>
   );
 }
