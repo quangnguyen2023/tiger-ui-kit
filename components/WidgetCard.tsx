@@ -11,11 +11,10 @@ type WidgetCardProps = {
 
 const WidgetCard = ({ widget, onDelete }: WidgetCardProps) => {
   const { push } = useRouter();
-  const [isNavigatingToCustomizer, setIsNavigatingToCustomizer] =
-    useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const handleCustomize = () => {
-    setIsNavigatingToCustomizer(true);
+    setIsNavigating(true);
     push(`/widget-customizer/${widget.id}`);
   };
 
@@ -32,7 +31,7 @@ const WidgetCard = ({ widget, onDelete }: WidgetCardProps) => {
         variant="outline"
         className="w-fit self-center"
         onClick={handleCustomize}
-        loading={isNavigatingToCustomizer}
+        loading={isNavigating}
       >
         <SlidersVertical /> Customize
       </Button>
@@ -42,7 +41,7 @@ const WidgetCard = ({ widget, onDelete }: WidgetCardProps) => {
         variant="ghost"
         size="icon"
         onClick={() => onDelete(widget.id)}
-        disabled={isNavigatingToCustomizer}
+        disabled={isNavigating}
       >
         <X />
       </Button>
