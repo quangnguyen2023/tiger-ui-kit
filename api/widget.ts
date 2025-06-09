@@ -3,7 +3,9 @@
 import { Widget } from '@/types/widget';
 import { cookies } from 'next/headers';
 
-export const getExistingWidgets: () => Promise<Record<string, Widget>> = async () => {
+export const getExistingWidgets: () => Promise<
+  Record<string, Widget>
+> = async () => {
   const widgetsCookie = (await cookies()).get('widgets');
   return widgetsCookie ? JSON.parse(widgetsCookie.value) : {};
 };

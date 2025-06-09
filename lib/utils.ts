@@ -15,8 +15,6 @@ export const createWidgetUrl = (type: WidgetType, id: string) => {
 /**
  * Given a hex color string, determines if the color is light or dark.
  * A light color is one with a luminance > 0.5.
- * @param hexColor A color in hex string format (e.g. #RRGGBB or #RGB)
- * @returns True if the color is light, false if dark
  */
 export const isLightColor = (hexColor: string): boolean => {
   const hex = hexColor.replace('#', '');
