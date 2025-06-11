@@ -10,6 +10,11 @@ export const getExistingWidgets: () => Promise<
   return widgetsCookie ? JSON.parse(widgetsCookie.value) : {};
 };
 
+export const apiGetWidgetById = async (id: string) => {
+  const widgets = await getExistingWidgets();
+  return widgets[id];
+};
+
 export const apiCreateWidget = async (id: string, newWidget: Widget) => {
   const widgets = await getExistingWidgets();
   widgets[id] = newWidget;

@@ -1,13 +1,12 @@
-'use client';
-
-import { useWidgetContext } from '@/contexts/WidgetContext';
-import { useParams } from 'next/navigation';
 import { widgetService } from '@/services/widgetService';
+import { apiGetWidgetById } from '../../../../api/widget';
 
-const EmbeddedWidget = () => {
-  const { widgets } = useWidgetContext();
-  const { widgetId } = useParams() as { widgetId: string };
-  const widget = widgets[widgetId];
+type Props = {
+  params: { widgetId: string };
+};
+
+const EmbeddedWidget = async ({ params }: Props) => {
+  const widget = await apiGetWidgetById(params.widgetId);
 
   if (!widget) return <div>Widget not found</div>;
 
