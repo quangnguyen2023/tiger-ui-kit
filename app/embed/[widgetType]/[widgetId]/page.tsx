@@ -2,11 +2,12 @@ import { widgetService } from '@/services/widgetService';
 import { apiGetWidgetById } from '../../../../api/widget';
 
 type Props = {
-  params: { widgetId: string };
+  params: Promise<{ widgetId: string }>;
 };
 
 const EmbeddedWidget = async ({ params }: Props) => {
-  const widget = await apiGetWidgetById(params.widgetId);
+  const widgetId = (await params).widgetId;
+  const widget = await apiGetWidgetById(widgetId);
 
   if (!widget) return <div>Widget not found</div>;
 
