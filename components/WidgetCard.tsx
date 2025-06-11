@@ -32,8 +32,9 @@ const WidgetCard = ({ widget, onDelete }: WidgetCardProps) => {
         className="w-fit self-center"
         onClick={handleCustomize}
         loading={isNavigating}
+        startIcon={<SlidersVertical />}
       >
-        <SlidersVertical /> Customize
+        Customize
       </Button>
 
       <Button
