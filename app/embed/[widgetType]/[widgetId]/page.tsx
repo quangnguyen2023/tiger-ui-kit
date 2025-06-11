@@ -9,12 +9,18 @@ const EmbeddedWidget = () => {
   const { widgetId } = useParams() as { widgetId: string };
   const widget = widgets[widgetId];
 
-  if (!widget) return null;
-  return (
-    <div className="w-full h-screen flex justify-center items-center">
-      {widgetService.renderWidget(widget)}
-    </div>
-  );
+  if (!widget) return <div>Widget not found</div>;
+
+  try {
+    return (
+      <div className="w-full h-screen flex justify-center items-center">
+        {widgetService.renderWidget(widget)}
+      </div>
+    );
+  } catch (err) {
+    console.error('Embed render error: ', err);
+    return <div>Embed lỗi hoặc không tìm thấy widget</div>;
+  }
 };
 
 export default EmbeddedWidget;
