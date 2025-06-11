@@ -1,17 +1,19 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useState } from 'react';
 import { Input } from './ui/input';
 import { Copy } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { toast } from 'sonner';
 import { createWidgetUrl } from '@/lib/utils';
-import { WidgetType } from '@/types';
+import { WidgetType } from '@/types/widget';
+import { useParams } from 'next/navigation';
 
 const EmbedLink = ({ widgetType }: { widgetType: WidgetType }) => {
+  const { widgetId } = useParams() as { widgetId: string };
   const [copied, setCopied] = useState(false);
 
-  const embedUrl = createWidgetUrl(widgetType, useId());
+  const embedUrl = createWidgetUrl(widgetType, widgetId);
 
   const handleCopy = async () => {
     try {
