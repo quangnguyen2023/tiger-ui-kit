@@ -1,6 +1,5 @@
-import { widgetService } from '@/services/widgetService';
 import { apiGetWidgetById } from '../../../../api/widget';
-import { apiGetWidgetByIdForEmbed } from '@/api/embed';
+import WidgetRenderer from '@/components/WidgetRenderer';
 
 type Props = {
   params: Promise<{ widgetId: string }>;
@@ -8,14 +7,14 @@ type Props = {
 
 const EmbeddedWidget = async ({ params }: Props) => {
   const widgetId = (await params).widgetId;
-  const widget = await apiGetWidgetByIdForEmbed(widgetId);
+  const widget = await apiGetWidgetById(widgetId);
 
   if (!widget) return <div>Widget not found</div>;
 
   try {
     return (
       <div className="w-full h-screen flex justify-center items-center">
-        {/* {widgetService.renderWidget(widget)} */}
+        <WidgetRenderer widget={widget} />
       </div>
     );
   } catch (err) {

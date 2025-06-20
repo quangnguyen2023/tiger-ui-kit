@@ -1,5 +1,3 @@
-// 'use server';
-
 import axios from '@/lib/axios';
 import { mapWidgetsArrToObj } from '@/mappers/widgetMapper';
 import { Widget } from '@/types/widget';
