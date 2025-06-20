@@ -75,8 +75,9 @@ const SecondarySidebar = () => {
         className="py-5 bg-blue-500 hover:bg-blue-400 transition-all duration-300"
         onClick={() => handleCreateWidget(selectedWidget)}
         loading={isCreating}
+        startIcon={<BadgePlus />}
       >
-        <BadgePlus /> Create New
+        Create New
       </Button>
 
       {widgetsByType.length > 0 && (
