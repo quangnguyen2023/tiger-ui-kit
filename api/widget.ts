@@ -1,13 +1,19 @@
-'use server';
+// 'use server';
 
+import axios from '@/lib/axios';
+import { mapWidgetsArrToObj } from '@/mappers/widgetMapper';
 import { Widget } from '@/types/widget';
-import { cookies } from 'next/headers';
 
 export const getExistingWidgets: () => Promise<
   Record<string, Widget>
 > = async () => {
-  const widgetsCookie = (await cookies()).get('widgets');
-  return widgetsCookie ? JSON.parse(widgetsCookie.value) : {};
+  try {
+    const res = await axios.get('/');
+    return mapWidgetsArrToObj(res.data || []);
+  } catch (err) {
+    console.error('Error fetching existing widgets:', err);
+    return {};
+  }
 };
 
 export const apiGetWidgetById = async (id: string) => {
@@ -15,20 +21,28 @@ export const apiGetWidgetById = async (id: string) => {
   return widgets[id];
 };
 
-export const apiCreateWidget = async (id: string, newWidget: Widget) => {
-  const widgets = await getExistingWidgets();
-  widgets[id] = newWidget;
-  (await cookies()).set('widgets', JSON.stringify(widgets));
+export const apiCreateWidget = async (newWidget: Omit<Widget, 'createdAt'>) => {
+  console.log('🚀 ~ newWidget:', newWidget);
+  try {
+    await axios.post('/', newWidget);
+  } catch (err) {
+    console.error('Error creating widget:', err);
+  }
 };
 
 export const apiSaveWidget = async (id: string, updatedWidget: Widget) => {
-  const widgets = await getExistingWidgets();
-  widgets[id] = updatedWidget;
-  (await cookies()).set('widgets', JSON.stringify(widgets));
+  try {
+    await axios.patch(`/${id}`, updatedWidget);
+  } catch (err) {
+    console.error('Error saving widget:', err);
+  }
 };
 
 export const apiDeleteWidget = async (id: string) => {
-  const widgets = await getExistingWidgets();
-  delete widgets[id];
-  (await cookies()).set('widgets', JSON.stringify(widgets));
+  try {
+    const res = await axios.delete(`/${id}`);
+    return res.data;
+  } catch (err) {
+    console.error('Error deleting widget:', err);
+  }
 };

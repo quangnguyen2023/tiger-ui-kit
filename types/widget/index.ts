@@ -5,7 +5,7 @@ export type Widget = {
   owner: string;
   type: WidgetType;
   customValues: Record<string, any>;
-  createdAt: string;
+  createdAt?: string;
   name?: string;
 };
 

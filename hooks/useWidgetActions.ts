@@ -37,7 +37,7 @@ const useWidgetActions = ({ widgets, setWidgets }: UseWidgetActionsProps) => {
         name: `New ${type.replace('_', ' ')}`,
       };
 
-      await apiCreateWidget(id, instance);
+      await apiCreateWidget(instance);
       refreshWidgets();
 
       return id;
