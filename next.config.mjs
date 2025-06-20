@@ -16,11 +16,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: 'frame-ancestors https://www.notion.so',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: '', // Gỡ bỏ nếu đang bị thêm
+            value: 'frame-ancestors *',
           },
         ],
       },
