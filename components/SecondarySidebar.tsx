@@ -9,7 +9,7 @@ import { BadgePlus } from 'lucide-react';
 import DividerWithLabel from './base/DividerWithLabel';
 import WidgetCard from './WidgetCard';
 import { WidgetType } from '@/types/widget';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const SecondarySidebar = () => {
   const { widgetId } = useParams() as { widgetId: string };
@@ -46,9 +46,14 @@ const SecondarySidebar = () => {
     }
   };
 
-  // If the widget is not found, redirect to the widget creation page
+  useEffect(() => {
+    // If the widget is not found, redirect to the widget creation page
+    if (widgetId && !widgets[widgetId] && !isLoadingWidgets) {
+      push('/widget-customizer');
+    }
+  }, [widgetId, widgets, isLoadingWidgets, push]);
+
   if (widgetId && !widgets[widgetId] && !isLoadingWidgets) {
-    push('/widget-customizer');
     return null;
   }
 
