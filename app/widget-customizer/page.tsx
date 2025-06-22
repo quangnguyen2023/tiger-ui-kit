@@ -1,13 +1,7 @@
-import SecondarySidebar from '@/components/SecondarySidebar';
-import WidgetPreview from '@/components/WidgetPreview';
+import WidgetCustomizerContainer from '@/components/WidgetCustomizerContainer';
 
 const WidgetCustomizer = () => {
-  return (
-    <>
-      <SecondarySidebar />
-      <WidgetPreview />
-    </>
-  );
+  return <WidgetCustomizerContainer />;
 };
 
 export default WidgetCustomizer;

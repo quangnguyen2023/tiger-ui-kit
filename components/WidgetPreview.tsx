@@ -1,24 +1,23 @@
 'use client';
 
-import { useWidgetContext } from '@/contexts/WidgetContext';
 import EmbedLink from './EmbedLink';
-import { useParams } from 'next/navigation';
 import WidgetRenderer from '@/components/WidgetRenderer';
+import { Widget } from '@/types/widget';
 
-const WidgetPreview = () => {
-  const { widgets } = useWidgetContext();
-  const { widgetId } = useParams() as { widgetId: string };
-  const currentWidget = widgets[widgetId];
+type WidgetPreviewProps = {
+  widget: Widget;
+};
 
+const WidgetPreview = ({ widget }: WidgetPreviewProps) => {
   return (
     <div className="flex-1 relative flex justify-center items-center">
-      {currentWidget && (
+      {widget && (
         <div className="absolute top-6 z-10">
-          <EmbedLink widgetType={currentWidget.type} />
+          <EmbedLink widgetType={widget.type} />
         </div>
       )}
 
-      <WidgetRenderer widget={currentWidget} />
+      <WidgetRenderer widget={widget} />
     </div>
   );
 };

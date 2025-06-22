@@ -4,12 +4,15 @@ import { SIDEBAR_ITEMS } from '@/constants';
 import { useWidgetContext } from '@/contexts/WidgetContext';
 import { Button } from '@/components/ui/button';
 import { WidgetType } from '@/types/widget';
+import { useRouter } from 'next/navigation';
 
 const PrimarySidebar = () => {
+  const { push } = useRouter();
   const { selectedWidget, setSelectedWidget } = useWidgetContext();
 
   const handleWidgetSelect = (widget: WidgetType) => {
     setSelectedWidget(widget);
+    push(`/widget-customizer`);
   };
 
   return (
