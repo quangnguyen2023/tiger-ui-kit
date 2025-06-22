@@ -2,13 +2,14 @@
 
 import EmbedLink from './EmbedLink';
 import WidgetRenderer from '@/components/WidgetRenderer';
-import { Widget } from '@/types/widget';
+import { Widget, WidgetType } from '@/types/widget';
 
 type WidgetPreviewProps = {
   widget: Widget;
+  selectedWidget: WidgetType;
 };
 
-const WidgetPreview = ({ widget }: WidgetPreviewProps) => {
+const WidgetPreview = ({ widget, selectedWidget }: WidgetPreviewProps) => {
   return (
     <div className="flex-1 relative flex justify-center items-center">
       {widget && (
@@ -17,7 +18,7 @@ const WidgetPreview = ({ widget }: WidgetPreviewProps) => {
         </div>
       )}
 
-      <WidgetRenderer widget={widget} />
+      <WidgetRenderer widget={widget} selectedWidget={selectedWidget} />
     </div>
   );
 };

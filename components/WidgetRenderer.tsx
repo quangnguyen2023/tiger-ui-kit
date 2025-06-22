@@ -6,10 +6,13 @@ import { Widget, WidgetType } from '@/types/widget';
 
 type WidgetRendererProps = {
   widget: Widget;
+  selectedWidget: WidgetType;
 };
 
-const WidgetRenderer = ({ widget }: WidgetRendererProps) => {
-  switch (widget?.type) {
+const WidgetRenderer = ({ widget, selectedWidget }: WidgetRendererProps) => {
+  const widgetType = widget?.type || selectedWidget;
+
+  switch (widgetType) {
     case WidgetType.ANALOG_CLOCK:
       return <AnalogClock {...widget?.customValues} />;
     case WidgetType.DIGITAL_CLOCK:
