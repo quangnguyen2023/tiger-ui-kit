@@ -5,6 +5,12 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
     type: WidgetType.ANALOG_CLOCK,
     customizeFields: [
       {
+        prop: 'title',
+        type: 'TEXT',
+        label: 'Title',
+        defaultValue: '',
+      },
+      {
         prop: 'textColor',
         type: 'COLOR',
         label: 'Text Color',
@@ -17,9 +23,20 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
         defaultValue: '#fff',
       },
       {
+        prop: 'size',
+        type: 'SWITCHER',
+        label: 'Size',
+        options: [
+          { label: 'Small', value: 'small' },
+          { label: 'Medium', value: 'medium' },
+          { label: 'Large', value: 'large' },
+        ],
+        defaultValue: 60,
+      },
+      {
         prop: 'enableIndicators',
         type: 'SWITCHER',
-        label: 'Enable Indicators',
+        label: 'Indicators',
         options: [
           { label: 'On', value: true },
           { label: 'Off', value: false },
@@ -27,10 +44,10 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
         defaultValue: true,
       },
       {
-        prop: 'title',
-        type: 'TEXT',
-        label: 'Title',
-        defaultValue: '',
+        prop: 'updateDuration',
+        type: 'NUMBER',
+        label: 'Duration (seconds)',
+        defaultValue: 60,
       },
     ],
   },
