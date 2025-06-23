@@ -11,9 +11,7 @@ const CustomSwitch = ({
   options,
   onChange,
 }: CustomSwitchType) => {
-  const [selectedValue, setSelectedValue] = useState(
-    selectedOption || options[0]?.value
-  );
+  const [selectedValue, setSelectedValue] = useState(selectedOption);
 
   const id = useId();
 

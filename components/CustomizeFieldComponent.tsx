@@ -50,7 +50,7 @@ const CustomizeFieldComponent = ({
         <CustomSwitch
           label={field.label}
           options={field.options || []}
-          selectedOption={value || field?.options?.[0]?.value}
+          selectedOption={value ?? field?.options?.[0]?.value}
           onChange={(val) => onChange?.(val)}
         />
       );
