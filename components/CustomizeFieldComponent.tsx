@@ -38,7 +38,7 @@ const CustomizeFieldComponent = ({
       return (
         <TextField
           label={field.label}
-          value={value || field.defaultValue}
+          value={value ?? field.defaultValue}
           type="number"
           placeholder={field.label}
           onChange={(e) => onChange?.(e.target.value)}
