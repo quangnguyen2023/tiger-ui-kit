@@ -20,7 +20,7 @@ const SIZE = {
   medium: {
     diameter: 200,
     updateDuration: 50,
-    enableIndicators: true,
+    enableIndicators: false,
     indicatorSize: { width: 2, height: 8 },
     backgroundColor: 'white',
     offsetWithoutIndicators: 25,
@@ -195,7 +195,7 @@ export default function AnalogClock(props: AnalogClockProps) {
     <div
       className={`${
         innerConfig.size === 'small' ? 'p-0.5' : 'p-1.5'
-      } rounded-full border-2 border-gray-100 w-fit`}
+      } rounded-full shadow-2xl border-2 border-gray-100 w-fit`}
       style={{ backgroundColor: innerConfig.backgroundColor }}
     >
       <div
