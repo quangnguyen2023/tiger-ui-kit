@@ -23,8 +23,6 @@ export enum WidgetType {
 }
 
 export interface WidgetContextType {
-  selectedWidget: WidgetType;
-  setSelectedWidget: Dispatch<SetStateAction<WidgetType>>;
   widgets: Record<string, Widget>;
   isLoadingWidgets: boolean;
   createWidget: (type: WidgetType) => Promise<string>;
