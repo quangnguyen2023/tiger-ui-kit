@@ -15,7 +15,7 @@ const WidgetCard = ({ widget, onDelete }: WidgetCardProps) => {
 
   const handleCustomize = () => {
     setIsNavigating(true);
-    push(`/widget-customizer/${widget.id}`);
+    push(`/widget-customizer/${widget.type}/${widget.id}`);
   };
 
   return (

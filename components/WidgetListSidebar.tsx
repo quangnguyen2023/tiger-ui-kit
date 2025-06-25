@@ -9,14 +9,14 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 type WidgetListSidebarProps = {
-  selectedWidget: WidgetType;
+  widgetType: WidgetType;
   createWidget: (widgetType: WidgetType) => Promise<string>;
   deleteWidget: (widgetId: string) => Promise<void>;
   getWidgetsByType: (widgetType: WidgetType) => Widget[];
 };
 
 const WidgetListSidebar = ({
-  selectedWidget,
+  widgetType,
   createWidget,
   deleteWidget,
   getWidgetsByType,
@@ -25,13 +25,13 @@ const WidgetListSidebar = ({
 
   const [isCreating, setIsCreating] = useState(false);
 
-  const widgetsByType = getWidgetsByType(selectedWidget);
+  const widgetsByType = getWidgetsByType(widgetType);
 
   const handleCreateWidget = async (widgetType: WidgetType) => {
     try {
       setIsCreating(true);
       const newId = await createWidget(widgetType);
-      push(`/widget-customizer/${newId}`);
+      push(`/widget-customizer/${widgetType}/${newId}`);
     } catch (err) {
       console.error('Error creating widget:', err);
     } finally {
@@ -43,7 +43,7 @@ const WidgetListSidebar = ({
     <div className="flex flex-col gap-6 w-80 border-r border-gray-200 h-screen p-4">
       <Button
         className="py-5 bg-blue-500 hover:bg-blue-400 transition-all duration-300"
-        onClick={() => handleCreateWidget(selectedWidget)}
+        onClick={() => handleCreateWidget(widgetType)}
         loading={isCreating}
         startIcon={<BadgePlus />}
       >

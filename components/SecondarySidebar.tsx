@@ -49,7 +49,7 @@ const SecondarySidebar = ({ widgetType }: SecondarySidebarProps) => {
   // If no widgetId, show the sidebar with options to create or select existing widgets
   return (
     <WidgetListSidebar
-      selectedWidget={widgetType}
+      widgetType={widgetType}
       createWidget={createWidget}
       deleteWidget={deleteWidget}
       getWidgetsByType={getWidgetsByType}
