@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Poppins, Work_Sans } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
+import { WidgetProvider } from '@/contexts/WidgetContext';
+import { SidebarProvider } from '@/contexts/SidebarContext';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700'] });
 const workSans = Work_Sans({
@@ -20,8 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={workSans.className}>
-        {children}
-        <Toaster />
+        <WidgetProvider>
+          <SidebarProvider>
+            {children}
+            <Toaster />
+          </SidebarProvider>
+        </WidgetProvider>
       </body>
     </html>
   );
