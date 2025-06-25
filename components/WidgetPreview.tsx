@@ -1,15 +1,13 @@
-'use client';
-
 import EmbedLink from './EmbedLink';
 import WidgetRenderer from '@/components/WidgetRenderer';
 import { Widget, WidgetType } from '@/types/widget';
 
 type WidgetPreviewProps = {
   widget: Widget;
-  selectedWidget: WidgetType;
+  widgetTypeFromURL: WidgetType;
 };
 
-const WidgetPreview = ({ widget, selectedWidget }: WidgetPreviewProps) => {
+const WidgetPreview = ({ widget, widgetTypeFromURL }: WidgetPreviewProps) => {
   return (
     <div className="flex-1 relative flex justify-center items-center">
       {widget && (
@@ -18,7 +16,7 @@ const WidgetPreview = ({ widget, selectedWidget }: WidgetPreviewProps) => {
         </div>
       )}
 
-      <WidgetRenderer widget={widget} selectedWidget={selectedWidget} />
+      <WidgetRenderer widget={widget} widgetTypeFromURL={widgetTypeFromURL} />
     </div>
   );
 };

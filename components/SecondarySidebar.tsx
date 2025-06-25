@@ -19,7 +19,6 @@ const SecondarySidebar = ({ widgetType }: SecondarySidebarProps) => {
     updateWidget,
     deleteWidget,
     getWidgetsByType,
-    selectedWidget,
   } = useWidgetContext();
 
   const { widgetId } = useParams() as { widgetId: string };
@@ -50,7 +49,7 @@ const SecondarySidebar = ({ widgetType }: SecondarySidebarProps) => {
   // If no widgetId, show the sidebar with options to create or select existing widgets
   return (
     <WidgetListSidebar
-      selectedWidget={selectedWidget}
+      selectedWidget={widgetType}
       createWidget={createWidget}
       deleteWidget={deleteWidget}
       getWidgetsByType={getWidgetsByType}

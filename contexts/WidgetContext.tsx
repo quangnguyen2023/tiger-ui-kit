@@ -1,7 +1,7 @@
 'use client';
 
 import { getExistingWidgets } from '@/api/widget';
-import { SIDEBAR_ITEMS } from '@/constants';
+import { SIDEBAR_WIDGETS } from '@/constants';
 import useWidgetActions from '@/hooks/useWidgetActions';
 import { Widget, WidgetType } from '@/types/widget';
 import { WidgetContextType } from '@/types/widget';
@@ -19,7 +19,7 @@ export function useWidgetContext() {
 
 export function WidgetProvider({ children }: { children: React.ReactNode }) {
   const [selectedWidget, setSelectedWidget] = useState<WidgetType>(
-    SIDEBAR_ITEMS[0].widgetType
+    SIDEBAR_WIDGETS[0].widgetType
   );
   const [widgets, setWidgets] = useState<Record<string, Widget>>({});
   const [isLoadingWidgets, setIsLoadingWidgets] = useState<boolean>(true);
