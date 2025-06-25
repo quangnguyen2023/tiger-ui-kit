@@ -20,7 +20,6 @@ export const apiGetWidgetById = async (id: string) => {
 };
 
 export const apiCreateWidget = async (newWidget: Omit<Widget, 'createdAt'>) => {
-  console.log('🚀 ~ newWidget:', newWidget);
   try {
     await axios.post('/', newWidget);
   } catch (err) {
