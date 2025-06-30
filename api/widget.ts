@@ -1,6 +1,6 @@
 import axios from '@/lib/axios';
 import { mapWidgetsArrToObj } from '@/mappers/widgetMapper';
-import { Widget } from '@/types/widget';
+import { Widget, WidgetType } from '@/types/widget';
 
 export const getExistingWidgets: () => Promise<
   Record<string, Widget>
@@ -11,6 +11,22 @@ export const getExistingWidgets: () => Promise<
   } catch (err) {
     console.error('Error fetching existing widgets:', err);
     return {};
+  }
+};
+
+export const apiGetWidgetsByType: (
+  type?: WidgetType | string
+) => Promise<Widget[]> = async (type?: WidgetType | string) => {
+  let widgetType = type === 'all' ? undefined : type;
+
+  try {
+    const res = await axios.get('/', {
+      params: { type: widgetType },
+    });
+    return res.data;
+  } catch (err) {
+    console.error(`Error fetching widgets of type ${widgetType}:`, err);
+    return [];
   }
 };
 
