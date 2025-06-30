@@ -29,7 +29,7 @@ export interface WidgetContextType {
   updateWidget: (widgetId: string, prop: Record<string, any>) => void;
   saveWidget: (widgetId: string) => Promise<void>;
   deleteWidget: (widgetId: string) => Promise<void>;
-  getWidgetsByType: (type: WidgetType) => Widget[];
+  getWidgetsByType: (type: WidgetType | string) => Promise<Widget[]>;
 }
 
 export interface CustomizeField {

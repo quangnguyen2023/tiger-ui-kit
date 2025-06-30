@@ -6,13 +6,13 @@ import WidgetCard from '@/components/WidgetCard';
 import { Widget, WidgetType } from '@/types/widget';
 import { BadgePlus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type WidgetListSidebarProps = {
   widgetType: WidgetType;
   createWidget: (widgetType: WidgetType) => Promise<string>;
   deleteWidget: (widgetId: string) => Promise<void>;
-  getWidgetsByType: (widgetType: WidgetType) => Widget[];
+  getWidgetsByType: (widgetType: WidgetType) => Promise<Widget[]>;
 };
 
 const WidgetListSidebar = ({
@@ -24,8 +24,15 @@ const WidgetListSidebar = ({
   const { push } = useRouter();
 
   const [isCreating, setIsCreating] = useState(false);
+  const [widgetsByType, setWidgetsByType] = useState<Widget[]>([]);
 
-  const widgetsByType = getWidgetsByType(widgetType);
+  useEffect(() => {
+    const fetchWidgets = async () => {
+      const widgets = await getWidgetsByType(widgetType);
+      setWidgetsByType(widgets);
+    };
+    fetchWidgets();
+  }, [widgetType]);
 
   const handleCreateWidget = async (widgetType: WidgetType) => {
     try {

@@ -19,7 +19,7 @@ const WidgetCard = ({ widget, onDelete }: WidgetCardProps) => {
   };
 
   return (
-    <div className="relative flex flex-col gap-4 border border-gray-200 p-4 py-3 rounded-lg">
+    <div className="relative w-full max-w-xs flex flex-col gap-4 border border-gray-200 p-4 py-3 rounded-lg">
       <div className="flex items-center gap-2 max-w-10/12">
         <SquaresExclude size="16" />
         <p className="text-sm font-medium text-gray-600 truncate">

@@ -1,6 +1,7 @@
 import {
   apiCreateWidget,
   apiDeleteWidget,
+  apiGetWidgetsByType,
   apiSaveWidget,
   getExistingWidgets,
 } from '@/api/widget';
@@ -18,12 +19,11 @@ const useWidgetActions = ({ widgets, setWidgets }: UseWidgetActionsProps) => {
     setWidgets(await getExistingWidgets());
   }, []);
 
-  const getWidgetsByType = useCallback(
-    (type: WidgetType) => {
-      return Object.values(widgets).filter((widget) => widget.type === type);
-    },
-    [widgets]
-  );
+  const getWidgetsByType = async (type: string | WidgetType) => {
+    let widgetType = type === 'all' ? undefined : type;
+    const widgets = await apiGetWidgetsByType(widgetType);
+    return widgets;
+  };
 
   const createWidget = useCallback(
     async (type: WidgetType) => {
