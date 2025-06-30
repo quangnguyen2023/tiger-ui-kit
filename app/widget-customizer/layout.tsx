@@ -1,12 +1,11 @@
-import React from 'react';
 import PrimarySidebar from '@/components/PrimarySidebar';
 import TopNavigation from '@/components/TopNavigation';
 
-export default function WidgetCustomizerLayout({
+const WidgetCustomizerLayout = ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) => {
   return (
     <>
       <TopNavigation />
@@ -17,4 +16,6 @@ export default function WidgetCustomizerLayout({
       </div>
     </>
   );
-}
+};
+
+export default WidgetCustomizerLayout;
