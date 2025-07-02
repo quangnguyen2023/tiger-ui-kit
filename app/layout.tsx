@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
-import { Poppins, Work_Sans } from 'next/font/google';
+import { Inter, Poppins, Work_Sans } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import { WidgetProvider } from '@/contexts/WidgetContext';
 import { SidebarProvider } from '@/contexts/SidebarContext';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700'] });
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+});
 const workSans = Work_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
@@ -21,7 +25,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={workSans.className}>
+      <body className={inter.className}>
         <WidgetProvider>
           <SidebarProvider>
             {children}
