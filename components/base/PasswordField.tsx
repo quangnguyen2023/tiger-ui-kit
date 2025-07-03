@@ -3,14 +3,17 @@ import { cn } from '@/lib/utils';
 import { Eye, EyeClosed } from 'lucide-react';
 import { useState } from 'react';
 
-const PasswordField = (props: React.ComponentProps<typeof Input>) => {
+const PasswordField = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof Input>) => {
   const [show, setShow] = useState(false);
 
   return (
     <div className="relative">
       <Input
         type={show ? 'text' : 'password'}
-        className={cn('pr-11', props.className)}
+        className={cn('pr-12', className)}
         {...props}
       />
 
