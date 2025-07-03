@@ -89,11 +89,11 @@ const AuthForm = ({ type }: { type: FormType }) => {
         </form>
       </Form>
 
-      <p className="text-sm text-center -mt-2">
+      <p className="text-sm font-medium text-gray-500 text-center -mt-1">
         {isSignIn ? "Don't have an account?" : 'Have an account already?'}
         <Link
           href={isSignIn ? '/sign-up' : '/sign-in'}
-          className="ml-1 font-bold hover:underline"
+          className="ml-1 font-bold text-black hover:underline"
         >
           {isSignIn ? 'Sign Up' : 'Sign In'}
         </Link>
