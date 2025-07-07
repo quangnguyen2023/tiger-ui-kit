@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import GoogleIcon from '@/components/icons/GoogleIcon';
+import { signIn } from 'next-auth/react';
 
 export function SocialLogin() {
   const handleGoogleLogin = () => {
-    // Handle Google login
-    console.log('Google login');
+    signIn('google');
   };
 
   return (
