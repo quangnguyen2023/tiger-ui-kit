@@ -1,4 +1,4 @@
-import axios from '@/lib/axios';
+import { axiosInstance as axios } from '@/lib/axios';
 import { mapWidgetsArrToObj } from '@/mappers/widgetMapper';
 import { Widget, WidgetType } from '@/types/widget';
 

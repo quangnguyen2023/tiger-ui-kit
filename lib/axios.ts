@@ -2,18 +2,25 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-const apiClient = axios.create({
-  baseURL: `${API_BASE_URL}/widgets`,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+const createAxiosInstance = (baseURL: string) => {
+  const apiClient = axios.create({
+    baseURL,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 
-apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    return Promise.reject(error || 'An error occurred');
-  }
-);
+  apiClient.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      return Promise.reject(error || 'An error occurred');
+    }
+  );
 
-export default apiClient;
+  return apiClient;
+};
+
+const axiosInstance = createAxiosInstance(`${API_BASE_URL}/widgets`);
+const axiosInstanceForAuth = createAxiosInstance(`${API_BASE_URL}/auth`);
+
+export { axiosInstance, axiosInstanceForAuth };
