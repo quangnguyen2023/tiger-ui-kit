@@ -10,18 +10,24 @@ import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import FormField from '@/components/auth/FormField';
 import Link from 'next/link';
+import { useAuthForm } from '@/hooks/useAuthForm';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 type FormType = 'sign-in' | 'sign-up';
 
 const authFormSchema = (type: FormType) =>
   z.object({
-    username:
-      type === 'sign-up' ? z.string().min(2).max(50) : z.string().optional(),
+    name:
+      type === 'sign-up' ? z.string().min(2).max(100) : z.string().optional(),
     email: z.string().email(),
     password: z.string().min(6).max(100),
   });
 
 const AuthForm = ({ type }: { type: FormType }) => {
+  const [isHandling, setIsHandling] = useState(false);
+  const { handleSignIn, handleSignUp } = useAuthForm();
+
   const isSignIn = type === 'sign-in';
   const authActionText = isSignIn ? 'Sign In' : 'Sign Up';
 
@@ -30,14 +36,22 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      name: '',
       email: '',
       password: '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log('submit: ', values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsHandling(true);
+
+    if (isSignIn) {
+      await handleSignIn(values);
+    } else {
+      await handleSignUp({ ...values, name: values?.name ?? '' });
+    }
+
+    setTimeout(() => setIsHandling(false), 0);
   }
 
   return (
@@ -58,10 +72,11 @@ const AuthForm = ({ type }: { type: FormType }) => {
           {type === 'sign-up' && (
             <FormField
               control={form.control}
-              name="username"
+              name="name"
               placeholder="Your Name"
               className="h-12 font-medium"
               startIcon={CircleUserRound}
+              readOnly={isHandling}
             />
           )}
 
@@ -71,6 +86,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
             placeholder="Email"
             className="h-12 font-medium"
             startIcon={Mail}
+            readOnly={isHandling}
           />
 
           <FormField
@@ -80,11 +96,13 @@ const AuthForm = ({ type }: { type: FormType }) => {
             placeholder="Password"
             className="h-12 font-medium"
             startIcon={Lock}
+            readOnly={isHandling}
           />
 
           <Button
             type="submit"
             className="w-full h-12 mt-2 bg-blue-600 hover:bg-blue-700 text-white font-medium"
+            loading={isHandling}
           >
             {authActionText}
           </Button>
@@ -95,7 +113,10 @@ const AuthForm = ({ type }: { type: FormType }) => {
         {isSignIn ? "Don't have an account?" : 'Have an account already?'}
         <Link
           href={isSignIn ? '/sign-up' : '/sign-in'}
-          className="ml-1 font-bold text-black hover:underline"
+          onClick={(e) => isHandling && e.preventDefault()}
+          className={cn('ml-1 font-bold text-black hover:underline', {
+            'pointer-events-none text-gray-400': isHandling,
+          })}
         >
           {isSignIn ? 'Sign Up' : 'Sign In'}
         </Link>
