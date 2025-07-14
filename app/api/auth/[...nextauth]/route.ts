@@ -43,6 +43,21 @@ export const authOptions: NextAuthOptions = {
       // otherwise redirect to /widget-customizer
       return `${baseUrl}/widget-customizer/my-widgets`;
     },
+
+    async jwt({ token, user, account }) {
+      if (user) token.user = user;
+      if (account) token.account = account;
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.user = token.user as typeof session.user;
+      return session;
+    },
+  },
+
+  session: {
+    strategy: 'jwt',
   },
 };
 
