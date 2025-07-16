@@ -22,19 +22,18 @@ export function WidgetProvider({ children }: { children: React.ReactNode }) {
 
   const actions = useWidgetActions({ widgets, setWidgets });
 
-  useEffect(() => {
-    const fetchWidgets = async () => {
-      try {
-        const existingWidgets = await getExistingWidgets();
-        setWidgets(existingWidgets);
-      } catch (error) {
-        console.error('Error fetching widgets:', error);
-      }
-      setIsLoadingWidgets(false);
-    };
-
-    fetchWidgets();
-  }, []);
+  // useEffect(() => {
+  // const fetchWidgets = async () => {
+  //   try {
+  //     const existingWidgets = await getExistingWidgets();
+  //     setWidgets(existingWidgets);
+  //   } catch (error) {
+  //     console.error('Error fetching widgets:', error);
+  //   }
+  //   setIsLoadingWidgets(false);
+  // };
+  // fetchWidgets();
+  // }, []);
 
   return (
     <WidgetContext.Provider
