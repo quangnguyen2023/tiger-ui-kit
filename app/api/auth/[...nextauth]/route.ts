@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { apiSignIn } from '@/api/auth';
+import { apiHanldeOAuth, apiSignIn } from '@/api/auth';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -45,6 +45,21 @@ export const authOptions: NextAuthOptions = {
     },
 
     async jwt({ token, user, account }) {
+      if (user && account) {
+        await apiHanldeOAuth({
+          provider: account.provider,
+          providerAccountId: account.providerAccountId,
+          email: user.email ?? '',
+          name: user.name ?? '',
+          avatar: user.image ?? '',
+          accessToken: account.access_token,
+          refreshToken: account.refresh_token,
+          tokenType: account.token_type,
+          scope: account.scope,
+          expiresAt: account.expires_at ?? null,
+        });
+      }
+
       if (user) token.user = user;
       if (account) token.account = account;
       return token;

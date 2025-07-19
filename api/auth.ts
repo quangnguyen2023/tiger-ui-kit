@@ -1,15 +1,19 @@
 import { axiosInstanceForAuth as axios } from '@/lib/axios';
+import {
+  OAuthProfile,
+  SignInCredentials,
+  SignUpCredentials,
+} from '@/types/auth';
 
-interface SignInCredentials {
-  email: string;
-  password: string;
-}
-
-export interface SignUpCredentials {
-  name: string;
-  email: string;
-  password: string;
-}
+export const apiHanldeOAuth = async (profile: OAuthProfile) => {
+  try {
+    const res = await axios.post('/oauth', profile);
+    if (res.status === 200) {
+    }
+  } catch (err) {
+    console.error('[API] Error api handle OAuth: ', err);
+  }
+};
 
 export const apiSignIn = async (credentials: SignInCredentials) => {
   try {
