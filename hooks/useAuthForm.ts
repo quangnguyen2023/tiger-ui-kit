@@ -1,5 +1,6 @@
-import { apiSignUp, SignUpCredentials } from '@/api/auth';
+import { apiSignUp } from '@/api/auth';
 import { PATH_WIDGET_CUSTOMIZER } from '@/constants';
+import { SignUpCredentials } from '@/types/auth';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
