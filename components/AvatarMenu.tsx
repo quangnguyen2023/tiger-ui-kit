@@ -2,10 +2,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { LogOut } from 'lucide-react';
@@ -23,14 +21,14 @@ const AvatarMenu = ({}: AvatarMenuProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Avatar>
+      <DropdownMenuTrigger className="cursor-pointer">
+        <Avatar className="border text-gray-200">
           <AvatarImage src={user.avatar} />
           <AvatarFallback>Avatar</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="font-medium flex flex-col justify-center">
+      <DropdownMenuContent className="font-medium px-2 py-1.5 flex flex-col justify-center space-y-2">
         <DropdownMenuLabel className="flex gap-2">
           <Avatar>
             <AvatarImage src={user.avatar} />
@@ -41,8 +39,6 @@ const AvatarMenu = ({}: AvatarMenuProps) => {
             <span className="text-xs text-gray-400">{user.email}</span>
           </div>
         </DropdownMenuLabel>
-
-        <DropdownMenuSeparator className="bg-gray-200" />
 
         <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/sign-in' })}>
           <LogOut /> Sign Out

@@ -1,19 +1,18 @@
 // import * as React from 'react';
 import type { SVGProps } from 'react';
 
-const GoogleIcon = (props: SVGProps<SVGSVGElement>) => {
-  const width =
-    typeof props.width === 'number' ? `${props.width}px` : props.width;
-  const height =
-    typeof props.height === 'number' ? `${props.height}px` : props.height;
+const GoogleIcon = ({ width, height, ...props }: SVGProps<SVGSVGElement>) => {
+  const customwidth = typeof width === 'number' ? `${width}px` : width;
+  const customHeight = typeof height === 'number' ? `${height}px` : height;
 
   return (
     <svg
-      width={width || '100%'}
-      height={height || '100%'}
+      width="100%"
+      height="100%"
       viewBox="0 0 256 262"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid"
+      style={{ width: customwidth, height: customHeight }}
       {...props}
     >
       <path
