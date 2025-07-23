@@ -10,7 +10,7 @@ const WidgetCustomizerLayout = ({
     <>
       <TopNavigation />
 
-      <div className="flex">
+      <div className="flex h-screen bg-[url(/background.png)]">
         <PrimarySidebar />
         <main className="ml-52 flex-1 pt-16">{children}</main>
       </div>
