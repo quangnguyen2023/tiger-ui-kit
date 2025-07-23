@@ -21,14 +21,14 @@ const AvatarMenu = ({}: AvatarMenuProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="cursor-pointer">
-        <Avatar className="border text-gray-200">
+      <DropdownMenuTrigger className="cursor-pointer outline-none">
+        <Avatar className="h-9 w-9 border border-gray-100 shadow">
           <AvatarImage src={user.avatar} />
           <AvatarFallback>Avatar</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="font-medium px-2 py-1.5 flex flex-col justify-center space-y-2">
+      <DropdownMenuContent className="flex flex-col justify-center space-y-2 px-2 py-1.5 font-medium">
         <DropdownMenuLabel className="flex gap-2">
           <Avatar>
             <AvatarImage src={user.avatar} />

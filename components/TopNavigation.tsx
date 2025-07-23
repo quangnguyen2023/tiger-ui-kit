@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Button } from "./ui/button";
-import { useWidgetContext } from "@/contexts/WidgetContext";
-import { useParams } from "next/navigation";
-import { Save, Check } from "lucide-react";
-import AvatarMenu from "@/components/AvatarMenu";
+import React, { useState } from 'react';
+import { Button } from './ui/button';
+import { useWidgetContext } from '@/contexts/WidgetContext';
+import { useParams } from 'next/navigation';
+import { Save, Check } from 'lucide-react';
+import AvatarMenu from '@/components/AvatarMenu';
 
 const TopNavigation = () => {
   const { widgetId } = useParams() as { widgetId: string };
@@ -32,11 +32,11 @@ const TopNavigation = () => {
           disabled={saved}
           startIcon={saved ? <Check /> : <Save />}
         >
-          {saved ? "Saved" : "Save changes"}
+          {saved ? 'Saved' : 'Save changes'}
         </Button>
       )}
 
-      <div className="ml-auto">
+      <div className="mr-3 ml-auto">
         <AvatarMenu />
       </div>
     </div>
