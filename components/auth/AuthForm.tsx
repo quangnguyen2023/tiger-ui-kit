@@ -25,7 +25,7 @@ const authFormSchema = (type: FormType) =>
   });
 
 const AuthForm = ({ type }: { type: FormType }) => {
-  const [isHandling, setIsHandling] = useState(false);
+  const [loadingProvider, setLoadingProvider] = useState<string | null>(null);
   const { handleSignIn, handleSignUp } = useAuthForm();
 
   const isSignIn = type === 'sign-in';
@@ -43,15 +43,13 @@ const AuthForm = ({ type }: { type: FormType }) => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsHandling(true);
+    setLoadingProvider('credentials');
 
     if (isSignIn) {
       await handleSignIn(values);
     } else {
       await handleSignUp({ ...values, name: values?.name ?? '' });
     }
-
-    setTimeout(() => setIsHandling(false), 0);
   }
 
   return (
@@ -63,7 +61,10 @@ const AuthForm = ({ type }: { type: FormType }) => {
         </p>
       </div>
 
-      <SocialLogin />
+      <SocialLogin
+        loadingProvider={loadingProvider}
+        setLoadingProvider={setLoadingProvider}
+      />
 
       <DividerWithLabel label="@" />
 
@@ -76,7 +77,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
               placeholder="Your Name"
               className="h-12 font-medium"
               startIcon={CircleUserRound}
-              readOnly={isHandling}
+              readOnly={!!loadingProvider}
             />
           )}
 
@@ -86,7 +87,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
             placeholder="Email"
             className="h-12 font-medium"
             startIcon={Mail}
-            readOnly={isHandling}
+            readOnly={!!loadingProvider}
           />
 
           <FormField
@@ -96,13 +97,14 @@ const AuthForm = ({ type }: { type: FormType }) => {
             placeholder="Password"
             className="h-12 font-medium"
             startIcon={Lock}
-            readOnly={isHandling}
+            readOnly={!!loadingProvider}
           />
 
           <Button
             type="submit"
             className="w-full h-12 mt-2 bg-blue-600 hover:bg-blue-700 text-white font-medium"
-            loading={isHandling}
+            loading={loadingProvider === 'credentials'}
+            disabled={!!loadingProvider}
           >
             {authActionText}
           </Button>
@@ -113,9 +115,9 @@ const AuthForm = ({ type }: { type: FormType }) => {
         {isSignIn ? "Don't have an account?" : 'Have an account already?'}
         <Link
           href={isSignIn ? '/sign-up' : '/sign-in'}
-          onClick={(e) => isHandling && e.preventDefault()}
+          onClick={(e) => loadingProvider && e.preventDefault()}
           className={cn('ml-1 font-bold text-black hover:underline', {
-            'pointer-events-none text-gray-400': isHandling,
+            'pointer-events-none text-gray-400': loadingProvider,
           })}
         >
           {isSignIn ? 'Sign Up' : 'Sign In'}
