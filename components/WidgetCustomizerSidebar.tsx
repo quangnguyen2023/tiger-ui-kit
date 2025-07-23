@@ -22,7 +22,7 @@ const WidgetCustomizerSidebar = ({
   };
 
   return (
-    <div className="flex flex-col gap-10 w-80 border-r border-gray-200 h-screen p-4">
+    <div className="flex h-full w-full flex-col gap-10 border-r border-gray-200 p-4">
       {widgetConfig.customizeFields?.map((field) => (
         <CustomizeFieldComponent
           key={field.prop}

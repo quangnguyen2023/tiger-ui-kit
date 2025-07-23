@@ -12,7 +12,7 @@ const WidgetCustomizerLayout = ({
 
       <div className="flex">
         <PrimarySidebar />
-        {children}
+        <main className="ml-52 flex-1 pt-16">{children}</main>
       </div>
     </>
   );

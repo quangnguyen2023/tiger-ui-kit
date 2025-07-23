@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Button } from './ui/button';
-import { useWidgetContext } from '@/contexts/WidgetContext';
-import { useParams } from 'next/navigation';
-import { Save, Check } from 'lucide-react';
-import AvatarMenu from '@/components/AvatarMenu';
+import React, { useState } from "react";
+import { Button } from "./ui/button";
+import { useWidgetContext } from "@/contexts/WidgetContext";
+import { useParams } from "next/navigation";
+import { Save, Check } from "lucide-react";
+import AvatarMenu from "@/components/AvatarMenu";
 
 const TopNavigation = () => {
   const { widgetId } = useParams() as { widgetId: string };
@@ -23,7 +23,7 @@ const TopNavigation = () => {
   };
 
   return (
-    <div className="h-16 px-2 flex items-center border-b border-gray-200">
+    <div className="fixed top-0 left-0 z-50 flex h-16 w-full items-center border-b border-gray-200 px-2">
       {widgetId && (
         <Button
           variant="secondary"
@@ -32,7 +32,7 @@ const TopNavigation = () => {
           disabled={saved}
           startIcon={saved ? <Check /> : <Save />}
         >
-          {saved ? 'Saved' : 'Save changes'}
+          {saved ? "Saved" : "Save changes"}
         </Button>
       )}
 

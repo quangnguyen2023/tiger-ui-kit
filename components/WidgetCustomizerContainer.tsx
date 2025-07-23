@@ -14,11 +14,12 @@ const WidgetCustomizerContainer = () => {
   };
   const currentWidget = widgets[widgetId];
 
+  // 4rem: TopNavigation height
   return (
-    <>
+    <div className="ml-80 h-[calc(100vh-4rem)]">
       <SecondarySidebar widgetType={widgetType} />
       <WidgetPreview widget={currentWidget} widgetTypeFromURL={widgetType} />
-    </>
+    </div>
   );
 };
 

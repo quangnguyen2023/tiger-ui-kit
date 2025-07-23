@@ -47,9 +47,9 @@ const WidgetListSidebar = ({
   };
 
   return (
-    <div className="flex flex-col gap-6 w-80 border-r border-gray-200 h-screen p-4">
+    <div className="flex h-full w-full flex-col gap-6 border-r border-gray-200 p-4">
       <Button
-        className="py-5 bg-blue-500 hover:bg-blue-400 transition-all duration-300"
+        className="bg-blue-500 py-5 transition-all duration-300 hover:bg-blue-400"
         onClick={() => handleCreateWidget(widgetType)}
         loading={isCreating}
         startIcon={<BadgePlus />}

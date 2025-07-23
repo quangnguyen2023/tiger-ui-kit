@@ -34,26 +34,26 @@ const SecondarySidebar = ({ widgetType }: SecondarySidebarProps) => {
   // Return nothing if widgetId is invalid and not loading widgets
   if (widgetId && !widgets[widgetId] && !isLoadingWidgets) return null;
 
-  // If widgetId exists then showing the customization fields
-  if (widgetId && widgets[widgetId]) {
-    return (
-      <WidgetCustomizerSidebar
-        widgets={widgets}
-        widgetId={widgetId}
-        widgetType={widgetType}
-        updateWidget={updateWidget}
-      />
-    );
-  }
-
-  // If no widgetId, show the sidebar with options to create or select existing widgets
   return (
-    <WidgetListSidebar
-      widgetType={widgetType}
-      createWidget={createWidget}
-      deleteWidget={deleteWidget}
-      getWidgetsByType={getWidgetsByType}
-    />
+    <div className="fixed top-16 left-52 z-50 h-screen w-80">
+      {widgetId && widgets[widgetId] ? (
+        // If widgetId exists then showing the customization fields
+        <WidgetCustomizerSidebar
+          widgets={widgets}
+          widgetId={widgetId}
+          widgetType={widgetType}
+          updateWidget={updateWidget}
+        />
+      ) : (
+        // If no widgetId, show the sidebar with options to create or select existing widgets
+        <WidgetListSidebar
+          widgetType={widgetType}
+          createWidget={createWidget}
+          deleteWidget={deleteWidget}
+          getWidgetsByType={getWidgetsByType}
+        />
+      )}
+    </div>
   );
 };
 

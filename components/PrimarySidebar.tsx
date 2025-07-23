@@ -19,7 +19,7 @@ const PrimarySidebar = () => {
   };
 
   return (
-    <div className="w-fit min-h-screen bg-white border-r border-gray-200 flex flex-col">
+    <div className="fixed top-16 left-0 z-50 flex min-h-screen w-52 flex-col border-r border-gray-200 bg-white">
       <nav className="flex-1 p-2">
         {SIDEBAR_MODULES.map((module, index) => (
           <Fragment key={index}>
@@ -28,13 +28,13 @@ const PrimarySidebar = () => {
                 key={itemIdx}
                 variant="ghost"
                 onClick={() => handleItemClick(item)}
-                className={`w-full flex justify-start gap-3 py-5 text-sm font-sans transition-colors mb-1 ${
+                className={`mb-1 flex w-full justify-start gap-3 py-5 font-sans text-sm transition-colors ${
                   item.viewKey === activeView
                     ? 'bg-gray-100'
                     : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >
-                <item.icon className="w-4 h-4 text-blue-600" />
+                <item.icon className="h-4 w-4 text-blue-600" />
                 {item.label}
               </Button>
             ))}

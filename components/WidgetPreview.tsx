@@ -9,7 +9,7 @@ type WidgetPreviewProps = {
 
 const WidgetPreview = ({ widget, widgetTypeFromURL }: WidgetPreviewProps) => {
   return (
-    <div className="flex-1 relative flex justify-center items-center">
+    <div className="relative flex h-full flex-1 items-center justify-center">
       {widget && (
         <div className="absolute top-6 z-10">
           <EmbedLink widgetType={widget.type} />
