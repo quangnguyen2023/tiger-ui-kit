@@ -37,8 +37,7 @@ const authOptions: NextAuthOptions = {
 
   callbacks: {
     async redirect({ url, baseUrl }) {
-      // if user tries to access a url, keep callback url
-      if (url.startsWith(baseUrl)) return url;
+      if (url === baseUrl) return baseUrl;
 
       // otherwise redirect to /widget-customizer
       return `${baseUrl}/widget-customizer/my-widgets`;
