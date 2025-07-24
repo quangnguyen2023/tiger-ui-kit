@@ -1,4 +1,5 @@
 import { axiosInstanceForAuth as axios } from '@/lib/axios';
+import axiosLib from 'axios';
 import {
   OAuthProfile,
   SignInCredentials,
@@ -12,6 +13,24 @@ export const apiHanldeOAuth = async (profile: OAuthProfile) => {
     }
   } catch (err) {
     console.error('[API] Error api handle OAuth: ', err);
+
+    if (axiosLib.isAxiosError(err) && err.response) {
+      console.error('Validation errors:', err.response.data);
+      console.error(
+        'constraints:',
+        err.response.data?.message?.[0]?.constraints,
+      );
+
+      // Nếu có validation errors cụ thể
+      if (err.response.data.errors) {
+        err.response.data.errors.forEach((error: any) => {
+          console.error(
+            `Property: ${error.property}, Value: ${error.value}, Constraints: ${error.constraints}`,
+          );
+        });
+      }
+    }
+    // throw err;
   }
 };
 
