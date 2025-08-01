@@ -45,10 +45,19 @@ const AuthForm = ({ type }: { type: FormType }) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoadingProvider('credentials');
 
+    let isSuccess = false;
+
     if (isSignIn) {
-      await handleSignIn(values);
+      isSuccess = await handleSignIn(values);
     } else {
-      await handleSignUp({ ...values, name: values?.name ?? '' });
+      isSuccess = await handleSignUp({
+        ...values,
+        name: values?.name ?? '',
+      });
+    }
+
+    if (!isSuccess) {
+      setLoadingProvider(null);
     }
   }
 
@@ -56,7 +65,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
     <div className="space-y-6">
       <div className="space-y-2">
         <h1 className="text-4xl font-bold tracking-tight">{authActionText}</h1>
-        <p className="text-gray-600 text-base">
+        <p className="text-base text-gray-600">
           Access your account - explore all features
         </p>
       </div>
@@ -69,7 +78,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
       <DividerWithLabel label="@" />
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 ">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {type === 'sign-up' && (
             <FormField
               control={form.control}
@@ -102,7 +111,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
           <Button
             type="submit"
-            className="w-full h-12 mt-2 bg-blue-600 hover:bg-blue-700 text-white font-medium"
+            className="mt-2 h-12 w-full bg-blue-600 font-medium text-white hover:bg-blue-700"
             loading={loadingProvider === 'credentials'}
             disabled={!!loadingProvider}
           >
@@ -111,7 +120,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         </form>
       </Form>
 
-      <p className="text-sm font-medium text-gray-500 text-center -mt-1">
+      <p className="-mt-1 text-center text-sm font-medium text-gray-500">
         {isSignIn ? "Don't have an account?" : 'Have an account already?'}
         <Link
           href={isSignIn ? '/sign-up' : '/sign-in'}

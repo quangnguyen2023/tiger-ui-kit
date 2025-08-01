@@ -16,10 +16,12 @@ export const useAuthForm = () => {
 
     if (result?.ok) {
       push(PATH_WIDGET_CUSTOMIZER);
+      return true;
     } else {
       toast.error('Sign in failed', {
         description: 'Please check your email and password',
       });
+      return false;
     }
   };
 
@@ -28,10 +30,12 @@ export const useAuthForm = () => {
 
     if (result?.success) {
       push('/sign-in');
+      return true;
     } else {
       toast.error('Sign Up failed', {
         description: 'Please try again',
       });
+      return false;
     }
   };
 
