@@ -44,7 +44,7 @@ const authOptions: NextAuthOptions = {
     },
 
     async jwt({ token, user, account }) {
-      if (user && account) {
+      if (user && account && account.type === 'oauth') {
         await apiHanldeOAuth({
           provider: account.provider,
           providerAccountId: account.providerAccountId,
@@ -60,12 +60,19 @@ const authOptions: NextAuthOptions = {
       }
 
       if (user) token.user = user;
-      if (account) token.account = account;
+      if (account?.type === 'oauth') {
+        token.accessToken = account?.access_token;
+      }
       return token;
     },
 
     async session({ session, token }) {
-      session.user = token.user as typeof session.user;
+      session.user =
+        'user' in (token.user as any) ? (token.user as any)?.user : token.user;
+      session.accessToken =
+        'accessToken' in (token.user as any)
+          ? (token.user as any)?.accessToken
+          : (token.accessToken as string);
       return session;
     },
   },
