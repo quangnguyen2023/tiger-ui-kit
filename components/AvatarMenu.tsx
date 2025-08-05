@@ -13,6 +13,7 @@ type AvatarMenuProps = {};
 
 const AvatarMenu = ({}: AvatarMenuProps) => {
   const { data } = useSession();
+
   const user = {
     name: data?.user?.name ?? '---',
     avatar: data?.user?.image ?? 'https://github.com/shadcn.png',
