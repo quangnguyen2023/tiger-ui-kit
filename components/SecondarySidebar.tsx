@@ -35,7 +35,7 @@ const SecondarySidebar = ({ widgetType }: SecondarySidebarProps) => {
   if (widgetId && !widgets[widgetId] && !isLoadingWidgets) return null;
 
   return (
-    <div className="fixed top-16 left-52 z-50 h-screen w-80">
+    <div className="fixed top-16 left-52 z-10 h-[calc(100vh-4rem)] w-80 overflow-y-auto border-r border-gray-200 bg-white">
       {widgetId && widgets[widgetId] ? (
         // If widgetId exists then showing the customization fields
         <WidgetCustomizerSidebar

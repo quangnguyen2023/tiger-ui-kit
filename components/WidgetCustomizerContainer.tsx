@@ -16,7 +16,7 @@ const WidgetCustomizerContainer = () => {
 
   // 4rem: TopNavigation height
   return (
-    <div className="ml-80 h-[calc(100vh-4rem)]">
+    <div className="ml-80 h-full">
       <SecondarySidebar widgetType={widgetType} />
       <WidgetPreview widget={currentWidget} widgetTypeFromURL={widgetType} />
     </div>
