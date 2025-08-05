@@ -53,15 +53,11 @@ const ColorPreview: FC<ColorPreviewProps> = ({ color, onColorChange }) => (
   <div className="flex items-center gap-3">
     <PopoverTrigger asChild>
       <button
-        className="w-10 h-10 rounded-full cursor-pointer border hover:ring-1 hover:ring-offset-2 hover:ring-gray-400 transition-all duration-300 group relative"
+        className="group relative aspect-square h-10 w-10 cursor-pointer rounded-full border transition-all duration-300 hover:ring-1 hover:ring-gray-400 hover:ring-offset-2"
         style={{ background: color }}
       >
         <Pipette
-          className={`
-            w-4 h-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-            opacity-0 group-hover:opacity-100 transition-opacity 
-            ${isLightColor(color) ? 'text-gray-800' : 'text-white'}
-          `}
+          className={`absolute top-1/2 left-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100 ${isLightColor(color) ? 'text-gray-800' : 'text-white'} `}
         />
       </button>
     </PopoverTrigger>
@@ -78,7 +74,7 @@ const PredefinedColors: FC<PredefinedColorsProps> = ({ onColorSelect }) => (
     {PREDEFINED_COLORS.map((presetColor) => (
       <button
         key={presetColor}
-        className="w-8 h-8 rounded-md cursor-pointer hover:ring-1 hover:ring-offset-2 hover:ring-gray-300 transition-all duration-300"
+        className="h-8 w-8 cursor-pointer rounded-md transition-all duration-300 hover:ring-1 hover:ring-gray-300 hover:ring-offset-2"
         onClick={() => onColorSelect(presetColor)}
         style={{ background: presetColor }}
       />
@@ -103,7 +99,7 @@ const ColorPicker: FC<ColorPickerProps> = ({
 
   return (
     <div>
-      <Label className="mb-3 text-md font-semibold">{label}</Label>
+      <Label className="text-md mb-3 font-semibold">{label}</Label>
 
       <Popover>
         <ColorPreview color={color} onColorChange={handleColorChange} />
