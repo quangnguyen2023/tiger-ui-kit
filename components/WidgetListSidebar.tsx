@@ -32,7 +32,7 @@ const WidgetListSidebar = ({
       setWidgetsByType(widgets);
     };
     fetchWidgets();
-  }, [widgetType]);
+  }, [widgetType, getWidgetsByType]);
 
   const handleCreateWidget = async (widgetType: WidgetType) => {
     try {

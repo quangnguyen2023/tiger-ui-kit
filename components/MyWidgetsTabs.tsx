@@ -26,7 +26,7 @@ const MyWidgetsTabs = () => {
       setWidgets(widgetsByType);
     };
     fetchWidgets();
-  }, [activeTab]);
+  }, [activeTab, getWidgetsByType]);
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
@@ -34,7 +34,7 @@ const MyWidgetsTabs = () => {
 
   return (
     <Tabs defaultValue="all" className="items-center">
-      <TabsList className="*:p-4 mb-3">
+      <TabsList className="mb-3 *:p-4">
         {TABS.map((tab) => (
           <TabsTrigger
             key={tab.value}
@@ -48,7 +48,7 @@ const MyWidgetsTabs = () => {
 
       {TABS.map((tab) => (
         <TabsContent
-          className="flex items-center flex-wrap gap-3 sm:w-2xl xl:w-5xl max-h-fit"
+          className="flex max-h-fit flex-wrap items-center gap-3 sm:w-2xl xl:w-5xl"
           value={tab.value}
           key={tab.value}
         >

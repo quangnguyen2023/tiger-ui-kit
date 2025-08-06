@@ -55,7 +55,7 @@ export default function HomePage() {
             href="/sign-up"
             className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white shadow transition hover:bg-blue-700"
           >
-            Get started - it's free
+            {"Get started - it's free"}
           </Link>
         </div>
 
