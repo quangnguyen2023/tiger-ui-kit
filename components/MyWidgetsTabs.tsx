@@ -34,7 +34,7 @@ const MyWidgetsTabs = () => {
 
   return (
     <Tabs defaultValue="all" className="items-center">
-      <TabsList className="mb-3 *:p-4">
+      <TabsList className="mb-8 *:p-4">
         {TABS.map((tab) => (
           <TabsTrigger
             key={tab.value}
