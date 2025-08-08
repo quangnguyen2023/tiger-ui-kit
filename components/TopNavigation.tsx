@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { Button } from './ui/button';
 import { useWidgetContext } from '@/contexts/WidgetContext';
 import { useParams } from 'next/navigation';
@@ -39,15 +38,6 @@ const TopNavigation = () => {
           </Button>
         )}
       </div>
-
-      {/* Center - Logo */}
-      <Image
-        src="/logo_1.3.png"
-        alt="Widget Kit Logo"
-        width={100}
-        height={23}
-        className="scale-[1.5]"
-      />
 
       {/* Right side */}
       <div className="flex items-center">

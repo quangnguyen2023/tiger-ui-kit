@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { Fragment } from 'react';
 import { useSidebarContext } from '@/contexts/SidebarContext';
+import Image from 'next/image';
 
 type SidebarItem = (typeof SIDEBAR_MODULES)[number]['items'][number];
 
@@ -19,8 +20,8 @@ const PrimarySidebar = () => {
   };
 
   return (
-    <div className="fixed top-16 left-0 z-50 flex min-h-screen w-52 flex-col border-r border-gray-200 bg-white">
-      <nav className="flex-1 p-2">
+    <div className="fixed top-16 left-0 z-50 flex h-[calc(100vh-4rem)] w-52 flex-col justify-between border-r border-gray-200 bg-white pb-8">
+      <nav className="p-2">
         {SIDEBAR_MODULES.map((module, index) => (
           <Fragment key={index}>
             {module.items.map((item, itemIdx) => (
@@ -44,6 +45,16 @@ const PrimarySidebar = () => {
           </Fragment>
         ))}
       </nav>
+
+      <div className="flex justify-center">
+        <Image
+          src="/logo_1.3.png"
+          alt="Widget Kit Logo"
+          width={100}
+          height={23}
+          className="-ml-5 scale-[1.5]"
+        />
+      </div>
     </div>
   );
 };
