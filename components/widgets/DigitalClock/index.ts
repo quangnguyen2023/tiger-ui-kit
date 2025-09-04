@@ -1,1 +1,1 @@
-export { default } from './DigitalClockV2';
+export { default } from './FlipClock';
