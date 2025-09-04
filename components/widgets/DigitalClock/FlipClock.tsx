@@ -41,7 +41,7 @@ export const FlipClock = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [hours, minutes, seconds]);
+  }, [hours, minutes, seconds, weekday]);
 
   return (
     <div className="flex h-full w-full items-center justify-center gap-[5%]">
