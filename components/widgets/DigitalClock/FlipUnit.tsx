@@ -1,4 +1,5 @@
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
+import clsx, { type ClassValue } from 'clsx';
 
 interface StaticCardProps {
   position: 'upperCard' | 'lowerCard';
@@ -8,7 +9,7 @@ const StaticCard = ({ position, digit }: StaticCardProps) => {
   return (
     <div
       className={clsx(
-        'flex h-1/2 w-full justify-center overflow-hidden border border-gray-200',
+        'relative flex h-1/2 w-full justify-center overflow-hidden border border-gray-200',
         position === 'upperCard'
           ? 'items-end rounded-t-md border-b border-gray-300'
           : 'items-start rounded-b-md border-t border-gray-300',
@@ -16,12 +17,26 @@ const StaticCard = ({ position, digit }: StaticCardProps) => {
     >
       <span
         className={clsx(
-          'font-mono text-[5em] font-light text-gray-700',
+          'font-mono text-[5rem] font-semibold text-gray-700',
           position === 'upperCard' ? 'translate-y-1/2' : '-translate-y-1/2',
         )}
       >
         {digit}
       </span>
+      {/* <span
+        className={clsx('absolute bottom-2 left-2 text-sm font-black', {
+          hidden: position === 'upperCard',
+        })}
+      >
+        PM
+      </span> */}
+      {/* <span
+        className={clsx('absolute right-2 bottom-2 text-xs font-black', {
+          hidden: position === 'upperCard',
+        })}
+      >
+        WEDNESDAY
+      </span> */}
     </div>
   );
 };
@@ -29,8 +44,19 @@ const StaticCard = ({ position, digit }: StaticCardProps) => {
 interface AnimatedCardProps {
   animation: 'fold' | 'unfold';
   digit: string;
+  unit: 'hours' | 'minutes' | 'seconds';
+  showPeriod?: boolean;
+  period?: string;
+  weekday?: string;
 }
-const AnimatedCard = ({ animation, digit }: AnimatedCardProps) => {
+const AnimatedCard = ({
+  animation,
+  digit,
+  unit,
+  showPeriod,
+  period,
+  weekday,
+}: AnimatedCardProps) => {
   return (
     <div
       className={clsx(
@@ -43,12 +69,24 @@ const AnimatedCard = ({ animation, digit }: AnimatedCardProps) => {
     >
       <span
         className={clsx(
-          'font-mono text-[5em] font-light text-gray-700',
+          'font-mono text-[5rem] font-semibold text-gray-700',
           animation === 'unfold' ? '-translate-y-1/2' : 'translate-y-1/2',
         )}
       >
         {digit}
       </span>
+
+      {unit === 'minutes' && animation === 'unfold' && weekday && (
+        <span className="absolute right-2 bottom-2 text-xs font-black">
+          {weekday}
+        </span>
+      )}
+
+      {showPeriod && animation === 'unfold' && (
+        <span className="absolute bottom-2 left-2 text-xs font-black">
+          {period}
+        </span>
+      )}
     </div>
   );
 };
@@ -57,8 +95,16 @@ interface FlipUnitProps {
   digit: number;
   shuffle: boolean;
   unit: 'hours' | 'minutes' | 'seconds';
+  classNames?: ClassValue;
+  weekday?: string;
 }
-export const FlipUnit = ({ digit, shuffle, unit }: FlipUnitProps) => {
+export const FlipUnit = ({
+  digit,
+  shuffle,
+  unit,
+  classNames,
+  weekday,
+}: FlipUnitProps) => {
   let currentDigit = digit;
   let previousDigit = digit - 1;
 
@@ -78,7 +124,12 @@ export const FlipUnit = ({ digit, shuffle, unit }: FlipUnitProps) => {
   const animation2 = !shuffle ? 'fold' : 'unfold';
 
   return (
-    <div className="relative block h-[120px] w-[140px] rounded-md bg-white shadow-md perspective-[300px]">
+    <div
+      className={cn(
+        'relative block aspect-[8/9] w-full rounded-md bg-white shadow-md perspective-[500px]',
+        classNames,
+      )}
+    >
       <StaticCard
         position="upperCard"
         digit={String(currentDigit).padStart(2, '0')}
@@ -90,10 +141,18 @@ export const FlipUnit = ({ digit, shuffle, unit }: FlipUnitProps) => {
       <AnimatedCard
         digit={String(digit1).padStart(2, '0')}
         animation={animation1}
+        unit={unit}
+        showPeriod={unit === 'hours'}
+        period={digit >= 12 ? 'PM' : 'AM'}
+        weekday={weekday}
       />
       <AnimatedCard
         digit={String(digit2).padStart(2, '0')}
         animation={animation2}
+        unit={unit}
+        showPeriod={unit === 'hours'}
+        period={digit >= 12 ? 'PM' : 'AM'}
+        weekday={weekday}
       />
     </div>
   );
