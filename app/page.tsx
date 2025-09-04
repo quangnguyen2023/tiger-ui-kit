@@ -286,7 +286,7 @@ export default function HomePage() {
               Loved by Creators Worldwide
             </h2>
             <p className="text-xl text-gray-600">
-              Join thousands who've transformed their digital workspaces
+              {`Join thousands who've transformed their digital workspaces`}
             </p>
           </div>
 
@@ -301,9 +301,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <p className="mb-4 text-gray-600">
-                  "Widget Kit transformed my Notion workspace! The weather
+                  {`"Widget Kit transformed my Notion workspace! The weather
                   widget keeps me informed, and the analog clock adds such a
-                  professional touch."
+                  professional touch."`}
                 </p>
                 <div className="flex items-center">
                   <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-500">
@@ -329,9 +329,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <p className="mb-4 text-gray-600">
-                  "As a content creator, I needed something fast and beautiful.
+                  {`"As a content creator, I needed something fast and beautiful.
                   Widget Kit delivered exactly that - customizable and super
-                  easy to embed!"
+                  easy to embed!"`}
                 </p>
                 <div className="flex items-center">
                   <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-green-400 to-blue-500">
@@ -357,8 +357,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 <p className="mb-4 text-gray-600">
-                  "Our team's productivity dashboard looks amazing now! The
-                  calendar widget helps us stay on track with deadlines."
+                  {`"Our team's productivity dashboard looks amazing now! The
+                  calendar widget helps us stay on track with deadlines."`}
                 </p>
                 <div className="flex items-center">
                   <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 to-pink-500">
@@ -629,10 +629,10 @@ export default function HomePage() {
                   What new widgets are you planning to add?
                 </h3>
                 <p className="text-gray-600">
-                  We're constantly expanding our library! Coming soon: countdown
+                  {`We're constantly expanding our library! Coming soon: countdown
                   timers, habit trackers, progress bars, social media feeds, and
                   custom data displays. Pro users get early access to new
-                  widgets.
+                  widgets.`}
                 </p>
               </CardContent>
             </Card>
@@ -658,8 +658,8 @@ export default function HomePage() {
           </h2>
 
           <p className="mx-auto mb-12 max-w-2xl text-xl text-white/90">
-            Join thousands of creators who've already enhanced their Notion
-            pages and websites with beautiful, functional widgets.
+            {`Join thousands of creators who've already enhanced their Notion
+            pages and websites with beautiful, functional widgets.`}
           </p>
 
           <div className="mb-12 flex flex-col justify-center gap-6 sm:flex-row">
@@ -812,7 +812,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-12 flex flex-col items-center justify-between border-t border-gray-800 pt-8 md:flex-row">
+          {/* <div className="mt-12 flex flex-col items-center justify-between border-t border-gray-800 pt-8 md:flex-row">
             <p className="text-sm text-gray-400">
               &copy; 2025 Widget Kit. All rights reserved.
             </p>
@@ -827,7 +827,7 @@ export default function HomePage() {
                 Cookie Policy
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
       </footer>
     </div>
