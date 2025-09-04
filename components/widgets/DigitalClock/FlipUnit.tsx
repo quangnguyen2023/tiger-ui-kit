@@ -4,8 +4,15 @@ import clsx, { type ClassValue } from 'clsx';
 interface StaticCardProps {
   position: 'upperCard' | 'lowerCard';
   digit: string;
+  textColor: string;
+  backgroundColor: string;
 }
-const StaticCard = ({ position, digit }: StaticCardProps) => {
+const StaticCard = ({
+  position,
+  digit,
+  textColor,
+  backgroundColor,
+}: StaticCardProps) => {
   return (
     <div
       className={clsx(
@@ -14,12 +21,14 @@ const StaticCard = ({ position, digit }: StaticCardProps) => {
           ? 'items-end rounded-t-md border-b border-gray-300'
           : 'items-start rounded-b-md border-t border-gray-300',
       )}
+      style={{ backgroundColor }}
     >
       <span
         className={clsx(
-          'font-mono text-[5rem] font-semibold text-gray-700',
+          'font-mono text-[5rem] font-semibold',
           position === 'upperCard' ? 'translate-y-1/2' : '-translate-y-1/2',
         )}
+        style={{ color: textColor }}
       >
         {digit}
       </span>
@@ -48,6 +57,8 @@ interface AnimatedCardProps {
   showPeriod?: boolean;
   period?: string;
   weekday?: string;
+  textColor: string;
+  backgroundColor: string;
 }
 const AnimatedCard = ({
   animation,
@@ -56,34 +67,44 @@ const AnimatedCard = ({
   showPeriod,
   period,
   weekday,
+  textColor,
+  backgroundColor,
 }: AnimatedCardProps) => {
   return (
     <div
       className={clsx(
         'absolute left-0 flex h-1/2 w-full justify-center overflow-hidden border border-gray-200 backface-hidden',
         animation === 'unfold'
-          ? 'top-1/2 origin-top rotate-x-180 items-start rounded-b-md border-t border-gray-300 bg-white'
-          : 'top-0 origin-bottom items-end rounded-t-md border-b border-gray-300 bg-white',
+          ? 'top-1/2 origin-top rotate-x-180 items-start rounded-b-md border-t border-gray-300'
+          : 'top-0 origin-bottom items-end rounded-t-md border-b border-gray-300',
         animation,
       )}
+      style={{ backgroundColor }}
     >
       <span
         className={clsx(
           'font-mono text-[5rem] font-semibold text-gray-700',
           animation === 'unfold' ? '-translate-y-1/2' : 'translate-y-1/2',
         )}
+        style={{ color: textColor }}
       >
         {digit}
       </span>
 
       {unit === 'minutes' && animation === 'unfold' && weekday && (
-        <span className="absolute right-2 bottom-2 text-xs font-black">
+        <span
+          className="absolute right-2 bottom-2 text-xs font-black"
+          style={{ color: textColor }}
+        >
           {weekday}
         </span>
       )}
 
       {showPeriod && animation === 'unfold' && (
-        <span className="absolute bottom-2 left-2 text-xs font-black">
+        <span
+          className="absolute bottom-2 left-2 text-xs font-black"
+          style={{ color: textColor }}
+        >
           {period}
         </span>
       )}
@@ -97,6 +118,10 @@ interface FlipUnitProps {
   unit: 'hours' | 'minutes' | 'seconds';
   classNames?: ClassValue;
   weekday?: string;
+  textColor?: string;
+  backgroundColor?: string;
+  use24Hours?: boolean;
+  period?: string;
 }
 export const FlipUnit = ({
   digit,
@@ -104,6 +129,10 @@ export const FlipUnit = ({
   unit,
   classNames,
   weekday,
+  textColor = '#1F2937',
+  backgroundColor = '#FFFFFF',
+  use24Hours = false,
+  period = 'AM',
 }: FlipUnitProps) => {
   let currentDigit = digit;
   let previousDigit = digit - 1;
@@ -126,33 +155,42 @@ export const FlipUnit = ({
   return (
     <div
       className={cn(
-        'relative block aspect-[8/9] w-full rounded-md bg-white shadow-md perspective-[500px]',
+        'relative block aspect-[8/9] w-full rounded-md shadow-md perspective-[500px]',
         classNames,
       )}
+      style={{ backgroundColor }}
     >
       <StaticCard
         position="upperCard"
         digit={String(currentDigit).padStart(2, '0')}
+        textColor={textColor}
+        backgroundColor={backgroundColor}
       />
       <StaticCard
         position="lowerCard"
         digit={String(previousDigit).padStart(2, '0')}
+        textColor={textColor}
+        backgroundColor={backgroundColor}
       />
       <AnimatedCard
         digit={String(digit1).padStart(2, '0')}
         animation={animation1}
         unit={unit}
-        showPeriod={unit === 'hours'}
-        period={digit >= 12 ? 'PM' : 'AM'}
+        showPeriod={!use24Hours && unit === 'hours'}
+        period={period}
         weekday={weekday}
+        textColor={textColor}
+        backgroundColor={backgroundColor}
       />
       <AnimatedCard
         digit={String(digit2).padStart(2, '0')}
         animation={animation2}
         unit={unit}
-        showPeriod={unit === 'hours'}
-        period={digit >= 12 ? 'PM' : 'AM'}
+        showPeriod={!use24Hours && unit === 'hours'}
+        period={period}
         weekday={weekday}
+        textColor={textColor}
+        backgroundColor={backgroundColor}
       />
     </div>
   );
