@@ -16,7 +16,7 @@ const StaticCard = ({
   return (
     <div
       className={clsx(
-        'relative flex h-1/2 w-full justify-center overflow-hidden border border-gray-200',
+        'flex h-1/2 w-full justify-center overflow-hidden border border-gray-200',
         position === 'upperCard'
           ? 'items-end rounded-t-md border-b border-gray-300'
           : 'items-start rounded-b-md border-t border-gray-300',
@@ -93,7 +93,7 @@ const AnimatedCard = ({
 
       {unit === 'minutes' && animation === 'unfold' && weekday && (
         <span
-          className="absolute right-2 bottom-2 text-xs font-black"
+          className="absolute right-2 bottom-2 text-sm font-black"
           style={{ color: textColor }}
         >
           {weekday}
@@ -102,7 +102,7 @@ const AnimatedCard = ({
 
       {showPeriod && animation === 'unfold' && (
         <span
-          className="absolute bottom-2 left-2 text-xs font-black"
+          className="absolute bottom-2 left-2 text-sm font-black"
           style={{ color: textColor }}
         >
           {period}
@@ -155,7 +155,7 @@ export const FlipUnit = ({
   return (
     <div
       className={cn(
-        'relative block aspect-[8/9] w-full rounded-md shadow-md perspective-[500px]',
+        'relative block aspect-[7/9] w-full rounded-md shadow-md perspective-[500px]',
         classNames,
       )}
       style={{ backgroundColor }}

@@ -9,15 +9,15 @@ interface FlipClockProps {
   backgroundColor?: string;
   showSeconds?: boolean;
   use24Hours?: boolean;
-  width?: string;
+  scale?: number;
 }
 
 const FlipClock = ({
   textColor = '#1F2937',
   backgroundColor = '#FFFFFF',
-  showSeconds = true,
+  showSeconds = true, // true -> width: 500px, height: 180px; false -> width: 350px, height: 200px
   use24Hours = false,
-  width = '500px',
+  scale = 1,
 }: FlipClockProps) => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -74,35 +74,40 @@ const FlipClock = ({
   }, [hours, minutes, seconds, weekday, period, use24Hours]);
 
   return (
-    <div className="w-full" style={{ maxWidth: width }}>
-      <div className="flex h-full w-full items-center justify-center gap-[5%]">
+    <div
+      className="flex w-[500px] items-center justify-center gap-[2%]"
+      style={{
+        transform: `scale(${scale})`,
+        transformOrigin: 'top left',
+        transition: 'transform 0.2s ease-in-out',
+      }}
+    >
+      <FlipUnit
+        unit="hours"
+        digit={hours}
+        shuffle={hoursShuffle}
+        textColor={textColor}
+        backgroundColor={backgroundColor}
+        use24Hours={use24Hours}
+        period={period}
+      />
+      <FlipUnit
+        unit="minutes"
+        digit={minutes}
+        shuffle={minutesShuffle}
+        weekday={weekday}
+        textColor={textColor}
+        backgroundColor={backgroundColor}
+      />
+      {showSeconds && (
         <FlipUnit
-          unit="hours"
-          digit={hours}
-          shuffle={hoursShuffle}
+          unit="seconds"
+          digit={seconds}
+          shuffle={secondsShuffle}
           textColor={textColor}
           backgroundColor={backgroundColor}
-          use24Hours={use24Hours}
-          period={period}
         />
-        <FlipUnit
-          unit="minutes"
-          digit={minutes}
-          shuffle={minutesShuffle}
-          weekday={weekday}
-          textColor={textColor}
-          backgroundColor={backgroundColor}
-        />
-        {showSeconds && (
-          <FlipUnit
-            unit="seconds"
-            digit={seconds}
-            shuffle={secondsShuffle}
-            textColor={textColor}
-            backgroundColor={backgroundColor}
-          />
-        )}
-      </div>
+      )}
     </div>
   );
 };

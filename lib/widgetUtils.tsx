@@ -27,16 +27,17 @@ export const isWidgetTypeSupported = (widgetType: WidgetType): boolean => {
 export const renderWidgetComponent = (
   widgetType: WidgetType,
   customValues?: Record<string, any>,
+  scale?: number,
 ) => {
   switch (widgetType) {
     case WidgetType.ANALOG_CLOCK:
-      return <AnalogClock {...customValues} />;
+      return <AnalogClock {...customValues} scale={scale} />;
     case WidgetType.DIGITAL_CLOCK:
-      return <DigitalClock {...customValues} />;
+      return <DigitalClock {...customValues} scale={scale} />;
     case WidgetType.WORLD_CLOCK:
-      return <WorldClock {...customValues} />;
+      return <WorldClock {...customValues} scale={scale} />;
     case WidgetType.WEATHER_FORECAST:
-      return <WeatherForecast {...customValues} />;
+      return <WeatherForecast {...customValues} scale={scale} />;
     case WidgetType.CALENDAR:
       return (
         <div className="flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-100 to-pink-200">
