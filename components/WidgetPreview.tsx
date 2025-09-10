@@ -5,6 +5,7 @@ import { Widget, WidgetType } from '@/types/widget';
 import { useState } from 'react';
 import { ResizableBox, ResizeCallbackData } from 'react-resizable';
 import { getSizeVariant, getWidgetSize } from '@/configs/widgetSizes';
+import { usePathname } from 'next/navigation';
 
 type WidgetPreviewProps = {
   widget: Widget;
@@ -12,6 +13,9 @@ type WidgetPreviewProps = {
 };
 
 const WidgetPreview = ({ widget, widgetTypeFromURL }: WidgetPreviewProps) => {
+  const pathname = usePathname(); // " /widget-customizer/[widgetType]/[widgetId] "
+  const isCustomizing = pathname.split('/').length > 3;
+
   const sizeVariant = getSizeVariant(widget);
   const baseSize = getWidgetSize(
     widget?.type || widgetTypeFromURL,
@@ -34,21 +38,31 @@ const WidgetPreview = ({ widget, widgetTypeFromURL }: WidgetPreviewProps) => {
         </div>
       )}
 
-      <ResizableBox
-        width={containerSize.width}
-        height={containerSize.height}
-        minConstraints={[200, 100]}
-        // maxConstraints={[1000, 600]}
-        onResize={handleResize}
-        draggableOpts={{ grid: [25, 25] }}
-        className="overflow-hidden"
-      >
-        <WidgetRenderer
-          widget={widget}
-          widgetTypeFromURL={widgetTypeFromURL}
-          scale={scale}
-        />
-      </ResizableBox>
+      {isCustomizing ? (
+        <ResizableBox
+          width={containerSize.width}
+          height={containerSize.height}
+          minConstraints={[200, 100]}
+          onResize={handleResize}
+          draggableOpts={{ grid: [25, 25] }}
+          className="overflow-hidden"
+        >
+          <div
+            style={{
+              transform: `scale(${scale})`,
+              transformOrigin: 'top left',
+              transition: 'transform 0.2s ease-in-out',
+            }}
+          >
+            <WidgetRenderer
+              widget={widget}
+              widgetTypeFromURL={widgetTypeFromURL}
+            />
+          </div>
+        </ResizableBox>
+      ) : (
+        <WidgetRenderer widget={widget} widgetTypeFromURL={widgetTypeFromURL} />
+      )}
     </div>
   );
 };

@@ -19,7 +19,6 @@ const FlipClock = ({
   backgroundColor = '#FFFFFF',
   showSeconds = true,
   use24Hours = false,
-  scale = 1,
 }: FlipClockProps) => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -86,9 +85,6 @@ const FlipClock = ({
       style={{
         width: `${size.width}px`,
         height: `${size.height}px`,
-        transform: `scale(${scale})`,
-        transformOrigin: 'top left',
-        transition: 'transform 0.2s ease-in-out',
       }}
     >
       <FlipUnit

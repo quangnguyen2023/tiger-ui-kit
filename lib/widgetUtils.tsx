@@ -31,13 +31,13 @@ export const renderWidgetComponent = (
 ) => {
   switch (widgetType) {
     case WidgetType.ANALOG_CLOCK:
-      return <AnalogClock {...customValues} scale={scale} />;
+      return <AnalogClock {...customValues} />;
     case WidgetType.DIGITAL_CLOCK:
-      return <DigitalClock {...customValues} scale={scale} />;
+      return <DigitalClock {...customValues} />;
     case WidgetType.WORLD_CLOCK:
-      return <WorldClock {...customValues} scale={scale} />;
+      return <WorldClock {...customValues} />;
     case WidgetType.WEATHER_FORECAST:
-      return <WeatherForecast {...customValues} scale={scale} />;
+      return <WeatherForecast {...customValues} />;
     case WidgetType.CALENDAR:
       return (
         <div className="flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-100 to-pink-200">
