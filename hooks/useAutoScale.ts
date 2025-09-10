@@ -9,7 +9,6 @@ export const useAutoScale = (
   containerSize: Size,
   childBaseSize: Size,
   padding: number = 0,
-  // maxScale: number = 1, // Có thể cho phép scale up nếu muốn
 ) => {
   const [scale, setScale] = useState(1);
 
@@ -41,7 +40,6 @@ export const useAutoScale = (
     childBaseSize.width,
     childBaseSize.height,
     padding,
-    // maxScale,
   ]);
 
   return scale;

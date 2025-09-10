@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { FlipUnit } from './FlipUnit';
 import { format } from 'date-fns';
+import { getWidgetSize } from '@/configs/widgetSizes';
+import { WidgetType } from '@/types/widget';
 
 interface FlipClockProps {
   textColor?: string;
@@ -15,7 +17,7 @@ interface FlipClockProps {
 const FlipClock = ({
   textColor = '#1F2937',
   backgroundColor = '#FFFFFF',
-  showSeconds = true, // true -> width: 500px, height: 180px; false -> width: 350px, height: 200px
+  showSeconds = true,
   use24Hours = false,
   scale = 1,
 }: FlipClockProps) => {
@@ -28,6 +30,11 @@ const FlipClock = ({
   const [hoursShuffle, setHoursShuffle] = useState(true);
   const [minutesShuffle, setMinutesShuffle] = useState(true);
   const [secondsShuffle, setSecondsShuffle] = useState(true);
+
+  const size = getWidgetSize(
+    WidgetType.DIGITAL_CLOCK,
+    showSeconds ? 'default' : 'compact',
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -75,8 +82,10 @@ const FlipClock = ({
 
   return (
     <div
-      className="flex w-[500px] items-center justify-center gap-[2%]"
+      className="flex items-center justify-center gap-[2%]"
       style={{
+        width: `${size.width}px`,
+        height: `${size.height}px`,
         transform: `scale(${scale})`,
         transformOrigin: 'top left',
         transition: 'transform 0.2s ease-in-out',

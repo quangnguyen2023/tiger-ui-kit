@@ -4,6 +4,7 @@ import WidgetRenderer from '@/components/WidgetRenderer';
 import { Widget, WidgetType } from '@/types/widget';
 import { useState } from 'react';
 import { ResizableBox, ResizeCallbackData } from 'react-resizable';
+import { getSizeVariant, getWidgetSize } from '@/configs/widgetSizes';
 
 type WidgetPreviewProps = {
   widget: Widget;
@@ -11,13 +12,18 @@ type WidgetPreviewProps = {
 };
 
 const WidgetPreview = ({ widget, widgetTypeFromURL }: WidgetPreviewProps) => {
-  const [size, setSize] = useState({ width: 500, height: 200 });
-  const baseSize = { width: 500, height: 200 }; // Base size for scaling
+  const sizeVariant = getSizeVariant(widget);
+  const baseSize = getWidgetSize(
+    widget?.type || widgetTypeFromURL,
+    sizeVariant,
+  );
 
-  const scale = useAutoScale(size, baseSize, 5);
+  const [containerSize, setContainerSize] = useState(baseSize);
+
+  const scale = useAutoScale(containerSize, baseSize, 5);
 
   const handleResize = (e: any, { size }: ResizeCallbackData) => {
-    setSize({ width: size.width, height: size.height });
+    setContainerSize({ width: size.width, height: size.height });
   };
 
   return (
@@ -29,8 +35,8 @@ const WidgetPreview = ({ widget, widgetTypeFromURL }: WidgetPreviewProps) => {
       )}
 
       <ResizableBox
-        width={size.width}
-        height={size.height}
+        width={containerSize.width}
+        height={containerSize.height}
         minConstraints={[200, 100]}
         // maxConstraints={[1000, 600]}
         onResize={handleResize}
