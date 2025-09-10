@@ -61,6 +61,32 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
         label: 'Text Color',
         defaultValue: '#000',
       },
+      {
+        prop: 'backgroundColor',
+        type: 'COLOR',
+        label: 'Background Color',
+        defaultValue: '#fff',
+      },
+      {
+        prop: 'use24Hours',
+        type: 'SWITCHER',
+        label: 'Clock Type',
+        options: [
+          { label: '12 hours', value: false },
+          { label: '24 hours', value: true },
+        ],
+        defaultValue: true,
+      },
+      {
+        prop: 'showSeconds',
+        type: 'SWITCHER',
+        label: 'Show Seconds',
+        options: [
+          { label: 'Show', value: true },
+          { label: 'Hide', value: false },
+        ],
+        defaultValue: true,
+      },
     ],
   },
 
