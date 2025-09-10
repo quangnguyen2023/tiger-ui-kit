@@ -1,5 +1,7 @@
 .react-resizable {
   position: relative;
+  border: 3px dashed #ccc;
+  border-radius: 5px;
 }
 
 .react-resizable-handle {

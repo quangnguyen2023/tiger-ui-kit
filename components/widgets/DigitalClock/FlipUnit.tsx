@@ -155,7 +155,7 @@ export const FlipUnit = ({
   return (
     <div
       className={cn(
-        'relative block aspect-[6.5/9] w-full rounded-md shadow-md perspective-[500px]',
+        'relative block aspect-[6.5/9] w-full rounded-md shadow-md perspective-[600px]',
         classNames,
       )}
       style={{ backgroundColor }}

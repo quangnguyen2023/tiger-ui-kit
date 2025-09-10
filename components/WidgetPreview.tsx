@@ -20,7 +20,7 @@ const WidgetPreview = ({ widget, widgetTypeFromURL }: WidgetPreviewProps) => {
 
   const [containerSize, setContainerSize] = useState(baseSize);
 
-  const scale = useAutoScale(containerSize, baseSize, 5);
+  const scale = useAutoScale(containerSize, baseSize, 3);
 
   const handleResize = (e: any, { size }: ResizeCallbackData) => {
     setContainerSize({ width: size.width, height: size.height });
