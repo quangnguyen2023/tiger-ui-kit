@@ -31,7 +31,7 @@ const EmbedWidgetClient = ({ widget, widgetType }: EmbedWidgetClientProps) => {
     return () => window.removeEventListener('resize', updateSize);
   }, []);
 
-  const scale = useAutoScale(containerSize, baseSize);
+  const scale = useAutoScale(containerSize, baseSize, 15);
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
