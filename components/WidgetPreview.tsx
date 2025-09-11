@@ -45,12 +45,12 @@ const WidgetPreview = ({ widget, widgetTypeFromURL }: WidgetPreviewProps) => {
           minConstraints={[200, 100]}
           onResize={handleResize}
           draggableOpts={{ grid: [25, 25] }}
-          className="overflow-hidden"
+          className="flex items-center justify-center overflow-hidden"
         >
           <div
             style={{
               transform: `scale(${scale})`,
-              transformOrigin: 'top left',
+              transformOrigin: 'center center',
               transition: 'transform 0.2s ease-in-out',
             }}
           >
