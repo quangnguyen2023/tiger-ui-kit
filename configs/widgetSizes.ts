@@ -9,7 +9,7 @@ type WidgetSizeConfig = {
 // used for Scaling purpose
 export const WIDGET_SIZES: Record<WidgetType, WidgetSizeConfig> = {
   [WidgetType.ANALOG_CLOCK]: {
-    default: { width: 300, height: 300 },
+    default: { width: 210, height: 210 },
   },
   [WidgetType.DIGITAL_CLOCK]: {
     default: { width: 500, height: 250 },

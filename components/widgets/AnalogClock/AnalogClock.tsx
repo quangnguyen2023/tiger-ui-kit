@@ -8,9 +8,11 @@ import {
   AnalogClockProps,
   InnerConfig,
 } from '@/components/widgets/AnalogClock/types';
+import { getWidgetSize } from '@/configs/widgetSizes';
+import { WidgetType } from '@/types/widget';
 
 const baseConfig: InnerConfig = {
-  diameter: 200,
+  diameter: 210,
   updateDuration: 50,
   enableIndicators: false,
   indicatorSize: { width: 1, height: 8 },
@@ -26,18 +28,25 @@ const baseConfig: InnerConfig = {
 };
 
 export default function AnalogClock(props: AnalogClockProps) {
+  const size = getWidgetSize(WidgetType.ANALOG_CLOCK);
+
   const innerConfig: InnerConfig = useMemo(
     () => ({
       ...baseConfig,
       ...props,
+      diameter: size.width - 15, // diameter size < container size to fit well
     }),
     [props],
   );
 
   return (
     <div
-      className={`w-fit rounded-full border-2 border-gray-100 p-1.5 shadow-xl`}
-      style={{ backgroundColor: innerConfig.backgroundColor }}
+      className={`rounded-full border-2 border-gray-100 p-1.5 shadow-xl`}
+      style={{
+        backgroundColor: innerConfig.backgroundColor,
+        width: size.width,
+        height: size.height,
+      }}
     >
       <div
         className={`relative rounded-full ${innerConfig.fontSizeClass} -ml-[1px] font-bold`}
