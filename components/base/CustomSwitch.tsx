@@ -21,24 +21,24 @@ const CustomSwitch = ({
   };
 
   return (
-    <div className="flex gap-2 flex-col">
-      <Label htmlFor={id} className="font-semibold text-md">
+    <div className="flex flex-col gap-2">
+      <Label htmlFor={id} className="text-sm font-semibold">
         {label}
       </Label>
       <div
         id={id}
-        className="flex w-full items-center gap-2 p-1 bg-gray-200 rounded-full"
+        className="flex w-full items-center gap-2 rounded-full bg-gray-200 p-1"
       >
         {options.map((option) => (
           <Button
             key={option.value.toString()}
             variant="ghost"
             className={cn(
-              'flex-1 px-4 py-2 h-fit rounded-full text-xs font-semibold hover:bg-white hover:shadow hover:font-semibold',
+              'h-fit flex-1 rounded-full px-4 py-2 text-xs font-semibold hover:bg-white hover:font-semibold hover:shadow',
               {
                 'bg-white shadow-sm': option.value === selectedValue,
                 'text-gray-500': option.value !== selectedValue,
-              }
+              },
             )}
             onClick={() => handleOptionChange(option.value)}
           >
