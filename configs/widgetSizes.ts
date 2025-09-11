@@ -40,7 +40,7 @@ export const getSizeVariant = (widget: Widget | null): string => {
 
   switch (widget.type) {
     case WidgetType.DIGITAL_CLOCK:
-      return widget.customValues?.showSeconds ? 'default' : 'compact'; // get size variant based on user selection
+      return widget.customValues?.showSeconds === false ? 'compact' : 'default'; // get size variant based on user selection
     default:
       return 'default';
   }
