@@ -27,7 +27,6 @@ export const isWidgetTypeSupported = (widgetType: WidgetType): boolean => {
 export const renderWidgetComponent = (
   widgetType: WidgetType,
   customValues?: Record<string, any>,
-  scale?: number,
 ) => {
   switch (widgetType) {
     case WidgetType.ANALOG_CLOCK:
