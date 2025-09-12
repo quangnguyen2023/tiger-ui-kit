@@ -36,7 +36,7 @@ export default function AnalogClock(props: AnalogClockProps) {
       ...props,
       diameter: size.width - 15, // diameter size < container size to fit well
     }),
-    [props],
+    [props, size.width],
   );
 
   return (
