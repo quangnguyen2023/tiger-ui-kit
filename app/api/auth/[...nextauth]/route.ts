@@ -3,6 +3,9 @@ import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { apiHanldeOAuth, apiSignIn } from '@/api/auth';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
