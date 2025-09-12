@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const createWidgetUrl = (type: WidgetType, id: string) => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
+  const baseUrl = process.env.NEXTAUTH_URL || window.location.origin;
   const path = `/embed/${type}/${id}`;
   return `${baseUrl}${path}`;
 };

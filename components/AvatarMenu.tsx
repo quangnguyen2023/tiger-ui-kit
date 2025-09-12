@@ -43,7 +43,7 @@ const AvatarMenu = ({}: AvatarMenuProps) => {
 
         <DropdownMenuItem
           onClick={() =>
-            signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}` })
+            signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}` })
           }
         >
           <LogOut /> Sign Out
