@@ -1,4 +1,4 @@
-import { axiosInstanceForAuth as axios } from '@/lib/axios';
+import { axiosServerForAuth as axios } from '@/lib/axios';
 import axiosLib from 'axios';
 import {
   OAuthProfile,
