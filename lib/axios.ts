@@ -1,4 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/configs/auth';
 import axios from 'axios';
 import { getServerSession } from 'next-auth/next';
 import { getSession } from 'next-auth/react';
