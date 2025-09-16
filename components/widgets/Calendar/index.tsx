@@ -5,7 +5,9 @@ import DaysOfMonth from './DaysOfMonth';
 import MonthNavigator from './MonthNavigator';
 import { createContext, useMemo, useState } from 'react';
 import { generateDaysOfMonth } from './services';
-import { DayOfMonthType, FirstDayOfWeekType, MonthRange, SelectedTime } from './types';
+import { FirstDayOfWeekType, MonthRange, SelectedTime } from './types';
+import { getWidgetSize } from '@/configs/widgetSizes';
+import { WidgetType } from '@/types/widget';
 
 type CalendarProps = {
   enableLunarCalendar?: boolean;
@@ -21,6 +23,8 @@ export default function Calendar({
   enableLunarCalendar = true,
   firstDayOfWeek = 'Sunday',
 }: CalendarProps) {
+  const size = getWidgetSize(WidgetType.CALENDAR);
+
   const [selectedTime, setSelectedTime] = useState<SelectedTime>({
     day: new Date().getDate(),
     month: new Date().getMonth(),
@@ -44,14 +48,20 @@ export default function Calendar({
 
   return (
     <CalendarContext.Provider value={{ selectedTime, changeTime: onMonthChange }}>
-      <div className="w-fit rounded-3xl bg-white px-4 py-5 shadow-[0_4px_12px_0_rgba(0,0,0,0.1)] dark:bg-[#2e2e2e]">
+      <div
+        className="rounded-3xl bg-white px-4 py-5 shadow-[0_4px_12px_0_rgba(0,0,0,0.1)] dark:bg-[#2e2e2e]"
+        style={{ width: size.width, height: size.height }}
+      >
         <MonthNavigator selectedTime={selectedTime} onMonthChange={onMonthChange} />
 
         <div
           className={`${enableLunarCalendar ? 'text-base' : 'text-sm'} mt-5 font-semibold dark:text-white`}
         >
           <DaysOfWeek firstDayOfWeek={firstDayOfWeek} />
-          <DaysOfMonth daysOfMonth={daysOfMonth} enableLunarCalendar={enableLunarCalendar} />
+          <DaysOfMonth
+            daysOfMonth={daysOfMonth}
+            enableLunarCalendar={enableLunarCalendar}
+          />
         </div>
       </div>
     </CalendarContext.Provider>

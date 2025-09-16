@@ -22,15 +22,12 @@ export const WIDGET_SIZES: Record<WidgetType, WidgetSizeConfig> = {
     default: { width: 600, height: 400 },
   },
   [WidgetType.CALENDAR]: {
-    default: { width: 400, height: 400 },
+    default: { width: 360, height: 430 },
   },
 };
 
 // used for Scaling purpose
-export const getWidgetSize = (
-  widgetType: WidgetType,
-  variant: string = 'default',
-) => {
+export const getWidgetSize = (widgetType: WidgetType, variant: string = 'default') => {
   const sizeConfig = WIDGET_SIZES[widgetType];
   return sizeConfig?.[variant];
 };
