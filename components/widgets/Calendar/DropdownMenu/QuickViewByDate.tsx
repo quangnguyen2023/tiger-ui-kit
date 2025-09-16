@@ -2,11 +2,7 @@
 
 import { useContext, useState } from 'react';
 import { CalendarContext } from '..';
-import {
-  ArrowsUpDownIcon,
-  MoonIcon,
-  SunIcon,
-} from '@heroicons/react/24/outline';
+import { ArrowsUpDownIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import Combobox from './Combobox';
 
 type TimeSelectorProps = {
@@ -69,11 +65,11 @@ const QuickViewByDate = () => {
 
   return (
     <div>
-      <div className="space-y-1">
+      <div className="space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
             <SunIcon width={18} height={18} />
-            <div className="text-xs font-medium"> Gregorian calendar </div>
+            <div className="text-xs font-medium"> Solar date </div>
           </div>
           <div
             className="cursor-pointer rounded p-1 text-xs text-[rgb(35,131,226)] transition-colors select-none hover:bg-[rgba(35,131,226,0.07)]"
@@ -82,6 +78,7 @@ const QuickViewByDate = () => {
             {enableLunarCalendar ? 'Hide lunar' : 'Show lunar'}
           </div>
         </div>
+
         <TimeSelector dates={dates} months={months} years={years} />
       </div>
 
@@ -92,10 +89,10 @@ const QuickViewByDate = () => {
       )}
 
       {enableLunarCalendar && (
-        <div className="space-y-1">
+        <div className="space-y-2">
           <div className="flex items-center gap-1">
             <MoonIcon width={18} height={18} />
-            <div className="text-xs font-medium"> Lunar calendar </div>
+            <div className="text-xs font-medium"> Lunar date </div>
           </div>
           <TimeSelector dates={dates} months={months} years={years} />
         </div>
