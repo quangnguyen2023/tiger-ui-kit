@@ -1,4 +1,5 @@
 import AnalogClock from '@/components/widgets/AnalogClock';
+import Calendar from '@/components/widgets/Calendar';
 import DigitalClock from '@/components/widgets/DigitalClock';
 import WeatherForecast from '@/components/widgets/WeatherForecast';
 import WorldClock from '@/components/widgets/WorldClock';
@@ -38,19 +39,7 @@ export const renderWidgetComponent = (
     case WidgetType.WEATHER_FORECAST:
       return <WeatherForecast {...customValues} />;
     case WidgetType.CALENDAR:
-      return (
-        <div className="flex h-64 w-64 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-100 to-pink-200">
-          <div className="text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500">
-              <span className="text-2xl">📅</span>
-            </div>
-            <div className="text-lg font-semibold text-purple-700">
-              Calendar Widget
-            </div>
-            <div className="text-sm text-purple-600">Coming Soon</div>
-          </div>
-        </div>
-      );
+      return <Calendar {...customValues} />;
     default:
       return <AnalogClock {...customValues} />;
   }
