@@ -18,9 +18,9 @@ export const generateDaysOfMonth = (
   let previousMonthPadding = 0;
   let nextMonthPadding = 0;
 
+  // Calculate how many days from previous/next month to pad so the calendar starts on the correct weekday
   if (firstDayOfWeek === 'Monday') {
-    previousMonthPadding =
-      firstWeekDayOfMonth === 0 ? 6 : firstWeekDayOfMonth - 1;
+    previousMonthPadding = firstWeekDayOfMonth === 0 ? 6 : firstWeekDayOfMonth - 1;
     nextMonthPadding = lastWeekDayOfMonth === 0 ? 0 : 7 - lastWeekDayOfMonth;
   } else {
     previousMonthPadding = firstWeekDayOfMonth === 0 ? 0 : firstWeekDayOfMonth;
@@ -29,6 +29,7 @@ export const generateDaysOfMonth = (
 
   let lastDayOfPreviousMonth = new Date(year, month, 0).getDate();
 
+  // Add days from the previous month to pad the start of the calendar
   for (let i = previousMonthPadding - 1; i >= 0; i--) {
     const date = new Date(year, month - 1, lastDayOfPreviousMonth - i);
 
@@ -39,6 +40,7 @@ export const generateDaysOfMonth = (
     });
   }
 
+  // Add days of the current month
   for (let i = 1; i <= totalDaysOfMonth; i++) {
     const date = new Date(year, month, i);
 
@@ -51,6 +53,7 @@ export const generateDaysOfMonth = (
     });
   }
 
+  // Add days from the next month to pad the end of the calendar
   for (let i = 1; i <= nextMonthPadding; i++) {
     const date = new Date(year, month + 1, i);
     days.push({

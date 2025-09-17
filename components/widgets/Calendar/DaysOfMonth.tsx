@@ -6,7 +6,10 @@ type DaysOfMonthProps = {
   enableLunarCalendar?: boolean;
 };
 
-export default function DaysOfMonth({ daysOfMonth, enableLunarCalendar }: DaysOfMonthProps) {
+export default function DaysOfMonth({
+  daysOfMonth,
+  enableLunarCalendar,
+}: DaysOfMonthProps) {
   return (
     <div className="mt-2 grid grid-cols-7 gap-1 gap-y-2">
       {daysOfMonth.map((day, index) => (
@@ -28,7 +31,7 @@ export default function DaysOfMonth({ daysOfMonth, enableLunarCalendar }: DaysOf
             {/* Lunar date */}
             {enableLunarCalendar && day.value && (
               <span
-                className={cn(`-mt-0.5 ml-4 text-[0.60rem]`, {
+                className={cn(`-mt-0.5 ml-4 text-[0.65rem]`, {
                   'text-[#9b9b9b]': !day?.isCurrentDay && day?.isWeekendDay,
                   'text-red-500': day.lunarValue?.date === 1 && !day?.isCurrentDay,
                 })}

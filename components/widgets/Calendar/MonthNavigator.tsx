@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
-import DropdownMenu from './DropdownMenu/DropdownMenu';
+import DropdownMenu from './DropdownMenu';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type MonthNavigatorProps = {
   selectedTime: { month: number; year: number };
@@ -19,9 +19,9 @@ export default function MonthNavigator({
         {format(date, 'MMMM yyyy')}
       </div>
 
-      <div className="col-span-3 flex items-center justify-center gap-2 font-medium text-black opacity-0 transition-all duration-300 group-hover:opacity-100 dark:text-white">
+      <div className="col-span-3 flex items-center justify-center gap-1 font-medium text-black transition-all duration-300 dark:text-white">
         <div
-          className="flex cursor-pointer justify-center rounded-full bg-[#ddd] p-1 opacity-60 transition-opacity hover:opacity-100 dark:bg-[#555]"
+          className="flex cursor-pointer justify-center rounded-full bg-[#ddd] p-1 opacity-40 transition-opacity hover:opacity-100 dark:bg-[#555]"
           onClick={() =>
             onMonthChange({
               month: selectedTime.month - 1,
@@ -29,11 +29,11 @@ export default function MonthNavigator({
             })
           }
         >
-          <ChevronUpIcon width={18} height={18} />
+          <ChevronLeft width={18} height={18} />
         </div>
 
         <div
-          className="cursor-pointer rounded-full bg-[#ddd] px-2 py-1.5 text-xs opacity-60 transition-opacity hover:opacity-100 dark:bg-[#555]"
+          className="cursor-pointer rounded-full bg-[#ddd] px-2 py-1.5 text-xs opacity-40 transition-opacity hover:opacity-100 dark:bg-[#555]"
           onClick={() =>
             onMonthChange({
               month: new Date().getMonth(),
@@ -45,7 +45,7 @@ export default function MonthNavigator({
         </div>
 
         <div
-          className="flex cursor-pointer justify-center rounded-full bg-[#ddd] p-1 opacity-60 transition-opacity hover:opacity-100 dark:bg-[#555]"
+          className="flex cursor-pointer justify-center rounded-full bg-[#ddd] p-1 opacity-40 transition-opacity hover:opacity-100 dark:bg-[#555]"
           onClick={() =>
             onMonthChange({
               month: selectedTime.month + 1,
@@ -53,7 +53,7 @@ export default function MonthNavigator({
             })
           }
         >
-          <ChevronDownIcon width={18} height={18} />
+          <ChevronRight width={18} height={18} />
         </div>
 
         <DropdownMenu />
