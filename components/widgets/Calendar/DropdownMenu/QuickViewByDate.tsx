@@ -3,13 +3,7 @@
 import { useContext, useState } from 'react';
 import { CalendarContext } from '..';
 import { ArrowsUpDownIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
-import Combobox from './Combobox';
-
-type TimeSelectorProps = {
-  dates: number[];
-  months: number[];
-  years: number[];
-};
+import TimeSelector from '@/components/widgets/Calendar/DropdownMenu/TimeSelector';
 
 const QuickViewByDate = () => {
   const { selectedTime, changeTime } = useContext(CalendarContext);
@@ -17,50 +11,8 @@ const QuickViewByDate = () => {
   const [enableLunarCalendar, setEnableLunarCalendar] = useState(false);
   const [tempSelectedTime, setTempSelectedTime] = useState(selectedTime);
 
-  const minYear = 1900;
-  const maxYear = 2199;
-  const years = Array(maxYear - minYear + 1)
-    .fill('')
-    .map((_, i) => minYear + i);
-
-  const months = Array(12)
-    .fill('')
-    .map((_, i) => i);
-
-  const dates = Array(31)
-    .fill('')
-    .map((_, i) => i + 1);
-
   const onGoToDate = () => {
     changeTime(tempSelectedTime);
-  };
-
-  const TimeSelector = ({ dates, months, years }: TimeSelectorProps) => {
-    return (
-      <div className="flex gap-1">
-        <Combobox
-          options={dates}
-          value={tempSelectedTime.day || 1}
-          onChangeVal={(newValue) =>
-            setTempSelectedTime({ ...tempSelectedTime, day: newValue })
-          }
-        />
-        <Combobox
-          options={months}
-          value={tempSelectedTime.month}
-          onChangeVal={(newValue) =>
-            setTempSelectedTime({ ...tempSelectedTime, month: newValue })
-          }
-        />
-        <Combobox
-          options={years}
-          value={tempSelectedTime.year}
-          onChangeVal={(newValue) =>
-            setTempSelectedTime({ ...tempSelectedTime, year: newValue })
-          }
-        />
-      </div>
-    );
   };
 
   return (
@@ -79,7 +31,10 @@ const QuickViewByDate = () => {
           </div>
         </div>
 
-        <TimeSelector dates={dates} months={months} years={years} />
+        <TimeSelector
+          selectedTime={tempSelectedTime}
+          onChange={(newTime) => setTempSelectedTime(newTime)}
+        />
       </div>
 
       {enableLunarCalendar && (
@@ -94,7 +49,10 @@ const QuickViewByDate = () => {
             <MoonIcon width={18} height={18} />
             <div className="text-xs font-medium"> Lunar date </div>
           </div>
-          <TimeSelector dates={dates} months={months} years={years} />
+          <TimeSelector
+            selectedTime={tempSelectedTime}
+            onChange={(newTime) => setTempSelectedTime(newTime)}
+          />
         </div>
       )}
 
