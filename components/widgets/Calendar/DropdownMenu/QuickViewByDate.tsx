@@ -5,14 +5,20 @@ import { CalendarContext } from '..';
 import { ArrowsUpDownIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import TimeSelector from '@/components/widgets/Calendar/DropdownMenu/TimeSelector';
 
-const QuickViewByDate = () => {
+type QuickViewByDateProps = {
+  onClose?: () => void;
+};
+
+const QuickViewByDate = ({ onClose }: QuickViewByDateProps) => {
   const { selectedTime, changeTime } = useContext(CalendarContext);
 
   const [enableLunarCalendar, setEnableLunarCalendar] = useState(false);
   const [tempSelectedTime, setTempSelectedTime] = useState(selectedTime);
 
   const onGoToDate = () => {
-    changeTime(tempSelectedTime);
+    // Ensure 'day' exists in tempSelectedTime, default to 1 if not
+    const day = tempSelectedTime?.day ?? 1;
+    changeTime({ ...tempSelectedTime, day });
   };
 
   return (
@@ -58,7 +64,10 @@ const QuickViewByDate = () => {
 
       <button
         className="mt-4 ml-auto block w-full rounded bg-[#2383e2] px-2 py-2 text-xs font-medium text-white transition-colors hover:bg-[#3a83cc] active:bg-[#377abe]"
-        onClick={onGoToDate}
+        onClick={() => {
+          onGoToDate();
+          onClose?.();
+        }}
       >
         Go to date
       </button>
