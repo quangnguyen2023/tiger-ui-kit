@@ -12,15 +12,19 @@ export default function DaysOfMonth({
 }: DaysOfMonthProps) {
   return (
     <div className="mt-2 grid grid-cols-7 gap-1 gap-y-2">
-      {daysOfMonth.map((day, index) => (
+      {daysOfMonth.map((day, index) =>
+        // prettier-ignore
         <div
           key={index}
-          className={cn(`relative rounded-md ${enableLunarCalendar ? 'p-5.5' : 'py-5'}`, {
-            'bg-[#f64338] text-white': day?.isCurrentDay,
-            'text-[#949494] dark:text-[#a8a8a8]': !day?.isCurrentDay && day?.isWeekendDay,
-            'text-[#dbdbdb] dark:text-[#5d5d5d]': day?.isNotCurrentMonthDay,
-            '!border-[#f64338]': day?.isSelectedDay,
-          })}
+          className={cn(
+            'relative rounded-md border-2 border-dashed border-transparent py-5',
+            {
+              'bg-[#f64338] text-white': day?.isCurrentDay,
+              'text-[#949494] dark:text-[#a8a8a8]': !day?.isCurrentDay && day?.isWeekendDay,
+              'text-[#dbdbdb] dark:text-[#5d5d5d]': day?.isNotCurrentMonthDay,
+              '!border-[#f64338]': day?.isSelectedDay,
+            },
+          )}
         >
           <div
             className={`absolute ${enableLunarCalendar ? 'top-[60%]' : 'top-1/2'} left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center`}
@@ -42,8 +46,8 @@ export default function DaysOfMonth({
               </span>
             )}
           </div>
-        </div>
-      ))}
+        </div>,
+      )}
     </div>
   );
 }

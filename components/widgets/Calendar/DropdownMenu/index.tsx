@@ -6,6 +6,7 @@ import {
 import { Button } from '@/components/ui/button';
 import QuickViewByDate from './QuickViewByDate';
 import { EllipsisVertical } from 'lucide-react';
+import { useState } from 'react';
 
 export type MenuOption = {
   id: string;
@@ -13,13 +14,16 @@ export type MenuOption = {
 };
 
 const CalendarDropdownMenu = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
           size="icon"
           className="h-8 w-8 opacity-30 hover:opacity-100"
+          onClick={() => setOpen(true)}
         >
           <EllipsisVertical />
         </Button>
@@ -27,7 +31,7 @@ const CalendarDropdownMenu = () => {
 
       <DropdownMenuContent align="end" className="">
         <div className="p-2">
-          <QuickViewByDate />
+          <QuickViewByDate onClose={() => setOpen(false)} />
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
