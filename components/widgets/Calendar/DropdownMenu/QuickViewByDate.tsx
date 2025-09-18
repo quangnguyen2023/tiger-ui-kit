@@ -25,7 +25,7 @@ const QuickViewByDate = ({ onClose }: QuickViewByDateProps) => {
     <div>
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
             <SunIcon width={18} height={18} />
             <div className="text-xs font-medium"> Solar date </div>
           </div>
@@ -51,8 +51,8 @@ const QuickViewByDate = ({ onClose }: QuickViewByDateProps) => {
 
       {enableLunarCalendar && (
         <div className="space-y-2">
-          <div className="flex items-center gap-1">
-            <MoonIcon width={18} height={18} />
+          <div className="flex items-center gap-2">
+            <MoonIcon width={18} height={18} className="-mt-0.5" />
             <div className="text-xs font-medium"> Lunar date </div>
           </div>
           <TimeSelector

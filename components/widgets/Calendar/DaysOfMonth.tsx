@@ -37,12 +37,12 @@ export default function DaysOfMonth({
               <span
                 className={cn(`-mt-0.5 ml-4 text-[0.65rem]`, {
                   'text-[#9b9b9b]': !day?.isCurrentDay && day?.isWeekendDay,
-                  'text-red-500': day.lunarValue?.date === 1 && !day?.isCurrentDay,
+                  'text-red-500': day.lunarValue?.get().day == 1 && !day?.isCurrentDay,
                 })}
               >
-                {day.lunarValue?.date === 1
-                  ? `${day.lunarValue?.date}/${day.lunarValue?.month}`
-                  : day.lunarValue?.date}
+                {day.lunarValue?.get().day === 1
+                  ? `${day.lunarValue?.get().day}/${day.lunarValue?.get().month}`
+                  : day.lunarValue?.get().day}
               </span>
             )}
           </div>

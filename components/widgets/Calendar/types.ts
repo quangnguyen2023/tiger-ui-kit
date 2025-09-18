@@ -1,4 +1,4 @@
-import { LunarDate } from 'vietnamese-lunar-calendar';
+import { LunarDate } from '@nghiavuive/lunar_date_vi';
 
 export type DayOfMonthType = {
   value: number;
