@@ -37,14 +37,26 @@ const useTime = () => {
   };
 
   const handleLunarChange = (newLunar: SelectedTime) => {
-    setLunarTime(newLunar);
+    let lunar: any;
+    try {
+      lunar = new LunarDate({
+        day: newLunar?.day ?? 1,
+        month: newLunar.month,
+        year: newLunar.year,
+      });
+      lunar.init();
+      setLunarTime(newLunar);
+    } catch (e) {
+      // Case: the selected day is the 30th, but the selected lunar month only has 29 days
+      lunar = new LunarDate({
+        day: 1,
+        month: newLunar.month + 1,
+        year: newLunar.year,
+      });
+      lunar.init();
+      setLunarTime({ ...newLunar, day: 1, month: newLunar.month + 1 });
+    }
 
-    const lunar = new LunarDate({
-      day: newLunar?.day ?? 1,
-      month: newLunar.month,
-      year: newLunar.year,
-    });
-    lunar.init();
     const solar = lunar.toSolarDate().get();
 
     setSolarTime({ day: solar.day, month: solar.month, year: solar.year });
