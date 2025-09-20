@@ -17,14 +17,11 @@ const WidgetPreview = ({ widget, widgetTypeFromURL }: WidgetPreviewProps) => {
   const isCustomizing = pathname.split('/').length > 3;
 
   const sizeVariant = getSizeVariant(widget);
-  const baseSize = getWidgetSize(
-    widget?.type || widgetTypeFromURL,
-    sizeVariant,
-  );
+  const baseSize = getWidgetSize(widget?.type || widgetTypeFromURL, sizeVariant);
 
   const [containerSize, setContainerSize] = useState(baseSize);
 
-  const scale = useAutoScale(containerSize, baseSize, 3);
+  const scale = useAutoScale(containerSize, baseSize, 7);
 
   const handleResize = (e: any, { size }: ResizeCallbackData) => {
     setContainerSize({ width: size.width, height: size.height });
@@ -54,10 +51,7 @@ const WidgetPreview = ({ widget, widgetTypeFromURL }: WidgetPreviewProps) => {
               transition: 'transform 0.2s ease-in-out',
             }}
           >
-            <WidgetRenderer
-              widget={widget}
-              widgetTypeFromURL={widgetTypeFromURL}
-            />
+            <WidgetRenderer widget={widget} widgetTypeFromURL={widgetTypeFromURL} />
           </div>
         </ResizableBox>
       ) : (
