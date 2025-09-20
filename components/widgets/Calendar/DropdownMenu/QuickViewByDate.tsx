@@ -1,25 +1,18 @@
 'use client';
 
-import { useContext, useState } from 'react';
-import { CalendarContext } from '..';
+import { useState } from 'react';
 import { ArrowsUpDownIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import TimeSelector from '@/components/widgets/Calendar/DropdownMenu/TimeSelector';
+import useTime from '@/components/widgets/Calendar/DropdownMenu/useTime';
 
 type QuickViewByDateProps = {
   onClose?: () => void;
 };
 
 const QuickViewByDate = ({ onClose }: QuickViewByDateProps) => {
-  const { selectedTime, changeTime } = useContext(CalendarContext);
-
   const [enableLunarCalendar, setEnableLunarCalendar] = useState(false);
-  const [tempSelectedTime, setTempSelectedTime] = useState(selectedTime);
-
-  const onGoToDate = () => {
-    // Ensure 'day' exists in tempSelectedTime, default to 1 if not
-    const day = tempSelectedTime?.day ?? 1;
-    changeTime({ ...tempSelectedTime, day });
-  };
+  const { solarTime, lunarTime, handleLunarChange, handleSolarChange, onGoToDate } =
+    useTime();
 
   return (
     <div>
@@ -30,17 +23,14 @@ const QuickViewByDate = ({ onClose }: QuickViewByDateProps) => {
             <div className="text-xs font-medium"> Solar date </div>
           </div>
           <div
-            className="cursor-pointer rounded p-1 text-xs text-[rgb(35,131,226)] transition-colors select-none hover:bg-[rgba(35,131,226,0.07)]"
+            className="cursor-pointer rounded p-1 text-xs text-[rgb(35,131,226)] select-none hover:bg-[rgba(35,131,226,0.07)]"
             onClick={() => setEnableLunarCalendar(!enableLunarCalendar)}
           >
             {enableLunarCalendar ? 'Hide lunar' : 'Show lunar'}
           </div>
         </div>
 
-        <TimeSelector
-          selectedTime={tempSelectedTime}
-          onChange={(newTime) => setTempSelectedTime(newTime)}
-        />
+        <TimeSelector selectedTime={solarTime} onChange={handleSolarChange} />
       </div>
 
       {enableLunarCalendar && (
@@ -56,8 +46,9 @@ const QuickViewByDate = ({ onClose }: QuickViewByDateProps) => {
             <div className="text-xs font-medium"> Lunar date </div>
           </div>
           <TimeSelector
-            selectedTime={tempSelectedTime}
-            onChange={(newTime) => setTempSelectedTime(newTime)}
+            selectedTime={lunarTime}
+            isLunarDate
+            onChange={handleLunarChange}
           />
         </div>
       )}
