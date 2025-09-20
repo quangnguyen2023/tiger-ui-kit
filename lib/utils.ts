@@ -1,5 +1,6 @@
 import { WidgetType } from '@/types/widget';
 import { clsx, type ClassValue } from 'clsx';
+import { Variable } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -33,4 +34,8 @@ export const isLightColor = (hexColor: string): boolean => {
 
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return luminance > 0.5;
+};
+
+export const isObject = (variable: any) => {
+  return variable instanceof Object && variable !== null;
 };
