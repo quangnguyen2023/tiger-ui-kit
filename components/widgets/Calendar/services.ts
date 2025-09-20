@@ -1,6 +1,11 @@
 import { getDaysInMonth, isSameDay, isSaturday, isSunday } from 'date-fns';
 import { DayOfMonthType, MonthRange, FirstDayOfWeekType } from './types';
-import { LunarDate } from 'vietnamese-lunar-calendar';
+import { LunarDate, SolarDate } from '@nghiavuive/lunar_date_vi';
+
+const getLunarDate: (date: Date) => LunarDate = (date: Date) => {
+  const solarDate = new SolarDate(date);
+  return solarDate.toLunarDate();
+};
 
 export const generateDaysOfMonth = (
   day: number | undefined,
@@ -35,7 +40,7 @@ export const generateDaysOfMonth = (
 
     days.push({
       value: lastDayOfPreviousMonth - i,
-      lunarValue: new LunarDate(date),
+      lunarValue: getLunarDate(date),
       isNotCurrentMonthDay: true,
     });
   }
@@ -46,7 +51,7 @@ export const generateDaysOfMonth = (
 
     days.push({
       value: i,
-      lunarValue: new LunarDate(date),
+      lunarValue: getLunarDate(date),
       isCurrentDay: isSameDay(new Date(year, month, i), currentDate),
       isWeekendDay: isSaturday(date) || isSunday(date),
       isSelectedDay: i === day,
@@ -58,7 +63,7 @@ export const generateDaysOfMonth = (
     const date = new Date(year, month + 1, i);
     days.push({
       value: i,
-      lunarValue: new LunarDate(date),
+      lunarValue: getLunarDate(date),
       isNotCurrentMonthDay: true,
     });
   }
