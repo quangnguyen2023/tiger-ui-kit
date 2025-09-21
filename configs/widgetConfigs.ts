@@ -106,10 +106,52 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
     type: WidgetType.CALENDAR,
     customizeFields: [
       {
+        prop: 'accentColor',
+        type: 'COLOR',
+        label: 'Accent Color',
+        defaultValue: '#000',
+      },
+      {
         prop: 'textColor',
         type: 'COLOR',
         label: 'Text Color',
         defaultValue: '#000',
+      },
+      {
+        prop: 'bgColor',
+        type: 'COLOR',
+        label: 'Background Color',
+        defaultValue: '#fff',
+      },
+      {
+        prop: 'enableLunarCalendar',
+        type: 'SWITCHER',
+        label: 'Lunar Calendar',
+        options: [
+          { label: 'On', value: true },
+          { label: 'Off', value: false },
+        ],
+        defaultValue: true,
+      },
+      {
+        prop: 'firstDayOfWeek',
+        type: 'SWITCHER',
+        label: 'First Day of Week',
+        options: [
+          { label: 'Sunday', value: 'Sunday' },
+          { label: 'Monday', value: 'Monday' },
+        ],
+        defaultValue: 'Sunday',
+      },
+      {
+        prop: 'weekdayFormat',
+        type: 'SWITCHER',
+        label: 'Weekday Format',
+        options: [
+          { label: '1 char', value: '1-char' },
+          { label: '2 char', value: '2-char' },
+        ],
+        defaultValue: '1-char',
       },
     ],
   },
