@@ -23,7 +23,8 @@ export const generateDaysOfMonth = (
   let previousMonthPadding = 0;
   let nextMonthPadding = 0;
 
-  // Calculate how many days from previous/next month to pad so the calendar starts on the correct weekday
+  // Calculate the number of padding days needed before and after the current month
+  // to fill the calendar grid, depending on whether the week starts on Monday or Sunday.
   if (firstDayOfWeek === 'Monday') {
     previousMonthPadding = firstWeekDayOfMonth === 0 ? 6 : firstWeekDayOfMonth - 1;
     nextMonthPadding = lastWeekDayOfMonth === 0 ? 0 : 7 - lastWeekDayOfMonth;
@@ -66,6 +67,18 @@ export const generateDaysOfMonth = (
       lunarValue: getLunarDate(date),
       isNotCurrentMonthDay: true,
     });
+  }
+
+  // Add days of the next month if there are not enough 42 days ~ 6 weeks
+  let extraDay = nextMonthPadding + 1;
+  while (days.length < 42) {
+    const date = new Date(year, month + 1, extraDay);
+    days.push({
+      value: extraDay,
+      lunarValue: getLunarDate(date),
+      isNotCurrentMonthDay: true,
+    });
+    extraDay++;
   }
 
   return days;
