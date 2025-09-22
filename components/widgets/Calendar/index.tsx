@@ -27,7 +27,7 @@ export default function Calendar({
   enableLunarCalendar = true,
   firstDayOfWeek = 'Sunday',
   weekdayFormat = '1-char',
-  accentColor = 'green',
+  accentColor = '#f64338',
   textColor = 'black',
   bgColor = 'white',
 }: CalendarProps) {
