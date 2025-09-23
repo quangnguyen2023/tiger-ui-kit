@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { InnerConfig } from './types';
-import { toZonedTime } from 'date-fns-tz';
 
 interface ClockHandsProps {
   config: InnerConfig;
-  timezone?: string; // thêm prop timezone
 }
 
-export const ClockHands = ({ config, timezone }: ClockHandsProps) => {
+export const ClockHands = ({ config }: ClockHandsProps) => {
   const [handsDeg, setHandsDeg] = useState({
     hourHandDeg: 0,
     minuteHandDeg: 0,
@@ -15,22 +13,19 @@ export const ClockHands = ({ config, timezone }: ClockHandsProps) => {
   });
 
   useEffect(() => {
-    // prettier-ignore
     const interval = setInterval(() => {
-      let time: Date;
-      if (timezone) {
-        time = toZonedTime(new Date(), timezone);
-      } else {
-        time = new Date();
-      }
+      const time = new Date();
 
       // Tính toán vị trí kim giờ:
       // (time.getHours() / 24) * 720:   1 vòng quay 360 độ => 2 vòng 720 độ = 24 giờ
       // Tính độ chênh lệch cho kim giờ theo phút:
       // (time.getMinutes() / 60) * 30:  360 độ = 12 giờ => (1 giờ =) 60 phút = 30 độ
-      const hourHandDeg = (time.getHours() / 24) * 720 + (time.getMinutes() / 60) * 30;
-      const minuteHandDeg = (time.getMinutes() / 60) * 360 + (time.getSeconds() / 60) * 6;
-      const secondHandDeg = (time.getSeconds() / 60 + time.getMilliseconds() / 60000) * 360;
+      const hourHandDeg =
+        (time.getHours() / 24) * 720 + (time.getMinutes() / 60) * 30;
+      const minuteHandDeg =
+        (time.getMinutes() / 60) * 360 + (time.getSeconds() / 60) * 6;
+      const secondHandDeg =
+        (time.getSeconds() / 60 + time.getMilliseconds() / 60000) * 360;
 
       setHandsDeg({ hourHandDeg, minuteHandDeg, secondHandDeg });
     }, config.updateDuration);
@@ -38,7 +33,7 @@ export const ClockHands = ({ config, timezone }: ClockHandsProps) => {
     return () => {
       clearInterval(interval);
     };
-  }, [config, timezone]);
+  }, [config]);
 
   return (
     <>

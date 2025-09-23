@@ -4,7 +4,10 @@ import { useMemo } from 'react';
 import { ClockCenterDot } from '@/components/widgets/AnalogClock/ClockCenterDot';
 import { ClockFace } from '@/components/widgets/AnalogClock/ClockFace';
 import { ClockHands } from '@/components/widgets/AnalogClock/ClockHands';
-import { AnalogClockProps, InnerConfig } from '@/components/widgets/AnalogClock/types';
+import {
+  AnalogClockProps,
+  InnerConfig,
+} from '@/components/widgets/AnalogClock/types';
 import { getWidgetSize } from '@/configs/widgetSizes';
 import { WidgetType } from '@/types/widget';
 
@@ -38,7 +41,7 @@ export default function AnalogClock(props: AnalogClockProps) {
 
   return (
     <div
-      className={`rounded-full border-2 border-gray-100 p-1.5 shadow-xl select-none`}
+      className={`rounded-full border-2 border-gray-100 p-1.5 shadow-xl`}
       style={{
         backgroundColor: innerConfig.backgroundColor,
         width: size.width,
@@ -59,7 +62,7 @@ export default function AnalogClock(props: AnalogClockProps) {
         </div>
 
         <ClockCenterDot config={innerConfig} />
-        <ClockHands config={innerConfig} timezone={props.timezone} />
+        <ClockHands config={innerConfig} />
         <ClockFace config={innerConfig} />
       </div>
     </div>
