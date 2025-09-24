@@ -24,7 +24,7 @@ function getOffsetDiffString(date: Date, timezone?: string) {
     ? getTimezoneOffset(timezone, date)
     : localOffsetMiliSec;
 
-  const diffHours = Math.round(
+  const diffHours = -Math.round(
     (localOffsetMiliSec - targetOffsetMiliSec) / (1000 * 60 * 60),
   );
 
