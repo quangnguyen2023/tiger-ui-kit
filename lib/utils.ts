@@ -39,3 +39,7 @@ export const isLightColor = (hexColor: string): boolean => {
 export const isObject = (variable: any) => {
   return variable instanceof Object && variable !== null;
 };
+
+export const addLeadingZero = (num: number) => {
+  return String(num).padStart(2, '0');
+};

@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { SIZE } from './constants';
 import LocationClock from './LocationClock';
+import { getWidgetSize } from '@/configs/widgetSizes';
+import { WidgetType } from '@/types/widget';
 
 const DEFAULT_TIMEZONES = [
   'America/New_York',
@@ -13,13 +15,17 @@ const DEFAULT_TIMEZONES = [
 
 export default function WorldClock() {
   const [selectedSize, setSelectedSize] = useState<SIZE>(SIZE.MEDIUM);
+
   // Có thể thay bằng state cho phép user chọn
   const [timezones] = useState<string[]>(DEFAULT_TIMEZONES);
+
+  const size = getWidgetSize(WidgetType.WORLD_CLOCK);
 
   return (
     // <div className="w-fit rounded-xl bg-blue-300 p-6">
     <div
-      className={`relative grid w-max p-6 ${selectedSize === SIZE.MEDIUM ? 'grid-cols-4 gap-8' : 'grid-cols-2 gap-5'} rounded-xl bg-[#1c1c1e]`}
+      className={`relative grid w-max p-6 ${selectedSize === SIZE.MEDIUM ? 'grid-cols-4 gap-8' : 'grid-cols-2 gap-5'} rounded-xl bg-[#1c1c1e] select-none`}
+      style={{ width: size.width, height: size.height }}
     >
       <LocationClock
         location="New York"

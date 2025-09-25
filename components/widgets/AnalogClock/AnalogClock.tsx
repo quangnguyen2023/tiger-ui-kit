@@ -38,7 +38,7 @@ export default function AnalogClock(props: AnalogClockProps) {
 
   return (
     <div
-      className={`rounded-full border-2 border-gray-100 p-1.5 shadow-xl select-none`}
+      className={`rounded-full border-2 border-transparent p-1.5 shadow-xl select-none`}
       style={{
         backgroundColor: innerConfig.backgroundColor,
         width: size.width,
