@@ -3,7 +3,8 @@ import AnalogClock from '../AnalogClock';
 import { format, getTimezoneOffset, toZonedTime } from 'date-fns-tz';
 
 interface LocationClockProps {
-  isLightMode?: boolean;
+  // Xóa prop isLightMode
+  // isLightMode?: boolean;
   location?: string;
   detailedLocation?: boolean;
   timezone: string;
@@ -34,7 +35,8 @@ function getOffsetDiffString(date: Date, timezone?: string) {
 }
 
 export default function LocationClock({
-  isLightMode = true,
+  // Xóa isLightMode
+  // isLightMode = true,
   location = 'London',
   detailedLocation,
   timezone,
@@ -47,8 +49,12 @@ export default function LocationClock({
 
   const time = toZonedTime(now, timezone);
 
-  // Render the analog clock with the correct timezone
-  const Clock = isLightMode ? (
+  // Tự động xác định ban ngày/ban đêm dựa vào giờ ở timezone
+  const hour = time.getHours();
+  const isDayTime = hour >= 6 && hour < 18;
+
+  // Render the analog clock với chế độ sáng/tối tự động
+  const Clock = isDayTime ? (
     <AnalogClock title={!detailedLocation ? locationShort : ''} timezone={timezone} />
   ) : (
     <AnalogClock

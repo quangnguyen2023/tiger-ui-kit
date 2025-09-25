@@ -29,7 +29,6 @@ export default function WorldClock() {
     >
       <LocationClock
         location="New York"
-        isLightMode={false}
         detailedLocation={selectedSize === SIZE.MEDIUM}
         timezone={timezones[0]}
       />
