@@ -1,3 +1,4 @@
+import { addLeadingZero } from '@/lib/utils';
 import AnalogClock from '../AnalogClock';
 import { format, getTimezoneOffset, toZonedTime } from 'date-fns-tz';
 
@@ -5,7 +6,7 @@ interface LocationClockProps {
   isLightMode?: boolean;
   location?: string;
   detailedLocation?: boolean;
-  timezone?: string;
+  timezone: string;
 }
 
 // Helper: Get formatted date string in the given timezone
@@ -44,6 +45,8 @@ export default function LocationClock({
   const todayString = getTodayString(now, timezone);
   const offsetDiffString = getOffsetDiffString(now, timezone);
 
+  const time = toZonedTime(now, timezone);
+
   // Render the analog clock with the correct timezone
   const Clock = isLightMode ? (
     <AnalogClock title={!detailedLocation ? locationShort : ''} timezone={timezone} />
@@ -61,11 +64,16 @@ export default function LocationClock({
       {Clock}
       {detailedLocation && (
         <div className="flex flex-col items-center gap-1">
-          <div className="text-sm font-semibold text-white">{location}</div>
+          <div className="text-base font-semibold text-white text-shadow-lg">
+            {location}
+          </div>
+          <div className="text-3xl font-semibold text-white text-shadow-lg">
+            {`${addLeadingZero(time.getHours())}:${addLeadingZero(time.getMinutes())}`}
+          </div>
           {/* Display the current date in the selected timezone */}
-          <div className="text-xs font-semibold text-[#99999b]">{todayString}</div>
+          <div className="text-sm font-semibold text-[#99999b]">{todayString}</div>
           {/* Display the timezone offset difference compared to the user's local timezone */}
-          <div className="text-xs font-semibold text-[#99999b]">{offsetDiffString}</div>
+          <div className="text-sm font-semibold text-[#99999b]">{offsetDiffString}</div>
         </div>
       )}
     </div>
