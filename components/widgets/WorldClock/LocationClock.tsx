@@ -66,20 +66,18 @@ export default function LocationClock({
   );
 
   return (
-    <div className="flex w-fit flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-5">
       {Clock}
       {detailedLocation && (
-        <div className="flex flex-col items-center gap-1">
-          <div className="text-base font-semibold text-white text-shadow-lg">
-            {location}
-          </div>
-          <div className="text-3xl font-semibold text-white text-shadow-lg">
+        <div className="flex flex-col items-center gap-1.5">
+          <div className="text-xl font-medium text-white text-shadow-lg">{location}</div>
+          <div className="text-2xl font-semibold text-white text-shadow-lg">
             {`${addLeadingZero(time.getHours())}:${addLeadingZero(time.getMinutes())}`}
           </div>
           {/* Display the current date in the selected timezone */}
-          <div className="text-sm font-semibold text-[#99999b]">{todayString}</div>
+          <div className="text-base font-semibold text-[#9c9c9d]">{todayString}</div>
           {/* Display the timezone offset difference compared to the user's local timezone */}
-          <div className="text-sm font-semibold text-[#99999b]">{offsetDiffString}</div>
+          <div className="text-base font-semibold text-[#9c9c9d]">{offsetDiffString}</div>
         </div>
       )}
     </div>
