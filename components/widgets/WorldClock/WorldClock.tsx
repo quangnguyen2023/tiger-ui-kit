@@ -6,64 +6,58 @@ import LocationClock from './LocationClock';
 import { getWidgetSize } from '@/configs/widgetSizes';
 import { WidgetType } from '@/types/widget';
 
-const DEFAULT_TIMEZONES = [
-  'America/New_York',
-  'Asia/Tokyo',
-  'Europe/London',
-  'Australia/Sydney',
-];
+interface WorldClockProps {
+  textColor?: string;
+  timezone1?: string;
+  timezone2?: string;
+  timezone3?: string;
+  timezone4?: string;
+  location1?: string;
+  location2?: string;
+  location3?: string;
+  location4?: string;
+}
 
-export default function WorldClock() {
+export default function WorldClock({
+  textColor = '#000',
+  timezone1 = 'America/New_York',
+  timezone2 = 'Asia/Tokyo',
+  timezone3 = 'Europe/London',
+  timezone4 = 'Australia/Sydney',
+  location1 = 'New York',
+  location2 = 'Tokyo',
+  location3 = 'London',
+  location4 = 'Sydney',
+}: WorldClockProps) {
   const [selectedSize, setSelectedSize] = useState<SIZE>(SIZE.MEDIUM);
-
-  // Có thể thay bằng state cho phép user chọn
-  const [timezones] = useState<string[]>(DEFAULT_TIMEZONES);
 
   const size = getWidgetSize(WidgetType.WORLD_CLOCK);
 
   return (
-    // <div className="w-fit rounded-xl bg-blue-300 p-6">
     <div
       className={`relative grid w-max p-6 ${selectedSize === SIZE.MEDIUM ? 'grid-cols-4 gap-8' : 'grid-cols-2 gap-5'} rounded-xl bg-[#1c1c1e] select-none`}
       style={{ width: size.width, height: size.height }}
     >
       <LocationClock
-        location="New York"
+        location={location1}
         detailedLocation={selectedSize === SIZE.MEDIUM}
-        timezone={timezones[0]}
+        timezone={timezone1}
       />
       <LocationClock
-        location="Tokyo"
+        location={location2}
         detailedLocation={selectedSize === SIZE.MEDIUM}
-        timezone={timezones[1]}
+        timezone={timezone2}
       />
       <LocationClock
-        location="London"
+        location={location3}
         detailedLocation={selectedSize === SIZE.MEDIUM}
-        timezone={timezones[2]}
+        timezone={timezone3}
       />
       <LocationClock
-        location="Sydney"
+        location={location4}
         detailedLocation={selectedSize === SIZE.MEDIUM}
-        timezone={timezones[3]}
+        timezone={timezone4}
       />
     </div>
-
-    // <div className="mt-5 flex items-center justify-center gap-5 font-semibold text-slate-400 *:cursor-pointer">
-    //   <div
-    //     className={`flex h-9 w-9 items-center justify-center rounded-full border-2 border-slate-400 ${selectedSize === 'small' && 'border-white bg-white text-yellow-800'}`}
-    //     onClick={() => setSelectedSize(SIZE.SMALL)}
-    //   >
-    //     <span>S</span>
-    //   </div>
-
-    //   <div
-    //     className={`flex h-9 w-9 items-center justify-center rounded-full border-2 border-slate-400 ${selectedSize === 'medium' && 'border-white bg-white text-yellow-800'}`}
-    //     onClick={() => setSelectedSize(SIZE.MEDIUM)}
-    //   >
-    //     <span>M</span>
-    //   </div>
-    // </div>
-    // </div>
   );
 }

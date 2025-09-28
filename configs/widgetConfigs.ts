@@ -1,4 +1,4 @@
-import { WidgetConfig, WidgetType } from '@/types/widget';
+import { WidgetConfig, WidgetType, SettingsGroupField } from '@/types/widget';
 
 export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
   [WidgetType.ANALOG_CLOCK]: {
@@ -98,6 +98,88 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
         type: 'COLOR',
         label: 'Text Color',
         defaultValue: '#000',
+      },
+      {
+        prop: 'appearanceDiv',
+        type: 'DIVIDER',
+        label: 'Appearance Settings',
+        text: 'Appearance Settings',
+      },
+      {
+        prop: 'clockSettings',
+        type: 'SETTINGS_GROUP',
+        label: 'Clock Settings',
+        layout: 'stack',
+        groups: [
+          {
+            title: 'Clock 1',
+            items: [
+              {
+                key: 'location1',
+                label: 'Location Name',
+                type: 'text',
+                defaultValue: 'New York',
+              },
+              {
+                key: 'timezone1',
+                label: 'Timezone',
+                type: 'timezone',
+                defaultValue: 'America/New_York',
+              },
+            ],
+          },
+          {
+            title: 'Clock 2',
+            items: [
+              {
+                key: 'location2',
+                label: 'Location Name',
+                type: 'text',
+                defaultValue: 'London',
+              },
+              {
+                key: 'timezone2',
+                label: 'Timezone',
+                type: 'timezone',
+                defaultValue: 'Europe/London',
+              },
+            ],
+          },
+          {
+            title: 'Clock 3',
+            items: [
+              {
+                key: 'location3',
+                label: 'Location Name',
+                type: 'text',
+                defaultValue: 'Tokyo',
+              },
+              {
+                key: 'timezone3',
+                label: 'Timezone',
+                type: 'timezone',
+                defaultValue: 'Asia/Tokyo',
+              },
+            ],
+          },
+          {
+            title: 'Clock 4',
+            items: [
+              {
+                key: 'location4',
+                label: 'Location Name',
+                type: 'text',
+                defaultValue: 'Sydney',
+              },
+              {
+                key: 'timezone4',
+                label: 'Timezone',
+                type: 'timezone',
+                defaultValue: 'Australia/Sydney',
+              },
+            ],
+          },
+        ],
       },
     ],
   },
