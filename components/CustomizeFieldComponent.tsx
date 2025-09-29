@@ -1,23 +1,21 @@
-import { CustomizeField, SettingsGroupField, DividerField } from '@/types/widget';
+import { CustomizeField, DividerField, ArrayEditorField } from '@/types/widget';
 import ColorPicker from './base/ColorPicker';
 import TextField from './base/TextField';
 import CustomSwitch from './base/CustomSwitch';
 import { TimezoneCombobox } from './base/TimezoneCombobox';
-import SettingsGroupRenderer from './base/SettingsGroupRenderer';
 import DividerWithLabel from './base/DividerWithLabel';
+import ArrayEditor from './base/ArrayEditor';
 
 interface CustomizeFieldComponentProps {
   field: CustomizeField;
   value?: any;
   onChange?: (value: any) => void;
-  allValues?: Record<string, any>; // Thêm prop này để SettingsGroupRenderer có thể access tất cả values
 }
 
 const CustomizeFieldComponent = ({
   field,
   value,
   onChange,
-  allValues = {},
 }: CustomizeFieldComponentProps) => {
   switch (field.type) {
     case 'COLOR':
@@ -69,24 +67,27 @@ const CustomizeFieldComponent = ({
         />
       );
 
-    case 'SETTINGS_GROUP':
-      const settingsField = field as SettingsGroupField;
-      return (
-        <SettingsGroupRenderer
-          groups={settingsField.groups}
-          values={allValues}
-          onChange={(key, value) => {
-            const updatedValues = { ...allValues, [key]: value };
-            onChange?.({ [key]: value });
-          }}
-          layout={settingsField.layout}
-          columns={settingsField.columns}
-        />
-      );
-
     case 'DIVIDER':
       const dividerField = field as DividerField;
       return <DividerWithLabel label={dividerField.text || dividerField.label} />;
+
+    case 'ARRAY_EDITOR':
+      const arrayField = field as ArrayEditorField;
+      const arrayValue = value !== undefined ? value : arrayField.defaultValue || [];
+      return (
+        <ArrayEditor
+          value={arrayValue}
+          onChange={(newArray) => {
+            console.log('🚀 ~ newArray:', newArray);
+
+            onChange?.(newArray);
+          }}
+          itemSchema={arrayField.itemSchema}
+          maxItems={arrayField.maxItems}
+          minItems={arrayField.minItems}
+          itemLabel={arrayField.itemLabel}
+        />
+      );
 
     default:
       return null;

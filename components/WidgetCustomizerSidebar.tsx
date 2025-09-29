@@ -21,10 +21,6 @@ const WidgetCustomizerSidebar = ({
     updateWidget(widgetId, { [prop]: value });
   };
 
-  const handleMultiFieldChange = (updates: Record<string, any>) => {
-    updateWidget(widgetId, updates);
-  };
-
   return (
     <div className="flex w-full flex-col gap-10 p-4 pb-12">
       {widgetConfig.customizeFields?.map((field) => (
@@ -32,16 +28,7 @@ const WidgetCustomizerSidebar = ({
           key={field.prop}
           field={field}
           value={widgets[widgetId]?.customValues?.[field.prop]}
-          onChange={(val) => {
-            if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
-              // Nếu val là object thì cập nhật multiple fields
-              handleMultiFieldChange(val);
-            } else {
-              // Nếu val là primitive thì cập nhật single field
-              handleFieldChange(field.prop, val);
-            }
-          }}
-          allValues={widgets[widgetId]?.customValues || {}}
+          onChange={(val) => handleFieldChange(field.prop, val)}
         />
       ))}
     </div>
