@@ -1,4 +1,4 @@
-import { WidgetConfig, WidgetType, SettingsGroupField } from '@/types/widget';
+import { WidgetConfig, WidgetType } from '@/types/widget';
 
 export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
   [WidgetType.ANALOG_CLOCK]: {
@@ -106,80 +106,34 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
         text: 'Appearance Settings',
       },
       {
-        prop: 'clockSettings',
-        type: 'SETTINGS_GROUP',
+        prop: 'clocks',
+        type: 'ARRAY_EDITOR',
         label: 'Clock Settings',
-        layout: 'stack',
-        groups: [
-          {
-            title: 'Clock 1',
-            items: [
-              {
-                key: 'location1',
-                label: 'Location Name',
-                type: 'text',
-                defaultValue: 'New York',
-              },
-              {
-                key: 'timezone1',
-                label: 'Timezone',
-                type: 'timezone',
-                defaultValue: 'America/New_York',
-              },
-            ],
-          },
-          {
-            title: 'Clock 2',
-            items: [
-              {
-                key: 'location2',
-                label: 'Location Name',
-                type: 'text',
-                defaultValue: 'London',
-              },
-              {
-                key: 'timezone2',
-                label: 'Timezone',
-                type: 'timezone',
-                defaultValue: 'Europe/London',
-              },
-            ],
-          },
-          {
-            title: 'Clock 3',
-            items: [
-              {
-                key: 'location3',
-                label: 'Location Name',
-                type: 'text',
-                defaultValue: 'Tokyo',
-              },
-              {
-                key: 'timezone3',
-                label: 'Timezone',
-                type: 'timezone',
-                defaultValue: 'Asia/Tokyo',
-              },
-            ],
-          },
-          {
-            title: 'Clock 4',
-            items: [
-              {
-                key: 'location4',
-                label: 'Location Name',
-                type: 'text',
-                defaultValue: 'Sydney',
-              },
-              {
-                key: 'timezone4',
-                label: 'Timezone',
-                type: 'timezone',
-                defaultValue: 'Australia/Sydney',
-              },
-            ],
-          },
+        maxItems: 4,
+        minItems: 4,
+        itemLabel: 'Clock',
+        defaultValue: [
+          { location: 'New York', timezone: 'America/New_York' },
+          { location: 'London', timezone: 'Europe/London' },
+          { location: 'Tokyo', timezone: 'Asia/Tokyo' },
+          { location: 'Sydney', timezone: 'Australia/Sydney' },
         ],
+        itemSchema: {
+          location: {
+            key: 'location',
+            label: 'Location Name',
+            type: 'text',
+            defaultValue: '',
+            required: true,
+          },
+          timezone: {
+            key: 'timezone',
+            label: 'Timezone',
+            type: 'timezone',
+            defaultValue: 'UTC',
+            required: true,
+          },
+        },
       },
     ],
   },

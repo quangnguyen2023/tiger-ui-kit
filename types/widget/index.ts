@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
-
 export type Widget = {
   id: string;
   owner: string;
@@ -38,8 +36,8 @@ export type CustomizeFieldType =
   | 'TEXT'
   | 'NUMBER'
   | 'TIMEZONE'
-  | 'SETTINGS_GROUP'
-  | 'DIVIDER';
+  | 'DIVIDER'
+  | 'ARRAY_EDITOR';
 
 export interface BaseCustomizeField {
   prop: string;
@@ -69,18 +67,17 @@ export interface DividerField extends BaseCustomizeField {
   style?: 'solid' | 'dashed' | 'dotted'; // Kiểu đường kẻ
 }
 
-export type CustomizeField = StandardCustomizeField | SettingsGroupField | DividerField;
+export interface ArrayEditorField extends BaseCustomizeField {
+  type: 'ARRAY_EDITOR';
+  itemSchema: Record<string, SettingItem>; // Định nghĩa schema cho mỗi item trong array
+  maxItems?: number; // Số lượng item tối đa
+  minItems?: number; // Số lượng item tối thiểu
+  itemLabel?: string; // Label cho mỗi item (ví dụ: "Clock")
+}
+
+export type CustomizeField = StandardCustomizeField | DividerField | ArrayEditorField;
 
 export interface SettingGroup {
   title: string;
   items: SettingItem[];
 }
-
-export interface SettingsGroupField extends BaseCustomizeField {
-  type: 'SETTINGS_GROUP';
-  layout?: 'grid' | 'stack' | 'tabs'; // Kiểu layout
-  columns?: number; // Số cột nếu layout là 'grid'
-  groups: SettingGroup[]; // Các nhóm settings
-}
-
-export type ClockWidgetConfig = {};
