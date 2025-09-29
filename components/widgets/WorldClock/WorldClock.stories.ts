@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import WorldClock from './WorldClock';
+import WorldClock from '.';
 
 const meta = {
   title: 'Widget/WorldClock',
