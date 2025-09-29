@@ -6,6 +6,7 @@ declare global {
     value?: string;
     placeholder?: string;
     helperText?: string;
+    className?: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
     type?: 'text' | 'password' | 'email' | 'number';

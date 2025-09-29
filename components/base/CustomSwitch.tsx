@@ -5,12 +5,7 @@ import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { cn } from '@/lib/utils';
 
-const CustomSwitch = ({
-  label,
-  selectedOption,
-  options,
-  onChange,
-}: CustomSwitchType) => {
+const CustomSwitch = ({ label, selectedOption, options, onChange }: CustomSwitchType) => {
   const [selectedValue, setSelectedValue] = useState(selectedOption);
 
   const id = useId();

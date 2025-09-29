@@ -16,7 +16,7 @@ export const WIDGET_SIZES: Record<WidgetType, WidgetSizeConfig> = {
     compact: { width: 350, height: 250 },
   },
   [WidgetType.WORLD_CLOCK]: {
-    default: { width: 500, height: 300 },
+    default: { width: 1020, height: 400 },
   },
   [WidgetType.WEATHER_FORECAST]: {
     default: { width: 600, height: 400 },

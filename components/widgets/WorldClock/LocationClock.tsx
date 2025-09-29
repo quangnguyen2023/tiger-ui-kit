@@ -1,11 +1,13 @@
+import { addLeadingZero } from '@/lib/utils';
 import AnalogClock from '../AnalogClock';
 import { format, getTimezoneOffset, toZonedTime } from 'date-fns-tz';
 
 interface LocationClockProps {
-  isLightMode?: boolean;
+  // Xóa prop isLightMode
+  // isLightMode?: boolean;
   location?: string;
   detailedLocation?: boolean;
-  timezone?: string;
+  timezone: string;
 }
 
 // Helper: Get formatted date string in the given timezone
@@ -24,7 +26,7 @@ function getOffsetDiffString(date: Date, timezone?: string) {
     ? getTimezoneOffset(timezone, date)
     : localOffsetMiliSec;
 
-  const diffHours = Math.round(
+  const diffHours = -Math.round(
     (localOffsetMiliSec - targetOffsetMiliSec) / (1000 * 60 * 60),
   );
 
@@ -33,7 +35,8 @@ function getOffsetDiffString(date: Date, timezone?: string) {
 }
 
 export default function LocationClock({
-  isLightMode = true,
+  // Xóa isLightMode
+  // isLightMode = true,
   location = 'London',
   detailedLocation,
   timezone,
@@ -44,8 +47,14 @@ export default function LocationClock({
   const todayString = getTodayString(now, timezone);
   const offsetDiffString = getOffsetDiffString(now, timezone);
 
-  // Render the analog clock with the correct timezone
-  const Clock = isLightMode ? (
+  const time = toZonedTime(now, timezone);
+
+  // Tự động xác định ban ngày/ban đêm dựa vào giờ ở timezone
+  const hour = time.getHours();
+  const isDayTime = hour >= 6 && hour < 18;
+
+  // Render the analog clock với chế độ sáng/tối tự động
+  const Clock = isDayTime ? (
     <AnalogClock title={!detailedLocation ? locationShort : ''} timezone={timezone} />
   ) : (
     <AnalogClock
@@ -57,15 +66,18 @@ export default function LocationClock({
   );
 
   return (
-    <div className="flex w-fit flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-5">
       {Clock}
       {detailedLocation && (
-        <div className="flex flex-col items-center gap-1">
-          <div className="text-sm font-semibold text-white">{location}</div>
+        <div className="flex flex-col items-center gap-1.5">
+          <div className="text-xl font-medium text-white text-shadow-lg">{location}</div>
+          <div className="text-2xl font-semibold text-white text-shadow-lg">
+            {`${addLeadingZero(time.getHours())}:${addLeadingZero(time.getMinutes())}`}
+          </div>
           {/* Display the current date in the selected timezone */}
-          <div className="text-xs font-semibold text-[#99999b]">{todayString}</div>
+          <div className="text-base font-semibold text-[#9c9c9d]">{todayString}</div>
           {/* Display the timezone offset difference compared to the user's local timezone */}
-          <div className="text-xs font-semibold text-[#99999b]">{offsetDiffString}</div>
+          <div className="text-base font-semibold text-[#9c9c9d]">{offsetDiffString}</div>
         </div>
       )}
     </div>
