@@ -16,7 +16,15 @@ interface WorldClockProps {
   clocks?: Clock[];
 }
 
-export default function WorldClock({ textColor = '#000', clocks = [] }: WorldClockProps) {
+export default function WorldClock({
+  textColor = '#000',
+  clocks = [
+    { location: 'New York', timezone: 'America/New_York' },
+    { location: 'London', timezone: 'Europe/London' },
+    { location: 'Tokyo', timezone: 'Asia/Tokyo' },
+    { location: 'Sydney', timezone: 'Australia/Sydney' },
+  ],
+}: WorldClockProps) {
   const [selectedSize, setSelectedSize] = useState<SIZE>(SIZE.MEDIUM);
   const size = getWidgetSize(WidgetType.WORLD_CLOCK);
 
