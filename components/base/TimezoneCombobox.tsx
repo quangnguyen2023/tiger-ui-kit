@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import {
   getAvailableTimezones,
@@ -32,10 +32,13 @@ export const TimezoneCombobox = ({
   const [timezones, setTimezones] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const loadTimezones = () => {
+    const loadTimezones = async () => {
       try {
+        // Use setTimeout to defer loading and avoid blocking initial render
+        await new Promise((resolve) => setTimeout(resolve, 0));
         const availableTimezones = getAvailableTimezones();
         setTimezones(availableTimezones);
       } catch (error) {
@@ -47,6 +50,46 @@ export const TimezoneCombobox = ({
 
     loadTimezones();
   }, []);
+
+  // Memoize formatted timezones to avoid recalculation
+  const formattedTimezones = useMemo(() => {
+    return timezones.map((tz) => ({
+      value: tz,
+      label: formatTimezoneForDisplay(tz),
+      searchText: formatTimezoneForDisplay(tz).toLowerCase(),
+    }));
+  }, [timezones]);
+
+  // Filter and limit results for performance
+  const filteredTimezones = useMemo(() => {
+    if (!searchQuery) {
+      // Show only popular timezones initially
+      const popularTimezones = [
+        'UTC',
+        'America/New_York',
+        'America/Los_Angeles',
+        'America/Chicago',
+        'Europe/London',
+        'Europe/Paris',
+        'Europe/Berlin',
+        'Asia/Tokyo',
+        'Asia/Shanghai',
+        'Asia/Singapore',
+        'Asia/Kolkata',
+        'Asia/Dubai',
+        'Australia/Sydney',
+        'Pacific/Auckland',
+      ];
+
+      return formattedTimezones
+        .filter((tz) => popularTimezones.includes(tz.value))
+        .slice(0, 15); // Limit to 15 items initially
+    }
+
+    return formattedTimezones
+      .filter((tz) => tz.searchText.includes(searchQuery.toLowerCase()))
+      .slice(0, 50); // Limit search results to 50 items
+  }, [formattedTimezones, searchQuery]);
 
   const selectedTimezone = timezones.find((tz) => tz === value);
   const displayValue = selectedTimezone
@@ -76,29 +119,39 @@ export const TimezoneCombobox = ({
           className="w-full p-0"
           style={{ width: 'var(--radix-popover-trigger-width)' }}
         >
-          <Command>
-            <CommandInput placeholder="Search timezone..." />
+          <Command shouldFilter={false}>
+            <CommandInput
+              placeholder="Search timezone..."
+              value={searchQuery}
+              onValueChange={setSearchQuery}
+            />
             <CommandList>
               <CommandEmpty>No timezone found.</CommandEmpty>
               <CommandGroup>
-                {timezones.map((timezone) => (
+                {filteredTimezones.map((timezone) => (
                   <CommandItem
-                    key={timezone}
-                    value={timezone}
+                    key={timezone.value}
+                    value={timezone.value}
                     onSelect={(currentValue: string) => {
                       onChange?.(currentValue);
                       setOpen(false);
+                      setSearchQuery(''); // Reset search on selection
                     }}
                   >
                     <Check
                       className={cn(
                         'mr-2 h-4 w-4',
-                        value === timezone ? 'opacity-100' : 'opacity-0',
+                        value === timezone.value ? 'opacity-100' : 'opacity-0',
                       )}
                     />
-                    <span className="truncate">{formatTimezoneForDisplay(timezone)}</span>
+                    <span className="truncate">{timezone.label}</span>
                   </CommandItem>
                 ))}
+                {!searchQuery && filteredTimezones.length === 15 && (
+                  <div className="px-2 py-1 text-center text-xs text-gray-500">
+                    Type to search all {timezones.length} timezones...
+                  </div>
+                )}
               </CommandGroup>
             </CommandList>
           </Command>
