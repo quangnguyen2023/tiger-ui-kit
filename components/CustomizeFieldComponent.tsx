@@ -77,11 +77,7 @@ const CustomizeFieldComponent = ({
       return (
         <ArrayEditor
           value={arrayValue}
-          onChange={(newArray) => {
-            console.log('🚀 ~ newArray:', newArray);
-
-            onChange?.(newArray);
-          }}
+          onChange={(newArray) => onChange?.(newArray)}
           itemSchema={arrayField.itemSchema}
           maxItems={arrayField.maxItems}
           minItems={arrayField.minItems}
