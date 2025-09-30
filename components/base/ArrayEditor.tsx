@@ -6,6 +6,10 @@ import CustomSwitch from './CustomSwitch';
 import { TimezoneCombobox } from './TimezoneCombobox';
 import { Button } from '@/components/ui/button';
 import { Plus, Trash2 } from 'lucide-react';
+import {
+  timezoneToLocation,
+  shouldAutoUpdateLocation,
+} from '@/lib/timezoneLocationUtils';
 
 interface ArrayEditorProps {
   value: any[];
@@ -37,6 +41,16 @@ const ArrayEditor: React.FC<ArrayEditorProps> = ({
         ...newArray[itemIndex],
         [item.key]: newValue,
       };
+
+      // Special handling for timezone changes - auto-update location if appropriate
+      if (item.key === 'timezone' && itemSchema.location) {
+        const currentLocation = newArray[itemIndex].location;
+        if (shouldAutoUpdateLocation(currentLocation, newValue)) {
+          const suggestedLocation = timezoneToLocation(newValue);
+          newArray[itemIndex].location = suggestedLocation;
+        }
+      }
+
       onChange(newArray);
     };
 
@@ -89,6 +103,13 @@ const ArrayEditor: React.FC<ArrayEditorProps> = ({
       Object.entries(itemSchema).forEach(([key, schema]) => {
         newItem[key] = schema.defaultValue;
       });
+
+      // Special handling for timezone-location items
+      if (itemSchema.timezone && itemSchema.location && newItem.timezone) {
+        const suggestedLocation = timezoneToLocation(newItem.timezone);
+        newItem.location = suggestedLocation;
+      }
+
       onChange([...value, newItem]);
     }
   };
