@@ -6,6 +6,7 @@ export type AnalogClockProps = {
   title?: string;
   scale?: number;
   timezone?: string;
+  classNames?: string;
 };
 
 export interface InnerConfig extends AnalogClockProps {
