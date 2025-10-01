@@ -43,10 +43,17 @@ export default function LocationClock({
 
   // Update time every minute
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 60000);
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime((prevTime) => {
+        if (now.getMinutes() !== prevTime.getMinutes()) {
+          return now;
+        }
+        return prevTime;
+      });
+    };
 
+    const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, [timezone]);
 
@@ -72,7 +79,11 @@ export default function LocationClock({
   const ClockComponent = useMemo(() => {
     if (isDayTime) {
       return (
-        <AnalogClock title={!detailedLocation ? locationShort : ''} timezone={timezone} />
+        <AnalogClock
+          title={!detailedLocation ? locationShort : ''}
+          timezone={timezone}
+          classNames="-mt-7 -mb-2.5 scale-75"
+        />
       );
     } else {
       return (
@@ -81,24 +92,25 @@ export default function LocationClock({
           backgroundColor="#343436"
           title={!detailedLocation ? locationShort : ''}
           timezone={timezone}
+          classNames="-mt-7 -mb-2.5 scale-75"
         />
       );
     }
   }, [isDayTime, detailedLocation, locationShort, timezone]);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-5">
+    <div className="flex flex-col items-center justify-center gap-1">
       {ClockComponent}
       {detailedLocation && (
         <div className="flex flex-col items-center gap-1.5">
-          <div className="text-xl font-medium text-white text-shadow-lg">{location}</div>
-          <div className="text-2xl font-semibold text-white text-shadow-lg">
+          <div className="text-lg text-[#e0e0e0] text-shadow-lg">{location}</div>
+          <div className="text-xl font-semibold text-white text-shadow-lg">
             {`${addLeadingZero(zonedTime.getHours())}:${addLeadingZero(zonedTime.getMinutes())}`}
           </div>
           {/* Display the current date in the selected timezone */}
-          <div className="text-base font-semibold text-[#9c9c9d]">{todayString}</div>
+          <div className="text-sm font-semibold text-[#9c9c9d]">{todayString}</div>
           {/* Display the timezone offset difference compared to the user's local timezone */}
-          <div className="text-base font-semibold text-[#9c9c9d]">{offsetDiffString}</div>
+          <div className="text-sm font-semibold text-[#9c9c9d]">{offsetDiffString}</div>
         </div>
       )}
     </div>
