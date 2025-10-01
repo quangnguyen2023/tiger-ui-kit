@@ -43,10 +43,17 @@ export default function LocationClock({
 
   // Update time every minute
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 60000);
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime((prevTime) => {
+        if (now.getMinutes() !== prevTime.getMinutes()) {
+          return now;
+        }
+        return prevTime;
+      });
+    };
 
+    const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, [timezone]);
 
