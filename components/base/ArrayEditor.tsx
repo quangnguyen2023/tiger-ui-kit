@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SettingItem } from '@/types/widget';
 import TextField from './TextField';
 import ColorPicker from './ColorPicker';
@@ -10,6 +10,12 @@ import {
   timezoneToLocation,
   shouldAutoUpdateLocation,
 } from '@/lib/timezoneLocationUtils';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 interface ArrayEditorProps {
   value: any[];
@@ -28,6 +34,18 @@ const ArrayEditor: React.FC<ArrayEditorProps> = ({
   minItems = 0,
   itemLabel = 'Item',
 }) => {
+  const [openAccordions, setOpenAccordions] = useState<Set<number>>(new Set());
+
+  const handleAccordionChange = (itemIndex: number, isOpen: boolean) => {
+    const newOpenAccordions = new Set(openAccordions);
+    if (isOpen) {
+      newOpenAccordions.add(itemIndex);
+    } else {
+      newOpenAccordions.delete(itemIndex);
+    }
+    setOpenAccordions(newOpenAccordions);
+  };
+
   const renderFieldForItem = (
     item: SettingItem,
     itemIndex: number,
@@ -123,31 +141,51 @@ const ArrayEditor: React.FC<ArrayEditorProps> = ({
 
   return (
     <div className="space-y-4">
-      {value.map((item, index) => (
-        <div key={index} className="rounded-lg border border-gray-200 p-4">
-          <div className="mb-3 flex items-center justify-between">
-            <h4 className="text-sm font-medium">
-              {itemLabel} {index + 1}
-            </h4>
-            {value.length > minItems && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => removeItem(index)}
-                className="h-8 w-8 p-0 text-red-500 hover:text-red-700"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            )}
-          </div>
+      {value.map((item, index) => {
+        const isOpen = openAccordions.has(index);
 
-          <div className="space-y-3">
-            {Object.entries(itemSchema).map(([key, schema]) => (
-              <div key={key}>{renderFieldForItem(schema, index, item)}</div>
-            ))}
-          </div>
-        </div>
-      ))}
+        return (
+          <Accordion
+            key={index}
+            type="single"
+            collapsible
+            onValueChange={(newValue) =>
+              handleAccordionChange(index, newValue === 'item-1')
+            }
+          >
+            <AccordionItem value="item-1" className={`rounded-lg border-none bg-zinc-50`}>
+              <AccordionTrigger
+                className={`bg-[#eee] px-2 py-3 transition-all duration-200 hover:no-underline ${
+                  isOpen ? 'rounded-t-lg' : 'rounded-lg'
+                }`}
+              >
+                <h4 className="text-sm font-medium">
+                  {itemLabel} {index + 1}
+                </h4>
+                {value.length > minItems && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeItem(index);
+                    }}
+                    className="h-8 w-8 p-0 text-red-500 hover:text-red-700"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                )}
+              </AccordionTrigger>
+
+              <AccordionContent className={'mt-3 space-y-3 px-4'}>
+                {Object.entries(itemSchema).map(([key, schema]) => (
+                  <div key={key}>{renderFieldForItem(schema, index, item)}</div>
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        );
+      })}
 
       {value.length < maxItems && (
         <Button variant="outline" onClick={addItem} className="w-full">
