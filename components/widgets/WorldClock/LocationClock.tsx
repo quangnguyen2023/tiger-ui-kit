@@ -103,7 +103,9 @@ export default function LocationClock({
       {ClockComponent}
       {detailedLocation && (
         <div className="flex flex-col items-center gap-1.5">
-          <div className="text-lg text-[#e0e0e0] text-shadow-lg">{location}</div>
+          <div className="text-lg font-medium text-[#e0e0e0] text-shadow-lg">
+            {location}
+          </div>
           <div className="text-xl font-semibold text-white text-shadow-lg">
             {`${addLeadingZero(zonedTime.getHours())}:${addLeadingZero(zonedTime.getMinutes())}`}
           </div>
