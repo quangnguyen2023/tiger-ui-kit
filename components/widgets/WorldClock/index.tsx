@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { SIZE } from './constants';
 import LocationClock from './LocationClock';
-import { getSizeVariant, getWidgetSize } from '@/configs/widgetSizes';
+import { getWidgetSize } from '@/configs/widgetSizes';
 import { WidgetType } from '@/types/widget';
 
 export interface Clock {
@@ -12,14 +11,14 @@ export interface Clock {
 }
 
 interface WorldClockProps {
-  textColor?: string;
   sizeVariant?: SIZE;
+  tickInterval?: number;
   clocks?: Clock[];
 }
 
 export default function WorldClock({
-  textColor = '#000',
   sizeVariant = SIZE.MEDIUM,
+  tickInterval,
   clocks = [
     { location: 'New York', timezone: 'America/New_York' },
     { location: 'London', timezone: 'Europe/London' },
@@ -45,6 +44,7 @@ export default function WorldClock({
             location={clock.location || defaultLocation}
             showDetail={sizeVariant === SIZE.MEDIUM}
             timezone={clock.timezone}
+            tickInterval={tickInterval}
           />
         );
       })}

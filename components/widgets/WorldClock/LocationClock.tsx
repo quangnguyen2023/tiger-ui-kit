@@ -7,6 +7,7 @@ interface LocationClockProps {
   location?: string;
   showDetail?: boolean;
   timezone: string;
+  tickInterval?: number;
 }
 
 // Helper: Get formatted date string in the given timezone
@@ -36,6 +37,7 @@ export default function LocationClock({
   location = 'London',
   showDetail,
   timezone,
+  tickInterval,
 }: LocationClockProps) {
   const [currentTime, setCurrentTime] = useState(() => new Date());
 
@@ -81,6 +83,7 @@ export default function LocationClock({
           title={!showDetail ? locationShort : ''}
           timezone={timezone}
           classNames={`${showDetail && '-mt-7 -mb-2.5 scale-75'} `}
+          updateDuration={tickInterval}
         />
       );
     } else {
@@ -91,10 +94,11 @@ export default function LocationClock({
           title={!showDetail ? locationShort : ''}
           timezone={timezone}
           classNames={`${showDetail && '-mt-7 -mb-2.5 scale-75'} `}
+          updateDuration={tickInterval}
         />
       );
     }
-  }, [isDayTime, showDetail, locationShort, timezone]);
+  }, [isDayTime, showDetail, locationShort, timezone, tickInterval]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-1">
