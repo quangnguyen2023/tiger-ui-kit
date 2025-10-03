@@ -97,7 +97,7 @@ export const TimezoneCombobox = ({
     : 'Select timezone...';
 
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn('flex flex-col gap-1', className)}>
       <label className="text-sm font-medium text-gray-700">{label}</label>
 
       <Popover open={open} onOpenChange={setOpen}>

@@ -119,18 +119,18 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
           { location: 'Sydney', timezone: 'Australia/Sydney' },
         ],
         itemSchema: {
-          location: {
-            key: 'location',
-            label: 'Location Name',
-            type: 'text',
-            defaultValue: '',
-            required: true,
-          },
           timezone: {
             key: 'timezone',
             label: 'Timezone',
             type: 'timezone',
             defaultValue: 'UTC',
+            required: true,
+          },
+          location: {
+            key: 'location',
+            label: 'Location Name',
+            type: 'text',
+            defaultValue: '',
             required: true,
           },
         },
