@@ -1,3 +1,4 @@
+import { SIZE } from '@/components/widgets/WorldClock/constants';
 import { Widget, WidgetType } from '@/types/widget';
 
 type WidgetDimension = { width: number; height: number };
@@ -16,7 +17,8 @@ export const WIDGET_SIZES: Record<WidgetType, WidgetSizeConfig> = {
     compact: { width: 350, height: 250 },
   },
   [WidgetType.WORLD_CLOCK]: {
-    default: { width: 800, height: 330 },
+    default: { width: 800, height: 340 },
+    compact: { width: 520, height: 500 },
   },
   [WidgetType.WEATHER_FORECAST]: {
     default: { width: 600, height: 400 },
@@ -38,6 +40,8 @@ export const getSizeVariant = (widget: Widget | null): string => {
   switch (widget.type) {
     case WidgetType.DIGITAL_CLOCK:
       return widget.customValues?.showSeconds === false ? 'compact' : 'default'; // get size variant based on user selection
+    case WidgetType.WORLD_CLOCK:
+      return widget.customValues?.sizeVariant === SIZE.SMALL ? 'compact' : 'default';
     default:
       return 'default';
   }
