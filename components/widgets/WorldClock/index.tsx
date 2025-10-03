@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { SIZE } from './constants';
 import LocationClock from './LocationClock';
 import { getWidgetSize } from '@/configs/widgetSizes';
@@ -12,12 +11,14 @@ export interface Clock {
 }
 
 interface WorldClockProps {
-  textColor?: string;
+  sizeVariant?: SIZE;
+  tickInterval?: number;
   clocks?: Clock[];
 }
 
 export default function WorldClock({
-  textColor = '#000',
+  sizeVariant = SIZE.MEDIUM,
+  tickInterval,
   clocks = [
     { location: 'New York', timezone: 'America/New_York' },
     { location: 'London', timezone: 'Europe/London' },
@@ -25,13 +26,15 @@ export default function WorldClock({
     { location: 'Sydney', timezone: 'Australia/Sydney' },
   ],
 }: WorldClockProps) {
-  const [selectedSize, setSelectedSize] = useState<SIZE>(SIZE.MEDIUM);
-  const size = getWidgetSize(WidgetType.WORLD_CLOCK);
+  const widgetSize = getWidgetSize(
+    WidgetType.WORLD_CLOCK,
+    sizeVariant === SIZE.SMALL ? 'compact' : 'default',
+  );
 
   return (
     <div
-      className={`relative grid w-max p-6 ${selectedSize === SIZE.MEDIUM ? 'grid-cols-4 gap-8' : 'grid-cols-2 gap-5'} rounded-xl bg-[#1c1c1e] select-none`}
-      style={{ width: size.width, height: size.height }}
+      className={`relative grid w-max p-6 ${sizeVariant === SIZE.MEDIUM ? 'grid-cols-4 gap-8' : 'grid-cols-2 gap-5'} rounded-xl bg-[#1c1c1e] select-none`}
+      style={{ width: widgetSize.width, height: widgetSize.height }}
     >
       {clocks.map((clock, index) => {
         const defaultLocation = clock.timezone.split('/').pop()?.replace('_', ' ');
@@ -39,8 +42,9 @@ export default function WorldClock({
           <LocationClock
             key={index}
             location={clock.location || defaultLocation}
-            detailedLocation={selectedSize === SIZE.MEDIUM}
+            showDetail={sizeVariant === SIZE.MEDIUM}
             timezone={clock.timezone}
+            tickInterval={tickInterval}
           />
         );
       })}

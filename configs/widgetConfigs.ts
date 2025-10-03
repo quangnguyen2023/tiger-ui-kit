@@ -1,3 +1,4 @@
+import { SIZE } from '@/components/widgets/WorldClock/constants';
 import { WidgetConfig, WidgetType } from '@/types/widget';
 
 export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
@@ -94,10 +95,20 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
     type: WidgetType.WORLD_CLOCK,
     customizeFields: [
       {
-        prop: 'textColor',
-        type: 'COLOR',
-        label: 'Text Color',
-        defaultValue: '#000',
+        prop: 'tickInterval',
+        type: 'NUMBER',
+        label: 'Tick interval (ms)',
+        defaultValue: '50',
+      },
+      {
+        prop: 'sizeVariant',
+        type: 'SWITCHER',
+        label: 'Size',
+        options: [
+          { label: 'S', value: SIZE.SMALL },
+          { label: 'M', value: SIZE.MEDIUM },
+        ],
+        defaultValue: SIZE.MEDIUM,
       },
       {
         prop: 'appearanceDiv',

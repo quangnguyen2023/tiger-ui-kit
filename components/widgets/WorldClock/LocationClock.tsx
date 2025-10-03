@@ -4,11 +4,10 @@ import { format, getTimezoneOffset, toZonedTime } from 'date-fns-tz';
 import { useEffect, useState, useMemo } from 'react';
 
 interface LocationClockProps {
-  // Xóa prop isLightMode
-  // isLightMode?: boolean;
   location?: string;
-  detailedLocation?: boolean;
+  showDetail?: boolean;
   timezone: string;
+  tickInterval?: number;
 }
 
 // Helper: Get formatted date string in the given timezone
@@ -36,8 +35,9 @@ const getOffsetDiffString = (date: Date, timezone?: string) => {
 
 export default function LocationClock({
   location = 'London',
-  detailedLocation,
+  showDetail,
   timezone,
+  tickInterval,
 }: LocationClockProps) {
   const [currentTime, setCurrentTime] = useState(() => new Date());
 
@@ -80,9 +80,10 @@ export default function LocationClock({
     if (isDayTime) {
       return (
         <AnalogClock
-          title={!detailedLocation ? locationShort : ''}
+          title={!showDetail ? locationShort : ''}
           timezone={timezone}
-          classNames="-mt-7 -mb-2.5 scale-75"
+          classNames={`${showDetail && '-mt-7 -mb-2.5 scale-75'} `}
+          updateDuration={tickInterval}
         />
       );
     } else {
@@ -90,18 +91,19 @@ export default function LocationClock({
         <AnalogClock
           textColor="white"
           backgroundColor="#343436"
-          title={!detailedLocation ? locationShort : ''}
+          title={!showDetail ? locationShort : ''}
           timezone={timezone}
-          classNames="-mt-7 -mb-2.5 scale-75"
+          classNames={`${showDetail && '-mt-7 -mb-2.5 scale-75'} `}
+          updateDuration={tickInterval}
         />
       );
     }
-  }, [isDayTime, detailedLocation, locationShort, timezone]);
+  }, [isDayTime, showDetail, locationShort, timezone, tickInterval]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-1">
       {ClockComponent}
-      {detailedLocation && (
+      {showDetail && (
         <div className="flex flex-col items-center gap-1.5">
           <div className="text-lg font-medium text-[#e0e0e0] text-shadow-lg">
             {location}
