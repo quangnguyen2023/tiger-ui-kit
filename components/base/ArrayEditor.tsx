@@ -149,11 +149,15 @@ const ArrayEditor: React.FC<ArrayEditorProps> = ({
             key={index}
             type="single"
             collapsible
+            defaultValue="item-0"
             onValueChange={(newValue) =>
-              handleAccordionChange(index, newValue === 'item-1')
+              handleAccordionChange(index, newValue === `item-${index}`)
             }
           >
-            <AccordionItem value="item-1" className={`rounded-lg border-none bg-zinc-50`}>
+            <AccordionItem
+              value={`item-${index}`}
+              className={`rounded-lg border-none bg-zinc-50`}
+            >
               <AccordionTrigger
                 className={`bg-[#eee] px-2 py-3 transition-all duration-200 hover:no-underline ${
                   isOpen ? 'rounded-t-lg' : 'rounded-lg'
@@ -177,7 +181,7 @@ const ArrayEditor: React.FC<ArrayEditorProps> = ({
                 )}
               </AccordionTrigger>
 
-              <AccordionContent className={'mt-3 space-y-3 px-4'}>
+              <AccordionContent className={'mt-3 space-y-4 px-4'}>
                 {Object.entries(itemSchema).map(([key, schema]) => (
                   <div key={key}>{renderFieldForItem(schema, index, item)}</div>
                 ))}
