@@ -30,21 +30,18 @@ export const renderWidgetComponent = (
   widgetType: WidgetType,
   customValues?: Record<string, any>,
 ) => {
-  // Memoize component để tránh re-render không cần thiết
-  return useMemo(() => {
-    switch (widgetType) {
-      case WidgetType.ANALOG_CLOCK:
-        return <AnalogClock {...customValues} />;
-      case WidgetType.DIGITAL_CLOCK:
-        return <DigitalClock {...customValues} />;
-      case WidgetType.WORLD_CLOCK:
-        return <WorldClock {...customValues} />;
-      case WidgetType.WEATHER_FORECAST:
-        return <WeatherForecast {...customValues} />;
-      case WidgetType.CALENDAR:
-        return <Calendar {...customValues} />;
-      default:
-        return <AnalogClock {...customValues} />;
-    }
-  }, [widgetType, customValues]); // Chỉ re-render khi widgetType hoặc customValues thay đổi
+  switch (widgetType) {
+    case WidgetType.ANALOG_CLOCK:
+      return <AnalogClock {...customValues} />;
+    case WidgetType.DIGITAL_CLOCK:
+      return <DigitalClock {...customValues} />;
+    case WidgetType.WORLD_CLOCK:
+      return <WorldClock {...customValues} />;
+    case WidgetType.WEATHER_FORECAST:
+      return <WeatherForecast {...customValues} />;
+    case WidgetType.CALENDAR:
+      return <Calendar {...customValues} />;
+    default:
+      return <AnalogClock {...customValues} />;
+  }
 };

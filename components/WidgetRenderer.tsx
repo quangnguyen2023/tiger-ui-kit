@@ -1,3 +1,5 @@
+'use client';
+import { useMemo } from 'react';
 import { Widget, WidgetType } from '@/types/widget';
 import { renderWidgetComponent } from '@/lib/widgetUtils';
 
@@ -8,7 +10,9 @@ type WidgetRendererProps = {
 
 const WidgetRenderer = ({ widget, widgetTypeFromURL }: WidgetRendererProps) => {
   const widgetType = widget?.type || widgetTypeFromURL;
-  return renderWidgetComponent(widgetType, widget?.customValues);
+  return useMemo(() => {
+    return renderWidgetComponent(widgetType, widget?.customValues);
+  }, [widgetType, widget?.customValues]);
 };
 
 export default WidgetRenderer;
