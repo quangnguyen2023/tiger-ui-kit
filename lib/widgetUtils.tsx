@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import AnalogClock from '@/components/widgets/AnalogClock';
 import Calendar from '@/components/widgets/Calendar';
 import DigitalClock from '@/components/widgets/DigitalClock';
