@@ -98,7 +98,7 @@ export const TimezoneCombobox = ({
 
   return (
     <div className={cn('flex flex-col gap-1', className)}>
-      <label className="text-sm font-medium text-gray-700">{label}</label>
+      <label className="text-sm font-semibold text-gray-700">{label}</label>
 
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
