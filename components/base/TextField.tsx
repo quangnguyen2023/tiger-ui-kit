@@ -14,8 +14,8 @@ const TextField = ({
   const inputId = useId();
 
   return (
-    <div className={`grid max-w-sm items-center gap-1 bg-white ${className || ''}`}>
-      <Label htmlFor={inputId} className="text-sm font-medium">
+    <div className={`grid max-w-sm items-center gap-1.5 bg-white ${className || ''}`}>
+      <Label htmlFor={inputId} className="text-sm font-semibold">
         {label}
       </Label>
       <Input

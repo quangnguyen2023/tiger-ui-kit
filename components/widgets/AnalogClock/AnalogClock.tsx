@@ -53,7 +53,7 @@ export default function AnalogClock(props: AnalogClockProps) {
         }}
       >
         <div
-          className={`absolute ${innerConfig.titleSizeClass} top-[20%] left-1/2 -translate-x-1/2 text-slate-400`}
+          className={`absolute ${innerConfig.titleSizeClass} top-[20%] left-1/2 -translate-x-1/2 text-[#909090]`}
         >
           {innerConfig.title}
         </div>
