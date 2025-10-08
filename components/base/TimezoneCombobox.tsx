@@ -65,7 +65,7 @@ export const TimezoneCombobox = ({
     if (!searchQuery) {
       // Show only popular timezones initially
       const popularTimezones = [
-        'UTC',
+        'Asia/Bangkok',
         'America/New_York',
         'America/Los_Angeles',
         'America/Chicago',
