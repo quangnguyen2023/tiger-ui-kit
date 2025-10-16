@@ -18,6 +18,7 @@ export enum WidgetType {
   WORLD_CLOCK = 'WORLD_CLOCK',
   CALENDAR = 'CALENDAR',
   WEATHER_FORECAST = 'WEATHER_FORECAST',
+  CHART = 'CHART',
 }
 
 export interface WidgetContextType {

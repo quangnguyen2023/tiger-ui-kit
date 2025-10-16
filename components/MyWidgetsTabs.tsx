@@ -13,6 +13,7 @@ const TABS = [
   { value: WidgetType.WORLD_CLOCK, label: 'World Clock' },
   { value: WidgetType.WEATHER_FORECAST, label: 'Weather Forecast' },
   { value: WidgetType.CALENDAR, label: 'Calendar' },
+  { value: WidgetType.CHART, label: 'Chart' },
 ];
 
 const MyWidgetsTabs = () => {

@@ -5,6 +5,7 @@ import {
   Calendar,
   Wind,
   PackageOpen,
+  BarChart3,
 } from 'lucide-react';
 import { WidgetType } from './types/widget';
 
@@ -56,6 +57,12 @@ export const SIDEBAR_MODULES = [
         icon: Calendar,
         label: 'Calendar',
         path: `${PATH_WIDGET_CUSTOMIZER}/${WidgetType.CALENDAR}`,
+      },
+      {
+        viewKey: 'chart',
+        icon: BarChart3,
+        label: 'Chart',
+        path: `${PATH_WIDGET_CUSTOMIZER}/${WidgetType.CHART}`,
       },
     ],
   },
