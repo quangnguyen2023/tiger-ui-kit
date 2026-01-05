@@ -1,9 +1,9 @@
-import { useMemo } from 'react';
 import AnalogClock from '@/components/widgets/AnalogClock';
 import Calendar from '@/components/widgets/Calendar';
 import DigitalClock from '@/components/widgets/DigitalClock';
 import WeatherForecast from '@/components/widgets/WeatherForecast';
 import WorldClock from '@/components/widgets/WorldClock';
+import Chart from '@/components/widgets/Chart';
 import { WidgetType } from '@/types/widget';
 
 export const WIDGET_TABS = [
@@ -12,6 +12,7 @@ export const WIDGET_TABS = [
   { value: WidgetType.WORLD_CLOCK, label: 'World Clock' },
   { value: WidgetType.WEATHER_FORECAST, label: 'Weather Forecast' },
   { value: WidgetType.CALENDAR, label: 'Calendar' },
+  { value: WidgetType.CHART, label: 'Chart' },
 ];
 
 export const getWidgetLabel = (widgetType: WidgetType): string => {
@@ -41,6 +42,8 @@ export const renderWidgetComponent = (
       return <WeatherForecast {...customValues} />;
     case WidgetType.CALENDAR:
       return <Calendar {...customValues} />;
+    case WidgetType.CHART:
+      return <Chart {...customValues} />;
     default:
       return <AnalogClock {...customValues} />;
   }

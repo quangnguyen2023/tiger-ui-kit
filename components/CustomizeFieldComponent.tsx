@@ -1,10 +1,16 @@
-import { CustomizeField, DividerField, ArrayEditorField } from '@/types/widget';
+import {
+  CustomizeField,
+  DividerField,
+  ArrayEditorField,
+  HeaderField,
+} from '@/types/widget';
 import ColorPicker from './base/ColorPicker';
 import TextField from './base/TextField';
 import CustomSwitch from './base/CustomSwitch';
 import { TimezoneCombobox } from './base/TimezoneCombobox';
 import DividerWithLabel from './base/DividerWithLabel';
 import ArrayEditor from './base/ArrayEditor';
+import CustomHeader from '@/components/base/CustomHeader';
 
 interface CustomizeFieldComponentProps {
   field: CustomizeField;
@@ -69,7 +75,7 @@ const CustomizeFieldComponent = ({
 
     case 'DIVIDER':
       const dividerField = field as DividerField;
-      return <DividerWithLabel label={dividerField.text || dividerField.label} />;
+      return <DividerWithLabel label={dividerField?.text || dividerField?.label} />;
 
     case 'ARRAY_EDITOR':
       const arrayField = field as ArrayEditorField;
@@ -84,6 +90,10 @@ const CustomizeFieldComponent = ({
           itemLabel={arrayField.itemLabel}
         />
       );
+
+    case 'HEADER':
+      const headerField = field as HeaderField;
+      return <CustomHeader title={headerField.title} subtitle={headerField.subtitle} />;
 
     default:
       return null;

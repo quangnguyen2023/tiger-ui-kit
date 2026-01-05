@@ -26,6 +26,9 @@ export const WIDGET_SIZES: Record<WidgetType, WidgetSizeConfig> = {
   [WidgetType.CALENDAR]: {
     default: { width: 360, height: 430 },
   },
+  [WidgetType.CHART]: {
+    default: { width: 560, height: 360 },
+  },
 };
 
 // used for Scaling purpose

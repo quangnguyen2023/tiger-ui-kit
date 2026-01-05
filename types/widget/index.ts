@@ -18,6 +18,7 @@ export enum WidgetType {
   WORLD_CLOCK = 'WORLD_CLOCK',
   CALENDAR = 'CALENDAR',
   WEATHER_FORECAST = 'WEATHER_FORECAST',
+  CHART = 'CHART',
 }
 
 export interface WidgetContextType {
@@ -37,7 +38,7 @@ export type CustomizeFieldType =
   | 'NUMBER'
   | 'TIMEZONE'
   | 'DIVIDER'
-  | 'ARRAY_EDITOR';
+  | 'HEADER';
 
 export interface BaseCustomizeField {
   prop: string;
@@ -47,8 +48,15 @@ export interface BaseCustomizeField {
 }
 
 export interface StandardCustomizeField extends BaseCustomizeField {
-  type: 'COLOR' | 'SWITCHER' | 'TEXT' | 'NUMBER' | 'TIMEZONE';
+  type: CustomizeFieldType;
   options?: { label: string; value: string | number | boolean }[];
+}
+
+export interface HeaderField {
+  prop: string;
+  type: 'HEADER';
+  title: string;
+  subtitle?: string;
 }
 
 export interface SettingItem {
@@ -75,9 +83,8 @@ export interface ArrayEditorField extends BaseCustomizeField {
   itemLabel?: string; // Label cho mỗi item (ví dụ: "Clock")
 }
 
-export type CustomizeField = StandardCustomizeField | DividerField | ArrayEditorField;
-
-export interface SettingGroup {
-  title: string;
-  items: SettingItem[];
-}
+export type CustomizeField =
+  | StandardCustomizeField
+  | DividerField
+  | ArrayEditorField
+  | HeaderField;

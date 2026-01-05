@@ -214,4 +214,107 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
       },
     ],
   },
+
+  [WidgetType.CHART]: {
+    type: WidgetType.CHART,
+    customizeFields: [
+      {
+        prop: 'title',
+        type: 'TEXT',
+        label: 'Title',
+        defaultValue: 'Notion Chart',
+      },
+      {
+        prop: 'chartType',
+        type: 'SWITCHER',
+        label: 'Chart Type',
+        options: [
+          { label: 'Line', value: 'line' },
+          { label: 'Bar', value: 'bar' },
+          { label: 'Pie', value: 'pie' },
+        ],
+        defaultValue: 'line',
+      },
+      {
+        prop: 'notionSecret',
+        type: 'TEXT',
+        label: 'Notion Integration Secret',
+        defaultValue: '',
+      },
+      {
+        prop: 'notionDatabaseId',
+        type: 'TEXT',
+        label: 'Database ID',
+        defaultValue: '',
+      },
+      {
+        prop: 'labelField',
+        type: 'TEXT',
+        label: 'Label Property',
+        defaultValue: 'Name',
+      },
+      {
+        prop: 'valueField',
+        type: 'TEXT',
+        label: 'Value Property',
+        defaultValue: 'Value',
+      },
+      {
+        prop: 'maxItems',
+        type: 'NUMBER',
+        label: 'Max Items',
+        defaultValue: 12,
+      },
+      {
+        prop: 'sortDirection',
+        type: 'SWITCHER',
+        label: 'Sort Direction',
+        options: [
+          { label: 'Ascending', value: 'asc' },
+          { label: 'Descending', value: 'desc' },
+        ],
+        defaultValue: 'asc',
+      },
+      {
+        prop: 'notionFilterProperty',
+        type: 'TEXT',
+        label: 'Filter Property (optional)',
+        defaultValue: '',
+      },
+      {
+        prop: 'notionFilterValue',
+        type: 'TEXT',
+        label: 'Filter Value (optional)',
+        defaultValue: '',
+      },
+      {
+        prop: 'backgroundColor',
+        type: 'COLOR',
+        label: 'Background Color',
+        defaultValue: '#ffffff',
+      },
+      {
+        prop: 'accentColor',
+        type: 'COLOR',
+        label: 'Accent Color',
+        defaultValue: '#6366f1',
+      },
+      {
+        prop: 'textColor',
+        type: 'COLOR',
+        label: 'Text Color',
+        defaultValue: '#0f172a',
+      },
+      {
+        prop: 'showLegend',
+        type: 'SWITCHER',
+        label: 'Show Legend',
+        options: [
+          { label: 'Show', value: true },
+          { label: 'Hide', value: false },
+        ],
+        defaultValue: true,
+      },
+    ],
+  },
 };
