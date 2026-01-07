@@ -1,6 +1,6 @@
 'use client';
 
-import SecondarySidebar from '@/components/SecondarySidebar';
+import SecondarySidebar from '@/components/sidebars/SecondarySidebar';
 import WidgetPreview from '@/components/WidgetPreview';
 import { useWidgetContext } from '@/contexts/WidgetContext';
 import { WidgetType } from '@/types/widget';

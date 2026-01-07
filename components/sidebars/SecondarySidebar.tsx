@@ -4,8 +4,8 @@ import { useWidgetContext } from '@/contexts/WidgetContext';
 import { useParams, useRouter } from 'next/navigation';
 import { WidgetType } from '@/types/widget';
 import { useEffect } from 'react';
-import WidgetListSidebar from '@/components/WidgetListSidebar';
-import WidgetCustomizerSidebar from '@/components/WidgetCustomizerSidebar';
+import WidgetListSidebar from '@/components/sidebars/WidgetListSidebar';
+import WidgetCustomizerSidebar from '@/components/sidebars/WidgetCustomizerSidebar';
 
 type SecondarySidebarProps = {
   widgetType: WidgetType;

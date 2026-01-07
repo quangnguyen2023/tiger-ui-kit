@@ -1,11 +1,7 @@
-import PrimarySidebar from '@/components/PrimarySidebar';
+import PrimarySidebar from '@/components/sidebars/PrimarySidebar';
 import TopNavigation from '@/components/TopNavigation';
 
-const WidgetCustomizerLayout = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const WidgetCustomizerLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <TopNavigation />
