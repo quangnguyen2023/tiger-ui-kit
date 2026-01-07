@@ -8,19 +8,19 @@ import { BadgePlus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-type WidgetListSidebarProps = {
+type WidgetListPanelProps = {
   widgetType: WidgetType;
   createWidget: (widgetType: WidgetType) => Promise<string>;
   deleteWidget: (widgetId: string) => Promise<void>;
   getWidgetsByType: (widgetType: WidgetType) => Promise<Widget[]>;
 };
 
-const WidgetListSidebar = ({
+const WidgetListPanel = ({
   widgetType,
   createWidget,
   deleteWidget,
   getWidgetsByType,
-}: WidgetListSidebarProps) => {
+}: WidgetListPanelProps) => {
   const { push } = useRouter();
 
   const [isCreating, setIsCreating] = useState(false);
@@ -64,11 +64,7 @@ const WidgetListSidebar = ({
           <div className="flex flex-col gap-4">
             <h5 className="font-medium text-gray-600">Existing Widgets</h5>
             {widgetsByType.map((widget) => (
-              <WidgetCard
-                key={widget.id}
-                widget={widget}
-                onDelete={deleteWidget}
-              />
+              <WidgetCard key={widget.id} widget={widget} onDelete={deleteWidget} />
             ))}
           </div>
         </>
@@ -77,4 +73,4 @@ const WidgetListSidebar = ({
   );
 };
 
-export default WidgetListSidebar;
+export default WidgetListPanel;

@@ -4,8 +4,8 @@ import { useWidgetContext } from '@/contexts/WidgetContext';
 import { useParams, useRouter } from 'next/navigation';
 import { WidgetType } from '@/types/widget';
 import { useEffect } from 'react';
-import WidgetListSidebar from '@/components/sidebars/WidgetListSidebar';
-import WidgetCustomizerSidebar from '@/components/sidebars/WidgetCustomizerSidebar';
+import WidgetListPanel from '@/components/sidebars/WidgetListPanel';
+import WidgetCustomizationPanel from '@/components/sidebars/WidgetCustomizationPanel';
 
 type SecondarySidebarProps = {
   widgetType: WidgetType;
@@ -35,10 +35,10 @@ const SecondarySidebar = ({ widgetType }: SecondarySidebarProps) => {
   if (widgetId && !widgets[widgetId] && !isLoadingWidgets) return null;
 
   return (
-    <div className="fixed top-16 left-52 z-10 h-[calc(100vh-4rem)] w-80 overflow-y-auto border-r border-gray-200 bg-white">
+    <div className="fixed top-16 left-52 z-10 h-[calc(100vh-4rem)] w-80 border-r border-gray-200 bg-white">
       {widgetId && widgets[widgetId] ? (
         // If widgetId exists then showing the customization fields
-        <WidgetCustomizerSidebar
+        <WidgetCustomizationPanel
           widgets={widgets}
           widgetId={widgetId}
           widgetType={widgetType}
@@ -46,7 +46,7 @@ const SecondarySidebar = ({ widgetType }: SecondarySidebarProps) => {
         />
       ) : (
         // If no widgetId, show the sidebar with options to create or select existing widgets
-        <WidgetListSidebar
+        <WidgetListPanel
           widgetType={widgetType}
           createWidget={createWidget}
           deleteWidget={deleteWidget}
