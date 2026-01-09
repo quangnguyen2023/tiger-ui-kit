@@ -1,3 +1,5 @@
+'use client';
+
 import { PIE_PALETTE } from '@/components/widgets/Chart/constants';
 import { ChartDataPoint } from '@/components/widgets/Chart/types';
 import { hexToRGBA } from '@/components/widgets/Chart/utils';
@@ -15,7 +17,7 @@ import {
   Filler,
   ArcElement,
 } from 'chart.js';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Bar, Line, Pie } from 'react-chartjs-2';
 
 ChartJS.register(
@@ -48,9 +50,12 @@ enum ChartType {
 
 type ChartProps = {
   chartType?: ChartType;
+  dataPoints?: ChartDataPoint[];
   accentColor?: string;
   textColor?: string;
-  [key: string]: any;
+  backgroundColor?: string;
+  showLegend?: boolean;
+  title?: string;
 };
 
 const CHART_COMPONENTS = {
@@ -61,12 +66,14 @@ const CHART_COMPONENTS = {
 
 const Chart = ({
   chartType = ChartType.LINE,
+  dataPoints = SAMPLE_DATA,
   textColor = '#0f172a',
   accentColor = '#6366f1',
+  backgroundColor = '#ffffff',
+  showLegend = true,
+  title = 'Chart',
 }: ChartProps) => {
   const widgetSize = getWidgetSize(WidgetType.CHART);
-
-  const [dataPoints, setDataPoints] = React.useState<ChartDataPoint[]>(SAMPLE_DATA);
 
   const ChartComponent = CHART_COMPONENTS[chartType] || Line;
 
@@ -78,7 +85,7 @@ const Chart = ({
       labels,
       datasets: [
         {
-          label: 'dataset 1',
+          label: title,
           data: values,
           backgroundColor:
             chartType === 'pie'
@@ -86,15 +93,14 @@ const Chart = ({
               : chartType === 'bar'
                 ? hexToRGBA(accentColor, 0.35)
                 : hexToRGBA(accentColor, 0.2),
-          // borderColor: 'rgba(59, 130, 246, 1)',
+          // borderColor: accentColor,
           borderWidth: 2,
-          fill: true,
-          tension: 0.4,
-          // borderDash: [5, 5],
+          fill: chartType === 'line',
+          tension: 0.35,
         },
       ],
     };
-  }, [dataPoints, chartType, accentColor]);
+  }, [dataPoints, chartType, accentColor, title]);
 
   const chartOptions = useMemo(
     () => ({
@@ -102,29 +108,118 @@ const Chart = ({
       maintainAspectRatio: true,
       plugins: {
         legend: {
+          display: showLegend,
           position:
             chartType === ChartType.PIE ? ('right' as const) : ('bottom' as const),
           labels: {
-            color: '#374151',
-            boxWidth: 20,
+            color: textColor,
+            boxWidth: 14,
             usePointStyle: true,
             pointStyle: 'circle' as const,
             padding: 15,
-            textAlign: 'center' as const,
           },
         },
         tooltip: {
           intersect: false,
+          mode: 'index' as const,
         },
       },
+      scales:
+        chartType === ChartType.PIE
+          ? undefined
+          : {
+              x: {
+                ticks: { color: textColor },
+                grid: { color: 'rgba(148, 163, 184, 0.15)' },
+              },
+              y: {
+                beginAtZero: true,
+                ticks: { color: textColor },
+                grid: { color: 'rgba(148, 163, 184, 0.2)' },
+              },
+            },
     }),
-    [chartType, textColor, accentColor],
+    [chartType, textColor, showLegend],
   );
 
+  //
+  // ------ Render loading state ---------
+  //
+  // if (isLoading) {
+  //   return (
+  //     <div
+  //       className="flex items-center justify-center"
+  //       style={{
+  //         height: widgetSize.height,
+  //         width: widgetSize.width,
+  //         backgroundColor,
+  //       }}
+  //     >
+  //       <div className="text-center">
+  //         <div className="mb-2 text-sm font-medium" style={{ color: textColor }}>
+  //           Loading data...
+  //         </div>
+  //         <div className="text-xs text-slate-400">Fetching from Notion</div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  //
+  // ------ Render error state ---------
+  //
+  // if (error) {
+  //   return (
+  //     <div
+  //       className="flex items-center justify-center p-6"
+  //       style={{
+  //         height: widgetSize.height,
+  //         width: widgetSize.width,
+  //         backgroundColor,
+  //       }}
+  //     >
+  //       <div className="text-center">
+  //         <div className="mb-2 text-sm font-medium text-red-600">Error</div>
+  //         <div className="text-xs text-slate-500">{error}</div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  //
+  // ------ Render empty state ---------
+  //
+  // if (dataPoints.length === 0) {
+  //   return (
+  //     <div
+  //       className="flex items-center justify-center p-6"
+  //       style={{
+  //         height: widgetSize.height,
+  //         width: widgetSize.width,
+  //         backgroundColor,
+  //       }}
+  //     >
+  //       <div className="text-center">
+  //         <div className="mb-2 text-sm font-medium" style={{ color: textColor }}>
+  //           No data available
+  //         </div>
+  //         <div className="text-xs text-slate-400">'Connect to a data source'</div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  //
+  // ------- Render chart ---------
+  //
   return (
     <div
-      className="flex items-center justify-center"
-      style={{ height: widgetSize.height, width: widgetSize.width }}
+      className="flex items-center justify-center p-4"
+      style={{
+        height: widgetSize.height,
+        width: widgetSize.width,
+        backgroundColor,
+      }}
     >
       <ChartComponent data={chartData} options={chartOptions} />
     </div>
