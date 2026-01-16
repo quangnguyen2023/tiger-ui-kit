@@ -42,19 +42,27 @@ const useWidgetActions = ({ widgets, setWidgets }: UseWidgetActionsProps) => {
 
       return id;
     },
-    [refreshWidgets]
+    [refreshWidgets],
   );
 
-  const updateWidget = useCallback((id: string, prop: Record<string, any>) => {
+  const updateWidget = useCallback((id: string, updates: Record<string, any>) => {
     setWidgets((prev) => {
       const currentWidget = prev[id];
+
       const updatedWidget = {
         ...currentWidget,
         customValues: {
           ...currentWidget.customValues,
-          ...prop,
+          ...updates.customValues,
         },
       };
+
+      if (updates.dataSources) {
+        updatedWidget.dataSources = {
+          ...currentWidget?.dataSources,
+          ...updates.dataSources,
+        };
+      }
 
       return { ...prev, [id]: updatedWidget };
     });
@@ -66,7 +74,7 @@ const useWidgetActions = ({ widgets, setWidgets }: UseWidgetActionsProps) => {
       await apiSaveWidget(id, updatedWidget);
       refreshWidgets();
     },
-    [refreshWidgets, widgets]
+    [refreshWidgets, widgets],
   );
 
   const deleteWidget = useCallback(
@@ -74,7 +82,7 @@ const useWidgetActions = ({ widgets, setWidgets }: UseWidgetActionsProps) => {
       await apiDeleteWidget(id);
       refreshWidgets();
     },
-    [refreshWidgets]
+    [refreshWidgets],
   );
 
   return {

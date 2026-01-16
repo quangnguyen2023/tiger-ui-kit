@@ -3,13 +3,17 @@ export type Widget = {
   owner: string;
   type: WidgetType;
   customValues: Record<string, any>;
+  dataSources?: Record<string, any>;
   createdAt?: string;
   name?: string;
 };
 
+export type DataAdapter<T = any> = (widget: Widget) => T;
+
 export type WidgetConfig = {
   type: WidgetType;
   customizeFields: CustomizeField[];
+  dataAdapter?: DataAdapter;
 };
 
 export enum WidgetType {

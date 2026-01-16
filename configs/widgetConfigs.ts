@@ -1,4 +1,5 @@
 import { SIZE } from '@/components/widgets/WorldClock/constants';
+import { chartDataAdapter } from '@/lib/dataSourceAdapters/chartDataAdapter';
 import { WidgetConfig, WidgetType } from '@/types/widget';
 
 export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
@@ -217,6 +218,7 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
 
   [WidgetType.CHART]: {
     type: WidgetType.CHART,
+    dataAdapter: chartDataAdapter,
     customizeFields: [
       {
         prop: 'title',
@@ -234,30 +236,6 @@ export const WIDGET_CONFIGS: Record<WidgetType, WidgetConfig> = {
           { label: 'Pie', value: 'pie' },
         ],
         defaultValue: 'line',
-      },
-      {
-        prop: 'notionSecret',
-        type: 'TEXT',
-        label: 'Notion Integration Secret',
-        defaultValue: '',
-      },
-      {
-        prop: 'notionDatabaseId',
-        type: 'TEXT',
-        label: 'Database ID',
-        defaultValue: '',
-      },
-      {
-        prop: 'labelField',
-        type: 'TEXT',
-        label: 'Label Property',
-        defaultValue: 'Name',
-      },
-      {
-        prop: 'valueField',
-        type: 'TEXT',
-        label: 'Value Property',
-        defaultValue: 'Value',
       },
       {
         prop: 'maxItems',
