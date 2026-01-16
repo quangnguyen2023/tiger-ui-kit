@@ -81,6 +81,7 @@ const WidgetCustomizationPanel = ({
   updateWidget,
 }: Props) => {
   const widgetConfig = WIDGET_CONFIGS[widgetType];
+  const hasDataAdapter = !!widgetConfig.dataAdapter;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Initialize chart data from widget or use default
@@ -145,6 +146,28 @@ const WidgetCustomizationPanel = ({
     args.selectCell(true);
   };
 
+  // Render customize fields content
+  const renderCustomizeContent = () => (
+    <div className="flex w-full flex-col gap-10 p-4 pb-12">
+      {widgetConfig.customizeFields?.map((field) => (
+        <CustomizeFieldComponent
+          key={field.prop}
+          field={field}
+          value={widgets[widgetId]?.customValues?.[field.prop]}
+          onChange={(val) => handleFieldChange(field.prop, val)}
+        />
+      ))}
+    </div>
+  );
+
+  // If no dataAdapter, show only customize content without tabs
+  if (!hasDataAdapter) {
+    return (
+      <div className="h-full w-full overflow-y-auto">{renderCustomizeContent()}</div>
+    );
+  }
+
+  // If has dataAdapter, show tabs with data source and customize
   return (
     <Tabs defaultValue="data_source" className="h-full w-full">
       <TabsList className="mx-auto my-3 flex w-fit *:cursor-pointer">
@@ -245,18 +268,8 @@ const WidgetCustomizationPanel = ({
         </Dialog>
       </TabsContent>
 
-      <TabsContent
-        value="customize"
-        className="flex w-full flex-col gap-10 overflow-y-auto p-4 pb-12"
-      >
-        {widgetConfig.customizeFields?.map((field) => (
-          <CustomizeFieldComponent
-            key={field.prop}
-            field={field}
-            value={widgets[widgetId]?.customValues?.[field.prop]}
-            onChange={(val) => handleFieldChange(field.prop, val)}
-          />
-        ))}
+      <TabsContent value="customize" className="overflow-y-auto">
+        {renderCustomizeContent()}
       </TabsContent>
     </Tabs>
   );
