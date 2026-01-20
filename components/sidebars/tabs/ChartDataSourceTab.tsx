@@ -60,6 +60,8 @@ function NumberEditor<TRow>({
       allowNegative={true}
       decimalScale={2}
       placeholder="Enter number"
+      thousandSeparator
+      autoFocus
     />
   );
 }
@@ -70,11 +72,17 @@ const ChartDataSourceTab = ({ widget, updateWidget }: Props) => {
   // Initialize chart data from widget or use default
   const [chartData, setChartData] = useState<ChartRow[]>(
     widget?.dataSources?.chartData || [
-      { id: uuidv4(), label: '', value: null },
-      { id: uuidv4(), label: '', value: null },
-      { id: uuidv4(), label: '', value: null },
+      { id: uuidv4(), label: 'jan', value: 1 },
+      { id: uuidv4(), label: 'feb', value: 2 },
+      { id: uuidv4(), label: 'mar', value: 3 },
+      { id: uuidv4(), label: 'apr', value: 4 },
     ],
   );
+
+  const [selectedPosition, setSelectedPosition] = useState<{
+    idx: number;
+    rowIdx: number;
+  } | null>(null);
 
   // Define columns for the data grid
   const columns: Column<ChartRow>[] = useMemo(
@@ -88,18 +96,79 @@ const ChartDataSourceTab = ({ widget, updateWidget }: Props) => {
         key: 'value',
         name: 'Value',
         renderEditCell: NumberEditor,
+        renderCell: ({ row }) => {
+          if (row.value === null) return null;
+          return new Intl.NumberFormat('en-US').format(row.value);
+        },
       },
     ],
     [],
   );
 
-  const handleRowsChange = (rows: ChartRow[]) => {
+  const handleRowsChange = (rows: ChartRow[], data: any) => {
     setChartData(rows);
     // Update widget with new chart data
     updateWidget(widget.id, {
       dataSources: { chartData: rows },
     });
   };
+
+  const handleNativePaste = (e: React.ClipboardEvent) => {
+    e.preventDefault();
+    const clipboardData = e.clipboardData.getData('text');
+    if (!clipboardData || !selectedPosition) return;
+
+    const rows = clipboardData.split(/\r\n|\n|\r/);
+    const { idx: startColIdx, rowIdx: startRowIdx } = selectedPosition;
+    
+    let newChartData = [...chartData];
+
+    rows.forEach((rowStr, rIndex) => {
+      if (!rowStr.trim()) return;
+      
+      const targetRowIdx = startRowIdx + rIndex;
+      const cells = rowStr.split('\t');
+
+      // Expand rows if necessary
+      if (targetRowIdx >= newChartData.length) {
+        newChartData.push({
+            id: uuidv4(),
+            label: '',
+            value: null,
+        });
+      }
+
+      // Clone the row if it exists to avoid mutating state directly
+      const targetRow = { ...newChartData[targetRowIdx] };
+
+      cells.forEach((cellValue, cIndex) => {
+        const targetColIdx = startColIdx + cIndex;
+        if (targetColIdx >= columns.length) return;
+
+        const column = columns[targetColIdx];
+        
+        if (column.key === 'label') {
+          targetRow.label = cellValue.trim();
+        } else if (column.key === 'value') {
+          const num = Number(cellValue.replace(/,/g, '').trim());
+          targetRow.value = isNaN(num) ? null : num;
+        }
+      });
+      
+      // Update the row in the array
+      newChartData[targetRowIdx] = targetRow;
+    });
+
+    setChartData(newChartData);
+    updateWidget(widget.id, {
+      dataSources: { chartData: newChartData },
+    });
+  };
+
+  const onSelectedCellChange = (args: { rowIdx: number; column: Column<ChartRow> & { idx: number } }) => {
+     setSelectedPosition({ rowIdx: args.rowIdx, idx: args.column.idx });
+  };
+
 
   const handleAddRow = () => {
     const newRow: ChartRow = {
@@ -136,7 +205,10 @@ const ChartDataSourceTab = ({ widget, updateWidget }: Props) => {
       </Button>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-h-[80vh] max-w-4xl overflow-y-auto">
+          <DialogContent 
+           className="max-h-[80vh] max-w-4xl overflow-y-auto"
+           onPasteCapture={handleNativePaste}
+        >
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <TableProperties className="h-5 w-5 text-blue-500" />
@@ -175,6 +247,7 @@ const ChartDataSourceTab = ({ widget, updateWidget }: Props) => {
                 onRowsChange={handleRowsChange}
                 rowKeyGetter={(row) => row.id}
                 onCellClick={onCellClick}
+                onSelectedCellChange={onSelectedCellChange}
                 className="rdg-light rounded-lg"
               />
             </div>
