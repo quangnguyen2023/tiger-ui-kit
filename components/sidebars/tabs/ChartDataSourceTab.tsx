@@ -150,7 +150,10 @@ const ChartDataSourceTab = ({ widget, updateWidget }: Props) => {
         if (column.key === 'label') {
           targetRow.label = cellValue.trim();
         } else if (column.key === 'value') {
-          const num = Number(cellValue.replace(/,/g, '').trim());
+          // Remove all non-numeric characters except dots and minus signs
+          // This handles: "$1,000" -> "1000", "~50" -> "50", "+100" -> "100"
+          const cleanedValue = cellValue.replace(/[^0-9.-]/g, '');
+          const num = parseFloat(cleanedValue);
           targetRow.value = isNaN(num) ? null : num;
         }
       });
