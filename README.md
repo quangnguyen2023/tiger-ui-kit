@@ -1,8 +1,10 @@
 ## Widget 🚀
 
 A high-performance, lightweight widget framework for:
+
 - General Utilities: Calendar, Weather, Clock, Countdown,...
 - Data Analytics: Visualize personal metrics with multiple chart types
+- Synchronize to Notion databases.
 
 ## Getting Started
 
